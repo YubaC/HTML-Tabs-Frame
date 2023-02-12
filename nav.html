@@ -1,0 +1,75 @@
+<link href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet" />
+<link href="assets/css/navtab.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/all.min.css" />
+<!-- <link href="assets/css/renderer.css" rel="stylesheet"> -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/jquery-3.6.3.min.js"></script>
+<script src="assets/js/cookies.js"></script>
+
+<!-- <script src="assets/js/accessibility.js"></script> -->
+
+<div id="box-musk" style="display:none;"></div>
+
+<!-- tabnav tabs -->
+<div class="d-inline-flex tabnav-master tabbtn-group">
+    <button tabindex="-1" id="tabnav-left-tabbtn" class="tabbtn tabbtn-light">
+            <i class="fas fa-angle-left"></i>
+        </button>
+
+    <div>
+        <ul id="header-tabnav" class="tabnav tabnav-tabs bg-light" role="tablist"></ul>
+    </div>
+
+    <button tabindex="-1" id="tabnav-right-tabbtn" class="tabbtn tabbtn-light">
+        <i class="fas fa-angle-right"></i>
+        </button>
+    <button id="tabnav-add-tabbtn" class="tabbtn tabbtn-light">
+        <small><i class="fas fa-plus small"></i></small>
+        </button>
+    <button id="tabnav-view-all-tabbtn" class="tabbtn tabbtn-light">
+        <i class="fas fa-angle-down"></i>
+        </button>
+    <button id="tabnav-menu-tabbtn" class="tabbtn tabbtn-light">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+</div>
+
+<!-- Tab list -->
+<div id="nav-view-all-box" class="bg-white" style="display:none;">
+    <ul id="nav-view-all-box-tab-list" class="list-group"></ul>
+</div>
+
+
+<!-- Menu list -->
+<!-- <div id="nav-menu-box" class="bg-white"> -->
+<!-- <div style="display:none;" id="nav-menu-box" class="bg-white"> -->
+<!-- <ul class="list-group" id="nav-menu-box-menu-list"> -->
+<!-- <li class="nav-item d-grid"><button class="tabbtn tabbtn-outline-primary tabbtn-sm" onclick="openSettings()">Settings</button></li> -->
+<!-- </ul> -->
+<!-- </div> -->
+
+<div id="tabContent"></div>
+
+<script>
+    window.onload = function() {
+            newPage("welcome", -1, "welcome.html", true);
+            newPage("settings", -1, "settings.html", true);
+            for (var i = 1; i < 32; i++) {
+                newPage("Home" + i, -1, "home.html", false);
+            }
+        }
+        // function openSettings() {
+        //     var insertPlace = $("#header-nav").find(".active").index();
+        //     newPage("Settings", insertPlace, "settings.html", "win" + winIdNumber, true, false);
+        //     winIdNumber++;
+        // }
+</script>
+
+<!-- <iframe class="tab-pane fade" src="settings.html" id="menu1"></iframe>
+<iframe class="tab-pane fade" src="settings.html" id="menu2"></iframe> -->
+
+<!-- <script src="assets/js/accessibility.js"></script> -->
+<link rel="stylesheet" href="assets/css/jquery-ui.min.css">
+<script src="assets/js/jquery-ui.min.js"></script>
+<script src="assets/js/nav.js"></script>
