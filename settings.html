@@ -1,0 +1,511 @@
+<!-- <link href="bootstrap-dark-5-main/examples/cheatsheet-nights.css" rel="stylesheet"> -->
+<link href="assets/css/settings.css" rel="stylesheet">
+
+
+<!-- 一键回到顶部 -->
+<button onclick="scrollToTop();" id="scrollUp" key="back-to-top-button" class="lang btn btn-lg btn-outline-primary" alt="back to top button"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+
+<!-- 提示信息窗口 -->
+<div class="container-fluid mt-3 fixed-top" style="display: none;" id="messages">
+    <div class="alert alert-primary text-center lead">
+        <!-- Cancel Button -->
+        <!-- Message -->
+        <span class="color-blind-label">Tips:&nbsp;</span>
+        <span class="lang" key="message-ask-save"></span>&emsp;
+        <!-- Save Button -->
+        <button type="button" class="lang far fa-save btn btn-lg btn-outline-primary" key="message-save-button" alt="save button" onclick="sendSettings()"></button>
+    </div>
+</div>
+
+<div class="row main-display">
+    <aside class="left-nav col-sm-3 p-3 bd-aside px-2" style="width: 275px;">
+        <!-- <h2 class="h6 pt-4 pb-3 mb-4 border-bottom">On this page</h2> -->
+        <nav class="small" id="toc">
+            <a aria-hidden="true" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+                <span class="fs-5 fw-semibold"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings"></span></span>
+            </a>
+            <ul class="list-unstyled ps-0" id="settings-list">
+                <!-- Home -->
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">Home</button>
+                    <div class="collapse show" id="home-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+                            <li><a href="#" class="link-dark rounded">Overview</a></li>
+                            <li><a href="#" class="link-dark rounded">Updates</a></li>
+                            <li><a href="#" class="link-dark rounded">Reports</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Display -->
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#display-collapse" aria-expanded="false">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-display"></span></button>
+                    <div class="collapse" id="display-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+                            <li><a href="#settings-display-high-dip-type" class="link-dark rounded"><i class="fas fa-tv" aria-hidden="true"></i>&nbsp;<span class="lang options" key="settings-display-high-dip-type"></span></a></li>
+                            <li><a href="#settings-display-high-dip-images" class="link-dark rounded"><i class="far fa-images" aria-hidden="true"></i>&nbsp;<span class="lang options" key="settings-display-high-dip-images"></span></a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Language -->
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#language-collapse" aria-expanded="false">
+                        <i class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-language"></span></button>
+                    <div class="collapse" id="language-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+                            <li><a href="#settings-language-language" class="link-dark rounded"><i class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang options" key="settings-language-language"></span></a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Accessibility -->
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#accessibility-collapse" aria-expanded="false">
+                    <i class="fas fa-universal-access fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-accessibility"></span></button>
+                    <div class="collapse" id="accessibility-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+                            <li><a href="#settings-accessibility-font-size" class="link-dark rounded"><i class="fas fa-font fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang options" key="settings-accessibility-font-size"></span></a></li>
+                            <li><a href="#settings-accessibility-page-zoom-factor" class="link-dark rounded"><i class="fas fa-search-plus fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang options" key="settings-accessibility-page-zoom-factor"></span></a></li>
+                            <li><a href="#settings-accessibility-tips" class="link-dark rounded"><i class="fas fa-hands-helping" aria-hidden="true"></i>&nbsp;<span class="lang options" key="settings-accessibility-tips"></a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Advanced -->
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#advanced-collapse" aria-expanded="false">
+                        <i class="fas fa-cogs fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-advanced"></span></button>
+                    <div class="collapse" id="advanced-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+                            <li><a href="#settings-language-language" class="link-dark rounded"><i class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang options" key="settings-language-language"></span></a></li>
+                            <li><a href="#settings-accessibility-tips" class="link-dark rounded"><i class="fas fa-hands-helping" aria-hidden="true"></i>&nbsp;<span class="lang options" key="settings-accessibility-tips"></a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Profile -->
+                <li class="border-top my-3"></li>
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">Account</button>
+                    <div class="collapse" id="account-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+                            <li><a href="#" class="link-dark rounded">New...</a></li>
+                            <li><a href="#" class="link-dark rounded">Profile</a></li>
+                            <li><a href="#" class="link-dark rounded">Settings</a></li>
+                            <li><a href="#" class="link-dark rounded">Sign out</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Search -->
+                <li class="border-top my-3"></li>
+                <li class="mb-1">
+                    <form id="search" action="">
+                        <div class="mb-3 mt-3 d-grid">
+                            <!-- <label for="email" class="form-label">搜索：</label> -->
+                            <input class="form-control" id="search-input" placeholder="Search..." name="search">
+                            <button id="search-button" type="submit" class="mt-3 btn btn-primary lang btn-block" key="search-btn"></button>
+                        </div>
+                    </form>
+                </li>
+
+                <!-- Search result -->
+                <div id="search-result" style="display: none;">
+                    <li class="border-top my-3"></li>
+                    <li class="mb-1">
+                        <span class="lang" key="search-result" id="search-result"></span>&emsp;<button id="hide-result-button" class="btn btn-sm far fa-trash-alt" alt="Delete Search Result" onclick="$('#search-result').hide();"></button>
+                        <ul class="list-unstyled ps-0 btn-toggle-nav" id="search-result-list"></ul>
+                    </li>
+                </div>
+            </ul>
+        </nav>
+    </aside>
+
+
+    <!-- <div class="modal-fullscreen"> -->
+    <!-- <div></div> -->
+    <main class="settings col p-3">
+        <img src="assets/images/light-picture-example.jpg" style="width: 100%;">
+        <!-- Set display -->
+        <h2 class="settings-titles"><i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-display"></span></h2>
+        <div>
+            <!-- Set high-dip-type -->
+            <div>
+                <!-- Title -->
+                <h3 id="settings-display-high-dip-type" class="settings-titles"><i class="fas fa-tv" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-display-high-dip-type"></span></h3>
+                <!-- Text for description -->
+                <p class="lang" key="settings-display-high-dip-type-description"></p>
+                <!-- tips -->
+                <div class="info-info"><span class="color-blind-label">Info:&nbsp;</span><span class="lang" key="settings-display-ask-reset-software"></span></div>
+                <!-- 高清修复 二选一 -->
+                <div class="form-check need-save" id="settings-display-high-dip-type-radiobutton">
+                    <input class="form-check-input setting-items" id="high-dip-type-0" type="radio" name="settings-display-high-dip-type-radiobutton" setting-name="high-dip-type" value="0">
+                    <label class="form-check label" for="high-dip-type-0"><span class="lang" key="settings-display-high-dip-type-0"></span></label>
+                    <input class="form-check-input setting-items" id="high-dip-type-1" type="radio" name="settings-display-high-dip-type-radiobutton" setting-name="high-dip-type" value="1">
+                    <label class="form-check label" for="high-dip-type-1"><span class="lang" key="settings-display-high-dip-type-1"></span></label>
+                    <input class="form-check-input setting-items" id="high-dip-type-2" type="radio" name="settings-display-high-dip-type-radiobutton" setting-name="high-dip-type" value="2">
+                    <label class="form-check label" for="high-dip-type-2"><span class="lang" key="settings-display-high-dip-type-2"></span></label>
+                </div>
+            </div>
+            <div class="dropdown-menu rounded-3 shadow" style="width: 280px;">
+                <form class="p-2 mb-2 bg-light border-bottom">
+                    <input type="search" class="form-control" autocomplete="false" placeholder="Type to filter...">
+                </form>
+                <ul class="list-unstyled mb-0">
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">
+                            <span class="d-inline-block bg-success rounded-circle" style="width: .5em; height: .5em;"></span> Action
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">
+                            <span class="d-inline-block bg-primary rounded-circle" style="width: .5em; height: .5em;"></span> Another action
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">
+                            <span class="d-inline-block bg-danger rounded-circle" style="width: .5em; height: .5em;"></span> Something else here
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">
+                            <span class="d-inline-block bg-info rounded-circle" style="width: .5em; height: .5em;"></span> Separated link
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Set high-dip-images -->
+            <div>
+                <h3 id="settings-display-high-dip-images" class="settings-titles"><i class="far fa-images" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-display-high-dip-images"></span></h3>
+                <!-- Text for description -->
+                <p class="lang" key="settings-display-high-dip-images-description"></p>
+                <!-- tips -->
+                <div class="info-info"><span class="color-blind-label">Info:&nbsp;</span><span class="lang" key="settings-display-ask-reset-software"></span></div>
+                <!-- Switch -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input lang setting-items need-save" setting-name="high-dip-images" key="settings-display-high-dip-images-switch" type="checkbox" id="settings-display-high-dip-images-switch">
+                </div>
+            </div>
+        </div>
+
+        <!-- Set language -->
+        <div>
+            <h2 class="settings-titles"><i class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-language"></span></h2>
+            <!-- title -->
+            <h3 id="settings-language-language" class="settings-titles"><i class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-language-language-title"></span></h3>
+            <!-- Set language button and its dropdown-menu -->
+            <div class="dropdown">
+                <button type="button" key="set-language-key" id="languages-button" class="btn btn-primary dropdown-toggle lang need-save" data-bs-toggle="dropdown"></button>
+                <ul class="dropdown-menu" id="languages-list"></ul>
+            </div>
+        </div>
+
+        <!-- Set accessibility -->
+        <div id="settings-accessibility">
+            <!-- title -->
+            <h2 class="settings-titles"><i class="fas fa-universal-access fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-accessibility"></span></h2>
+
+            <!-- Set font-size -->
+            <div id="settings-accessibility-font-size">
+                <!-- title -->
+                <h3 class="settings-titles"><i class="fas fa-font fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-accessibility-font-size"></span></h3>
+                <!-- tips -->
+                <div class="info-info"><span class="color-blind-label">Info:&nbsp;</span><span class="lang" key="settings-accessibility-font-size-tips"></span></div>
+                <!-- Set font-size slider -->
+                <input type="range" min="0" max="10" value="0" class="form-range lang setting-items need-save" key="settings-accessibility-font-size-slidebar" id="font-size-slider" setting-name="font-size">
+                <!-- Restore Default Settings button -->
+                <button type="button" class="btn btn-primary lang need-save" key="settings-accessibility-font-size-restore-default" id="font-size-restore-default"></button>
+                <p style="margin-top:20px;">Example: The quick brown fox jumps over the lazy dog.</p>
+            </div>
+
+            <!-- Set Page ZoomFactor -->
+            <div id="settings-accessibility-page-zoom-factor">
+                <!-- title -->
+                <h3 class="settings-titles"><i class="fas fa-search-plus fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-accessibility-page-zoom-factor"></span></h3>
+                <!-- Text for description -->
+                <p class="lang" key="settings-accessibility-page-zoom-factor-description"></p>
+                <!-- Set Page ZoomFactor slider -->
+                <input type="range" min="0" max="30" value="5" class="form-range lang setting-items need-save" key="settings-accessibility-page-zoom-factor-slidebar" id="page-zoom-factor-slider" setting-name="page-zoom-factor">
+                <!-- Restore Default Settings button -->
+                <button type="button" class="btn btn-primary lang need-save" key="settings-accessibility-page-zoom-factor-restore-default" id="page-zoom-factor-restore-default"></button>
+            </div>
+
+            <!-- Tips -->
+            <div id="settings-accessibility-tips">
+                <!-- title -->
+                <h3 class="settings-titles"><i class="fas fa-hands-helping fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-accessibility-tips"></span></h3>
+                <!-- Text for description -->
+                <p class="lang" key="settings-accessibility-tips-description"></p>
+                <!-- Switch -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input lang setting-items need-save" setting-name="tips" key="settings-accessibility-tips-switch" type="checkbox" id="settings-accessibility-tips-switch" checked>
+                    <!-- <label class="form-check-label" for="mySwitch"></label> -->
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<!-- JavaScript for settings.html -->
+<!-- <script src="assets/js/jquery-3.6.3.min.js"></script> -->
+<script src="assets/js/qwebchannel.js"></script>
+<script src="assets/js/load-settings.js"></script>
+<!-- <script src="assets/js/settings.js"></script> -->
+<script src="assets/js/languages.js"></script>
+
+<script>
+    function updateSaveMessages(state) {
+        if (state) {
+            // 关闭保存弹窗
+            $("#messages").hide();
+            $(".main-display").css("padding-top", "0px");
+        } else {
+            alert("ERROR!")
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // 这里面的channel就是PyQt5传递过来的channel对象，其中包含了可供调用的obj对象（一个Factorial类对象）
+        new QWebChannel(qt.webChannelTransport, function(channel) {
+            // 从channel中获取到我们注册到channel中的Factorial类对象
+            window.pyFunctions = channel.objects.pyFunctions;
+        });
+    });
+
+    function updateSettings(JSONText) {
+        // 如果获取到了Factorial对象
+        if (window.pyFunctions) {
+            // 调用Factorial类对象中的槽函数factorial(n),并且指定一个异步调用的callback函数，当factorial返回时
+            // 自动调用callback
+            window.pyFunctions.updateSettings(JSONText, updateSaveMessages);
+        }
+    }
+
+    function changeZoom(zoom) {
+        if (window.pyFunctions) {
+            // 调用Factorial类对象中的槽函数factorial(n),并且指定一个异步调用的callback函数，当factorial返回时
+            // 自动调用callback
+            window.pyFunctions.changeZoomFactor(zoom);
+        }
+    }
+
+    // 滑回顶部的动画
+    function scrollToTop() {
+        $("#tabContent").animate({
+            scrollTop: 0
+        }, 300);
+    }
+
+    // 搜索设置项
+    function search() {
+        // 展示搜索结果文字
+        $("#search-result").show();
+
+        // 从搜索框获取搜索内容
+        var searchContent = $("#search-input").val();
+
+        $("#search-result-list").empty();
+
+        // 如果搜索内容为空，则不执行搜索
+        if (searchContent == "") {
+            // 提示用户搜索内容为空
+            $("#search-result-list").append("<li class='lang' key='search-result-empty'></li>");
+        } else {
+            // 如果搜索内容不为空，则执行搜索
+            // 遍历所有设置项
+            // 设置项为class为options的span
+            // 搜索时使用模糊搜索，忽略大小写
+            $(".options").each(function() {
+                console.log($(this).text());
+                // 如果搜索内容在设置项中，则在search-result-list中添加对应的#settings-list > li > div > ul > li
+                if ($(this).text().toLowerCase().indexOf(searchContent.toLowerCase()) != -1) {
+                    $("#search-result-list").append($(this).parent().parent().clone());
+                    // 在search-result-list中高亮搜索内容
+                    // 高亮时忽略大小写
+                    $("#search-result-list > li > a > span").each(function() {
+                        $(this).html($(this).text().replace(searchContent, "<span style='color: #ff0000;'>" + searchContent + "</span>"));
+                    });
+                }
+            });
+        }
+
+        // 如果搜索结果为空，则在search-result-list中添加提示
+        if ($("#search-result-list").html() == "") {
+            $("#search-result-list").append(`<li style='color: #ff0000;' class='lang' key='search-result-empty'>${html_lang["search-result-empty"]}</li>`);
+        }
+    }
+
+    $("#search").submit(function() {
+        search();
+        return false;
+    });
+
+
+    // 关闭时传回所有更改过的设置
+    // 设置项的class为setting-items
+    // 传回所有更改过的设置
+    function sendSettings() {
+        // 传回的设置项
+        var settings = {
+            "language": lang,
+        };
+
+        // 遍历所有设置项
+        $(".setting-items").each(function() {
+            // 如果设置项为checkbox
+            if ($(this).attr("type") == "checkbox") {
+                // 如果设置项为checked
+                if ($(this).prop("checked")) {
+                    // 将设置项的setting-name作为key，true作为value
+                    settings[$(this).attr("setting-name")] = true;
+                } else {
+                    // 将设置项的setting-name作为key，false作为value
+                    settings[$(this).attr("setting-name")] = false;
+                }
+            } else if ($(this).attr("type") == "text") {
+                // 如果设置项为text
+                // 将设置项的setting-name作为key，设置项的value作为value
+                settings[$(this).attr("setting-name")] = $(this).val();
+            } else if ($(this).attr("type") == "number") {
+                // 如果设置项为number
+                // 将设置项的setting-name作为key，设置项的value转int型后作为value
+                settings[$(this).attr("setting-name")] = parseInt($(this).val());
+            } else if ($(this).attr("type") == "select-one") {
+                // 如果设置项为select-one
+                // 将设置项的setting-name作为key，设置项的value作为value
+                settings[$(this).attr("setting-name")] = $(this).val();
+            } else if ($(this).attr("type") == "radio") {
+                // 如果设置项为radio
+                // 如果设置项为checked
+                if ($(this).prop("checked")) {
+                    // 将设置项的setting-name作为key，设置项的value作为value
+                    settings[$(this).attr("setting-name")] = $(this).val();
+                }
+            } else if ($(this).attr("type") == "color") {
+                // 如果设置项为color
+                // 将设置项的setting-name作为key，设置项的value作为value
+                settings[$(this).attr("setting-name")] = $(this).val();
+            } else if ($(this).attr("type") == "range") {
+                // 如果设置项为range
+                // 将设置项的setting-name作为key，设置项的value转int型后作为value
+                settings[$(this).attr("setting-name")] = parseInt($(this).val());
+            } else if ($(this).attr("type") == "file") {
+                // 如果设置项为file
+                // 将设置项的setting-name作为key，设置项的value作为value
+                settings[$(this).attr("setting-name")] = $(this).val();
+            } else if ($(this).attr("type") == "textarea") {
+                // 如果设置项为textarea
+                // 将设置项的setting-name作为key，设置项的value作为value
+                settings[$(this).attr("setting-name")] = $(this).val();
+            } else if ($(this).attr("type") == "password") {
+                // 如果设置项为password
+                // 将设置项的setting-name作为key，设置项的value作为value
+                settings[$(this).attr("setting-name")] = $(this).val();
+            } else if ($(this).attr("type") == "date") {
+                // 如果设置项为date
+                // 将设置项的setting-name作为key，设置项的value作为value
+                settings[$(this).attr("setting-name")] = $(this).val();
+            } else if ($(this).attr("type") == "datetime-local") {
+                // 如果设置项为datetime-local
+                // 将设置项的setting-name作为key，设置项的value作为value
+                settings[$(this).attr("setting-name")] = $(this).val();
+            } else {
+                // 如果设置项为其他
+                // 将设置项的setting-name作为key，设置项的value作为value
+                settings[$(this).attr("setting-name")] = $(this).val();
+            }
+        });
+
+        // 将设置项转换为json字符串
+        var settingsJson = JSON.stringify(settings);
+        console.log(settingsJson);
+        updateSettings(settingsJson);
+        // console.log(settingsJson);
+
+        // // 将设置项传回后端
+        // $.ajax({
+        //     type: "POST",
+        //     url: "settings.php",
+        //     data: {
+        //         settings: settingsJson
+        //     },
+        //     success: function(data) {
+        //         console.log(data);
+        //         // // 如果传回成功
+        //         // if (data == "success") {
+        //         //     // 提示用户设置已保存
+        //         //     $("#settings-save-success").show();
+        //         //     // 1秒后隐藏提示
+        //         //     setTimeout(function() {
+        //         //         $("#settings-save-success").hide();
+        //         //     }, 1000);
+        //         // } else {
+        //         //     // 如果传回失败
+        //         //     // 提示用户设置保存失败
+        //         //     $("#settings-save-fail").show();
+        //         //     // 1秒后隐藏提示
+        //         //     setTimeout(function() {
+        //         //         $("#settings-save-fail").hide();
+        //         //     }, 1000);
+        //         // }
+        //     }
+        // });
+    }
+
+    // // 关闭窗口时保存设置
+    // // 退出提示
+    // window.onbeforeunload = function() {
+    //     // 保存设置
+    //     sendSettings();
+    //     return "确认离开当前页面吗？未保存的数据将会丢失";
+    // }
+
+    // need-save被点击后触发提示
+    $(".need-save").click(function() {
+        // 留出顶部空间
+        $(".main-display").css("padding-top", "80px");
+        // 提示用户设置未保存
+        $("#messages").show();
+    });
+
+    fontSizeSlider = $("#font-size-slider");
+    // font_list = ["xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large"];
+    if (fontSizeSlider.length) {
+        // 有改变后就设置字体大小并使用!important
+        fontSizeSlider.on("change", function() {
+            $("main").css("font-size", fontSizeSlider.val() * 20 + 100 + "%", " !important");
+        });
+    }
+
+    fontSizeRestoreDefaultBtn = $("#font-size-restore-default");
+    if (fontSizeRestoreDefaultBtn.length) {
+        // 点击后就设置字体大小为medium并使用!important
+        fontSizeRestoreDefaultBtn.on("click", function() {
+            $("main").css("font-size", "120%", " !important");
+            // 更改font-size-slider的值为medium
+            fontSizeSlider.val(1);
+        });
+    }
+
+    zoomSlider = $("#page-zoom-factor-slider");
+    zoomRestoreDefaultBtn = $("#page-zoom-factor-restore-default");
+
+    // 有改变后就设置页面缩放比例
+    zoomSlider.on("change", function() {
+        changeZoom(zoomSlider.val());
+    });
+
+    // 点击后就设置页面缩放比例为1
+    zoomRestoreDefaultBtn.on("click", function() {
+        changeZoom(5);
+        // 更改page-zoom-factor-slider的值为1
+        zoomSlider.val(5);
+    });
+
+    // 为.color-blind-label 移除class visually-hidden
+    // $(".color-blind-label").removeClass("visually-hidden");
+</script>

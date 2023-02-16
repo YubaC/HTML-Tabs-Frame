@@ -11,7 +11,7 @@ var $tabViewAllBtn = $("#tabnav-view-all-tabbtn");
 var $tabMenuBtn = $("#tabnav-menu-tabbtn");
 
 var closeTabBtnSelector = ".close-this-window-tabbtn";
-var closeTabBtnTemplate = '<button type="button" class="close-this-window-tabbtn tabbtn-close" onclick="closeWin()"></button>';
+var closeTabBtnTemplate = '<button type="button" id="tabnav-close-tab-btn" class="close-this-window-tabbtn tabbtn-close" onclick="closeWin()"></button>';
 
 // Tab navigation, a <ul> element
 var $tabNav = $("#header-tabnav");
@@ -23,6 +23,9 @@ var $navViewAllBox = $("#nav-view-all-box");
 var $navViewAllBoxTabList = $("#nav-view-all-box-tab-list");
 var navViewAllBoxTabListItemsSelector = "#nav-view-all-box-tab-list>li";
 // var $navViewAllBoxTabListItems = $("#nav-view-all-box-tab-list>li");
+
+// Menu box
+var $MenuBox = $("#nav-menu-box");
 
 // Box musk
 var $boxMusk = $("#box-musk");
@@ -67,7 +70,7 @@ function newPage(title, index, src, isActive) {
         src +
         '" tabindex="' +
         tabindex +
-        '" class="tabnav-item new-tab" draggable="true">' +
+        '" class="tabnav-item new-tab" draggable="true" role="tab">' +
         title +
         '</li>';
 
@@ -385,6 +388,7 @@ $tabViewAllBtn.on("click", function() {
     var $viewAllBoxUl = $navViewAllBoxTabList;
     var $viewAllBoxMusk = $boxMusk;
 
+    $MenuBox.hide();
     $viewAllBoxMusk.show();
 
     // 将#header-nav的内容复制到#view-all-box内的ul里
@@ -404,7 +408,7 @@ $tabViewAllBtn.on("click", function() {
         // 最前面插入<i class="far fa-hand-point-right visually-hidden" aria-hidden="true"></i>
         // 用于色盲友好模式，提示用户当前所在的标签页
         .prepend(
-            "<span class='visually-hidden'><i class='far fa-hand-point-right fa-fw' aria-hidden='true'></i>&nbsp;</span>"
+            "<span class='color-blind-label'><i class='far fa-hand-point-right fa-fw' aria-hidden='true'></i>&nbsp;</span>"
         )
 
     // 移除class active
@@ -427,6 +431,7 @@ $tabViewAllBtn.on("click", function() {
         $tabNav.find("#" + $originalId).click();
         // 隐藏#view-all-box
         $viewAllBox.hide();
+        $MenuBox.hide();
         $viewAllBoxMusk.hide();
     });
 
@@ -440,6 +445,30 @@ $tabViewAllBtn.on("click", function() {
 
     var node = document.querySelector("#nav-view-all-box-tab-list");
     addDragFunction(node, syncSortToTabnav);
+});
+
+// !Menu
+// ------------------------------
+$tabMenuBtn.on("click", function() {
+    $navViewAllBox.hide();
+    $MenuBox.show();
+    var $menuItems = $MenuBox.find("li");
+    // 为#view-all-box内的ul里的li添加点击事件
+    $menuItems.on("click", function() {
+        // 隐藏#view-all-box
+        $navViewAllBox.hide();
+        $MenuBox.hide();
+        $boxMusk.hide();
+    });
+
+});
+
+// !Box musk
+// ------------------------------
+$boxMusk.on("click", function() {
+    $navViewAllBox.hide();
+    $MenuBox.hide();
+    $boxMusk.hide();
 });
 
 // !Close the window

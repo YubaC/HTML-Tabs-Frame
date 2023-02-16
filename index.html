@@ -203,8 +203,15 @@
     <div id="box-musk" style="display:none;"></div>
 
     <!-- tabnav tabs -->
-    <div class="d-inline-flex tabnav-master tabbtn-group">
-        <button tabindex="-1" id="tabnav-left-tabbtn" class="tabbtn tabbtn-light">
+    <div tabindex="-1" class="d-inline-flex tabnav-master tabbtn-group">
+        <label for="tabnav-close-tab-btn" key="tabnav-close-tab-btn-label" class="lang visually-hidden"></label>
+        <label for="tabnav-left-tabbtn" key="tabnav-left-tabbtn-label" class="lang visually-hidden"></label>
+        <label for="tabnav-right-tabbtn" key="tabnav-right-tabbtn-label" class="lang visually-hidden"></label>
+        <label for="tabnav-add-tabbtn" key="tabnav-add-tabbtn-label" class="lang visually-hidden"></label>
+        <label for="tabnav-view-all-tabbtn" key="tabnav-view-all-tabbtn-label" class="lang visually-hidden"></label>
+        <label for="tabnav-menu-tabbtn" key="tabnav-menu-tabbtn-label" class="lang visually-hidden"></label>
+
+        <button tabindex="-1" id="tabnav-left-tabbtn" class="tabbtn tabbtn-light lang" key="tabnav-left-tabbtn">
             <i class="fas fa-angle-left"></i>
         </button>
 
@@ -212,16 +219,16 @@
             <ul id="header-tabnav" class="tabnav tabnav-tabs bg-light" role="tablist"></ul>
         </div>
 
-        <button tabindex="-1" id="tabnav-right-tabbtn" class="tabbtn tabbtn-light">
+        <button tabindex="-1" id="tabnav-right-tabbtn" class="tabbtn tabbtn-light lang" key="tabnav-right-tabbtn">
             <i class="fas fa-angle-right"></i>
         </button>
-        <button id="tabnav-add-tabbtn" class="tabbtn tabbtn-light">
+        <button id="tabnav-add-tabbtn" class="tabbtn tabbtn-light lang" key="tabnav-add-tabbtn">
             <small><i class="fas fa-plus small"></i></small>
         </button>
-        <button id="tabnav-view-all-tabbtn" class="tabbtn tabbtn-light">
+        <button id="tabnav-view-all-tabbtn" class="tabbtn tabbtn-light lang" key="tabnav-view-all-tabbtn">
             <i class="fas fa-angle-down"></i>
         </button>
-        <button id="tabnav-menu-tabbtn" class="tabbtn tabbtn-light">
+        <button id="tabnav-menu-tabbtn" class="tabbtn tabbtn-light lang" key="tabnav-menu-tabbtn">
             <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
     </div>
@@ -231,9 +238,8 @@
         <ul id="nav-view-all-box-tab-list" class="list-group"></ul>
     </div>
 
-
     <!-- Menu list -->
-    <div style="" id="nav-menu-box" class="bg-white">
+    <div style="display:none;" id="nav-menu-box" class="bg-white">
         <ul class="list-group" id="nav-menu-box-menu-list">
             <li class="nav-item d-grid"><button class="tabbtn tabbtn-outline-primary tabbtn-sm" onclick="openSettings()">Settings</button></li>
             <li>

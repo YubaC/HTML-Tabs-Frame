@@ -1,0 +1,1 @@
+python ../../tools/exactLang.py zh.json en.json
