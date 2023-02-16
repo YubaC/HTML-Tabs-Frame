@@ -167,7 +167,7 @@ button:not(:disabled) {
 }
 
 .tabbtn:focus {
-    outline: 2px solid blue !important;
+    outline: 2px solid lightblue !important;
     /* outline: 0; */
     /* box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); */
 }
@@ -178,34 +178,34 @@ button:not(:disabled) {
 }
 
 .tabbtn-light {
-    color: #000;
-    background-color: #f8f9fa;
-    border-color: #f8f9fa;
+    color: #e1e1e1;
+    background-color: #3b3b3b;
+    border-color: #3b3b3b;
 }
 
 .tabbtn-light:hover {
-    color: #000;
-    background-color: #f9fafb;
-    border-color: #f9fafb;
+    color: #e1e1e1;
+    background-color: #8b8b8b;
+    border-color: #8b8b8b;
 }
 
 .tabbtn-light:focus {
-    color: #000;
-    background-color: #f9fafb;
-    border-color: #f9fafb;
-    outline: 2px solid blue !important;
+    color: #e1e1e1;
+    background-color: #8b8b8b;
+    border-color: #8b8b8b;
+    outline: 2px solid lightblue !important;
     /* box-shadow: 0 0 0 0.25rem rgba(211, 212, 213, 0.5); */
 }
 
 .tabbtn-light:active {
-    outline: 2px solid blue !important;
+    outline: 2px solid lightblue !important;
     color: #000;
     background-color: #f9fafb;
     border-color: #f9fafb;
 }
 
 .tabbtn-light:active:focus {
-    outline: 2px solid blue !important;
+    outline: 2px solid lightblue !important;
 }
 
 .tabbtn-light:disabled {
@@ -251,7 +251,7 @@ button:not(:disabled) {
     width: 1em;
     height: 1em;
     padding: 0.25em 0.25em;
-    color: #000;
+    color: #e1e1e1;
     background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
     border: 0;
     border-radius: 0.25rem;
@@ -259,13 +259,13 @@ button:not(:disabled) {
 }
 
 .tabbtn-close:hover {
-    color: #000;
+    color: #e1e1e1;
     text-decoration: none;
     opacity: 0.75;
 }
 
 .tabbtn-close:focus {
-    outline: 2px solid blue !important;
+    outline: 2px solid lightblue !important;
     opacity: 1;
 }
 
@@ -309,9 +309,8 @@ button:not(:disabled) {
     }
 }
 
-.tabnav-item:focus,
-.tabnav-item:hover {
-    color: #000;
+.tabnav-item {
+    color: #e1e1e1;
 }
 
 .tabnav-tabs {
@@ -328,15 +327,15 @@ button:not(:disabled) {
 
 .tabnav-tabs .tabnav-item:focus,
 .tabnav-tabs .tabnav-item:hover {
-    background: #e7e7e7;
-    border-color: #e9ecef #e9ecef #dee2e6;
+    background: #6b6b6b;
+    /* border-color: #e9ecef #e9ecef #dee2e6; */
     /* border-color: blue!important; */
     isolation: isolate;
 }
 
 .tabnav-tabs .tabnav-item.active {
-    color: #495057;
-    background-color: #fff;
+    color: #e1e1e1;
+    background-color: #8b8b8b;
     /* border-color: blue!important; */
     border-color: #dee2e6 #dee2e6 #fff;
 }
@@ -409,6 +408,12 @@ button:not(:disabled) {
     user-select: none;
 }
 
+
+/*  */
+
+
+/* box */
+
 #nav-view-all-box,
 #nav-menu-box {
     z-index: 999999999;
@@ -422,7 +427,7 @@ button:not(:disabled) {
     position: absolute;
     right: 0px;
     top: 50px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     border-radius: 8px;
 }
 
@@ -471,10 +476,10 @@ body {
 
 .active {
     /* 周边阴影效果 */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     border-radius: 5px;
 }
 
 *:focus {
-    outline: 2px solid blue !important;
+    outline: 2px solid lightblue !important;
 }
