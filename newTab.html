@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Welcome</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="assets/lib/fontawesome-free-5.15.4-web/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/newTab.css">
+    <!-- <link rel="stylesheet" href="assets/css/welcome.css"> -->
+    <script src="assets/js/jquery-3.6.3.min.js"></script>
+    <script src="assets/js/load-settings.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="bg-light">
+            <!-- Nav pills -->
+            <ul id="new-page-nav-options" class="nav nav-pills" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link " data-bs-toggle="pill" href="#new-local">
+                        <i class="fas fa-desktop" aria-hidden="true"></i><br>
+                        <span key="new-page-nav-options-local" class="lang"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="pill" href="#new-remote">
+                        <i class="fas fa-cloud" aria-hidden="true"></i><br>
+                        <span key="new-page-nav-options-remote" class="lang"></span>
+                    </a>
+                </li>
+
+                <span class="border-start ms-4 me-4 mt-2 mb-2"></span>
+
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="pill" href="#new-clone">
+                        <i class="fas fa-download" aria-hidden="true"></i><br>
+                        <span key="new-page-nav-options-clone" class="lang"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="pill" href="#new-import">
+                        <i class="fas fa-folder-open" aria-hidden="true"></i><br>
+                        <span key="new-page-nav-options-add" class="lang"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="pill" href="#new-add">
+                        <i class="fas fa-plus" aria-hidden="true"></i><br>
+                        <span key="new-page-nav-options-create" class="lang"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+    <main>
+        <!-- <a id="wzayd" title="网站信息无障碍工具条" href="javascript:;" class="wzayd" accesskey="g">无障碍阅读</a> -->
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div id="new-local" class="container tab-pane fade"><br>
+                <h1><span key="new-page-nav-options-local" class="lang"></span></h1>
+                <form class="mt-3 mb-3">
+                    <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2">
+                </form>
+                <ul class="list-group list-group-flush">
+                    <li href="#" class="list-group-item list-group-item-action">第一项
+                        <br>
+                        <span badge-inner class="badge-outer border rounded bg-light text-body small mx-auto">
+                            <span class="badge badge-inner bg-primary rounded text-light">
+                                <i class="fas fa-code-branch" aria-hidden="true"></i>
+                            </span> master
+                        </span>
+                        <li href="#" class="list-group-item list-group-item-action">第二项</li>
+                        <li href="#" class="list-group-item list-group-item-action">第三项</li>
+                </ul>
+            </div>
+            <div id="new-remote" class="container tab-pane fade"><br>
+                <h1>remote</h1>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div id="new-clone" class="container tab-pane fade active show"><br>
+                <h1>Clone</h1>
+                <form>
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="text" class="form-control" id="new-clone-url" placeholder="Enter URL or path to clone from">
+                        <label for="new-clone-url">源路径/URL:</label>
+                    </div>
+                    <div class="form-floating mt-3 mb-3">
+                        <input type="text" class="form-control" id="new-clone-target" placeholder="Enter target path">
+                        <label for="new-clone-target">目标路径:</label>
+                    </div>
+                    <div class="form-floating mt-3 mb-3">
+                        <input type="text" class="form-control" id="new-clone-name" placeholder="Enter the name you want to name the folder">
+                        <label for="pwd">名字:</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Clone</button>
+                </form>
+            </div>
+            <div id="new-import" class="container tab-pane fade"><br>
+                <h1>import</h1>
+                <form>
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="text" class="form-control" id="new-clone-url" placeholder="Enter URL or path to clone from">
+                        <label for="new-clone-url">源路径/URL:</label>
+                    </div>
+                    <div class="form-floating mt-3 mb-3">
+                        <input type="text" class="form-control" id="new-clone-target" placeholder="Enter target path">
+                        <label for="new-clone-target">目标路径:</label>
+                    </div>
+                    <div class="form-floating mt-3 mb-3">
+                        <input type="text" class="form-control" id="new-clone-name" placeholder="Enter the name you want to name the folder">
+                        <label for="pwd">名字:</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Clone</button>
+                </form>
+            </div>
+            <div id="new-add" class="container tab-pane fade"><br>
+                <h1>add</h1>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <footer class="border-top fixed-bottom">
+
+        <div id="new-page-footer-options">
+            <button type="button" class="btn btn-outline-primary"><i class="fas fa-sync-alt" aria-hidden="true"></i>Refresh</button>
+            <button type="button" class="btn btn-outline-primary"><i class="fas fa-folder-plus" aria-hidden="true"></i>Create new folder</button>
+            <span class="border-start ms-4 me-4 mt-2 mb-2"></span>
+            <button type="button" class="btn btn-outline-primary"><i class="fas fa-database" aria-hidden="true"></i>View remote</button>
+            <button type="button" class="btn btn-outline-primary"><i class="fas fa-terminal" aria-hidden="true"></i>Open in terminal</button>
+        </div>
+
+    </footer>
+    <!-- <script src="assets/js/load-settings.js"></script> -->
+    <script src="assets/js/languages.js"></script>
+    <script src="assets/js/qwebchannel.js"></script>
+    <!-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 这里面的channel就是PyQt5传递过来的channel对象，其中包含了可供调用的obj对象（一个Factorial类对象）
+            new QWebChannel(qt.webChannelTransport, function(channel) {
+                // 从channel中获取到我们注册到channel中的Factorial类对象
+                window.pyFunctions = channel.objects.pyFunctions;
+                $("#navbox").load("nav.html", () => {
+                    initNav(channel.objects.pyFunctions);
+                });
+            });
+        });
+    </script> -->
+</body>
+
+</html>
