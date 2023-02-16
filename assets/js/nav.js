@@ -387,7 +387,7 @@ $tabViewAllBtn.on("click", function() {
         );
     }
 
-    viewAllBoxFocusSet();
+    // viewAllBoxFocusSet();
 
     var node = document.querySelector("#nav-view-all-box-tab-list");
     addDragFunction(node, function(event) {
