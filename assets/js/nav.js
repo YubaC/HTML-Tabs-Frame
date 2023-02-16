@@ -80,17 +80,22 @@ function newPage(title, index, src, isActive) {
     // 等这些执行完了后，如果isActive为true，表示新的Tab是活跃的，就点击它
 
     // 如果insertPlace是0，表示在第一个Tab前面插入新的Tab
-    if (index === 0) {
-        // 在第一个Tab前面插入新的Tab
-        $tabNav.prepend(newTab);
-    } else if (index === -1) {
-        // 如果insertPlace是-1，表示在最后一个Tab后面插入新的Tab
-        // 在最后一个Tab后面插入新的Tab
-        $tabNav.append(newTab);
-    } else {
-        // 如果insertPlace是一个数字，表示在第几个Tab后面插入新的Tab
-        // 在第insertPlace个Tab后面插入新的Tab
-        $tabNav.children().eq(index).after(newTab);
+    switch (index) {
+        case 0:
+            // 如果insertPlace是0，表示在第一个Tab前面插入新的Tab
+            // 在第一个Tab前面插入新的Tab
+            $tabNav.prepend(newTab);
+            break;
+        case -1:
+            // 如果insertPlace是-1，表示在最后一个Tab后面插入新的Tab
+            // 在最后一个Tab后面插入新的Tab
+            $tabNav.append(newTab);
+            break;
+        default:
+            // 如果insertPlace是一个数字，表示在第几个Tab后面插入新的Tab
+            // 在第insertPlace个Tab后面插入新的Tab
+            $tabNav.children().eq(index).after(newTab);
+            break;
     }
 
     // 重新绑定所有Tab的点击事件，因为新插入的Tab的点击事件还没有绑定
@@ -183,6 +188,63 @@ $tabRightBtn.on("click", function() {
 // !Tab oclick
 // ------------------------------
 /**
+ * The y-axis slides to the currently active tab
+ * @param {object} $activeTab The object of the currently active tag obtained by JQuery.
+ */
+function slideXToActiveTab($activeTab) {
+    // 当一个.nav-link被点击的时候，如果它不完整在可视区域内，就滚动到它的位置
+    var $nav = $tabNav;
+    var $navItem = $activeTab.closest(".tabnav-item");
+    var $navItemWidth = $navItem.outerWidth();
+    var $navItemOffsetLeft = $navItem.offset().left;
+    var $navWidth = $nav.outerWidth();
+    var $navOffsetLeft = $nav.offset().left;
+    var $navScrollLeft = $nav.scrollLeft();
+    var $navScrollRight = $navScrollLeft + $navWidth;
+    var $navItemScrollLeft =
+        $navItemOffsetLeft - $navOffsetLeft + $navScrollLeft;
+    var $navItemScrollRight = $navItemScrollLeft + $navItemWidth;
+    if ($navItemScrollLeft < $navScrollLeft) {
+        $nav.animate({
+                scrollLeft: $navItemScrollLeft,
+            },
+            200
+        );
+    } else if ($navItemScrollRight > $navScrollRight) {
+        $nav.animate({
+                scrollLeft: $navItemScrollRight - $navWidth,
+            },
+            200
+        );
+    }
+}
+
+/**
+ * Synchronize the sorting from the tabnav to the view-all-box.
+ */
+function syncSortToViewAllBox() {
+    // 同步排序
+    var $headerNavLi = $(tabNavItemsSelector);
+    var $tabList = $navViewAllBoxTabList;
+    var $tabListLi = $(navViewAllBoxTabListItemsSelector);
+    $headerNavLi.each(function(index, element) {
+        var $element = $(element);
+        var $target = $element.attr("id");
+        var $tabListLiTarget = $tabListLi.filter("[original-id='" + $target + "']");
+        // console.log($tabListLiTarget);
+        $tabListLiTarget.attr("data-index", index);
+    });
+
+    // 重新排序
+    $tabListLi.sort(function(a, b) {
+        var contentA = parseInt($(a).attr("data-index"));
+        var contentB = parseInt($(b).attr("data-index"));
+        return contentA - contentB;
+    });
+    $tabListLi.detach().appendTo($tabList);
+}
+
+/**
  * Bind click event to all tabs.
  */
 function reBlindNavLinkClick() {
@@ -213,64 +275,14 @@ function reBlindNavLinkClick() {
         // window.location.href = $(tab).attr("target-src");
 
         // 重新绑定拖动事件
-        addDragFunction(tabNav, function() {
-            // 同步排序
-            // 将被移动了的li的位置信息更新到viewallbox内的li
-            // 同步排序
-            // 将被移动了的li的位置信息更新到#tab-list内的li的data-target相同的li上
-            var $headerNav = $tabNav;
-            var $headerNavLi = $(tabNavItemsSelector);
-            var $tabList = $navViewAllBoxTabList;
-            var $tabListLi = $(navViewAllBoxTabListItemsSelector);
-            $headerNavLi.each(function(index, element) {
-                var $element = $(element);
-                var $target = $element.attr("id");
-                var $tabListLiTarget = $tabListLi.filter("[original-id='" + $target + "']");
-                console.log($tabListLiTarget);
-                $tabListLiTarget.attr("data-index", index);
-            });
-
-            // 重新排序
-            $tabListLi.sort(function(a, b) {
-                var contentA = parseInt($(a).attr("data-index"));
-                var contentB = parseInt($(b).attr("data-index"));
-                return contentA - contentB;
-            });
-            $tabListLi.detach().appendTo($tabList);
-
-        });
+        addDragFunction(tabNav, syncSortToViewAllBox);
 
         // Change the content from the tab src
         var $tab = $(this);
         var $tabSrc = $tab.attr("target-src");
         changeTabContent($tabSrc);
 
-        // 当一个.nav-link被点击的时候，如果它不完整在可视区域内，就滚动到它的位置
-        var $this = $(this);
-        var $nav = $tabNav;
-        var $navItem = $this.closest(".tabnav-item");
-        var $navItemWidth = $navItem.outerWidth();
-        var $navItemOffsetLeft = $navItem.offset().left;
-        var $navWidth = $nav.outerWidth();
-        var $navOffsetLeft = $nav.offset().left;
-        var $navScrollLeft = $nav.scrollLeft();
-        var $navScrollRight = $navScrollLeft + $navWidth;
-        var $navItemScrollLeft =
-            $navItemOffsetLeft - $navOffsetLeft + $navScrollLeft;
-        var $navItemScrollRight = $navItemScrollLeft + $navItemWidth;
-        if ($navItemScrollLeft < $navScrollLeft) {
-            $nav.animate({
-                    scrollLeft: $navItemScrollLeft,
-                },
-                200
-            );
-        } else if ($navItemScrollRight > $navScrollRight) {
-            $nav.animate({
-                    scrollLeft: $navItemScrollRight - $navWidth,
-                },
-                200
-            );
-        }
+        slideXToActiveTab($(this));
     });
 }
 
@@ -307,6 +319,65 @@ $tabAddBtn.on("click", function() {
 // !View all
 // Show the view all box
 // ------------------------------
+
+/**
+ * The y-axis slides to the currently active tab
+ * @param {object} $activeTab The object of the currently active tag obtained by JQuery.
+ */
+function slideYToActiveTab($activeTab) {
+    // 竖直方向滑动到当前活跃的标签页
+    var $activeTabHeight = $activeTab.outerHeight();
+    var $activeTabOffsetTop = $activeTab.offset().top;
+    var $viewAllBoxHeight = $navViewAllBox.outerHeight();
+    var $viewAllBoxOffsetTop = $navViewAllBox.offset().top;
+    var $viewAllBoxScrollTop = $navViewAllBox.scrollTop();
+    var $viewAllBoxScrollBottom = $viewAllBoxScrollTop + $viewAllBoxHeight;
+    var $activeTabScrollTop =
+        $activeTabOffsetTop - $viewAllBoxOffsetTop + $viewAllBoxScrollTop;
+    var $activeTabScrollBottom = $activeTabScrollTop + $activeTabHeight;
+    if ($activeTabScrollTop < $viewAllBoxScrollTop) {
+        $navViewAllBox.animate({
+                scrollTop: $activeTabScrollTop,
+            },
+            200
+        );
+    } else if ($activeTabScrollBottom > $viewAllBoxScrollBottom) {
+        $navViewAllBox.animate({
+                scrollTop: $activeTabScrollBottom - $viewAllBoxHeight + 10,
+            },
+            200
+        );
+    }
+}
+
+/**
+ * Synchronize the sorting from the view-all-box to the tabnav.
+ */
+function syncSortToTabnav() {
+    // 同步排序
+    // 将被移动了的li的位置信息更新到#header-nav内的li的data-target相同的li上
+    var $headerNav = $tabNav;
+    var $viewAllBoxLi = $(navViewAllBoxTabListItemsSelector);
+    var $headerNavLi = $(tabNavItemsSelector);
+    $viewAllBoxLi.each(function(index) {
+        var $dataTarget = $(this).attr("original-id");
+        $headerNavLi.each(function() {
+            if ($(this).attr("id") == $dataTarget) {
+                $(this).attr("data-index", index);
+            }
+        });
+    });
+
+    // 将#header-nav内的li按照data-index的值从小到大排序
+    $headerNavLi.sort(function(a, b) {
+        return $(a).attr("data-index") - $(b).attr("data-index");
+    });
+    // 将#header-nav内的li按照data-index的值从小到大排序后重新插入到#header-nav内
+    $headerNavLi.each(function() {
+        $headerNav.append($(this));
+    });
+}
+
 $tabViewAllBtn.on("click", function() {
     // 将#header-nav的内容复制到#view-all-box内的ul里
     var $headerNav = $tabNav;
@@ -362,58 +433,13 @@ $tabViewAllBtn.on("click", function() {
     // 将#view-all-box显示出来
     $viewAllBox.show();
 
-
     // 竖直方向滑动到当前活跃的标签页
-    var $activeTabHeight = $activeTab.outerHeight();
-    var $activeTabOffsetTop = $activeTab.offset().top;
-    var $viewAllBoxHeight = $viewAllBox.outerHeight();
-    var $viewAllBoxOffsetTop = $viewAllBox.offset().top;
-    var $viewAllBoxScrollTop = $viewAllBox.scrollTop();
-    var $viewAllBoxScrollBottom = $viewAllBoxScrollTop + $viewAllBoxHeight;
-    var $activeTabScrollTop =
-        $activeTabOffsetTop - $viewAllBoxOffsetTop + $viewAllBoxScrollTop;
-    var $activeTabScrollBottom = $activeTabScrollTop + $activeTabHeight;
-    if ($activeTabScrollTop < $viewAllBoxScrollTop) {
-        $viewAllBox.animate({
-                scrollTop: $activeTabScrollTop,
-            },
-            200
-        );
-    } else if ($activeTabScrollBottom > $viewAllBoxScrollBottom) {
-        $viewAllBox.animate({
-                scrollTop: $activeTabScrollBottom - $viewAllBoxHeight + 10,
-            },
-            200
-        );
-    }
+    slideYToActiveTab($activeTab);
 
     // viewAllBoxFocusSet();
 
     var node = document.querySelector("#nav-view-all-box-tab-list");
-    addDragFunction(node, function(event) {
-        // 同步排序
-        // 将被移动了的li的位置信息更新到#header-nav内的li的data-target相同的li上
-        var $headerNav = $tabNav;
-        var $viewAllBoxLi = $(navViewAllBoxTabListItemsSelector);
-        var $headerNavLi = $(tabNavItemsSelector);
-        $viewAllBoxLi.each(function(index) {
-            var $dataTarget = $(this).attr("original-id");
-            $headerNavLi.each(function() {
-                if ($(this).attr("id") == $dataTarget) {
-                    $(this).attr("data-index", index);
-                }
-            });
-        });
-
-        // 将#header-nav内的li按照data-index的值从小到大排序
-        $headerNavLi.sort(function(a, b) {
-            return $(a).attr("data-index") - $(b).attr("data-index");
-        });
-        // 将#header-nav内的li按照data-index的值从小到大排序后重新插入到#header-nav内
-        $headerNavLi.each(function() {
-            $headerNav.append($(this));
-        });
-    });
+    addDragFunction(node, syncSortToTabnav);
 });
 
 // !Close the window
@@ -475,28 +501,25 @@ function addDragFunction(element, func) {
             }
         };
     };
+
     element.ondragover = function(event) {
         //console.log("onDrop over");
         event.preventDefault();
         var target = event.target;
         //因为dragover会发生在ul上，所以要判断是不是li
-        if (target.nodeName === "LI") {
-            if (target !== draging) {
-                var targetRect = target.getBoundingClientRect();
-                var dragingRect = draging.getBoundingClientRect();
-                if (target) {
-                    if (target.animated) {
-                        return;
-                    }
-                }
-                if (_index(draging) < _index(target)) {
-                    target.parentNode.insertBefore(draging, target.nextSibling);
-                } else {
-                    target.parentNode.insertBefore(draging, target);
-                }
-                _animate(dragingRect, draging);
-                _animate(targetRect, target);
+        if (target.nodeName === "LI" && target !== draging) {
+            var targetRect = target.getBoundingClientRect();
+            var dragingRect = draging.getBoundingClientRect();
+            if (target && target.animated) {
+                return;
             }
+            if (_index(draging) < _index(target)) {
+                target.parentNode.insertBefore(draging, target.nextSibling);
+            } else {
+                target.parentNode.insertBefore(draging, target);
+            }
+            _animate(dragingRect, draging);
+            _animate(targetRect, target);
         }
     };
 }
