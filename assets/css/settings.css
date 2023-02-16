@@ -178,7 +178,7 @@ html.dark .bd-aside .btn:not(#search-button):not(#hide-result-button):focus,
         grid-template-rows: auto;
     }
     .bd-aside {
-        grid-area: 1 / 3;
+        /* grid-area: 1 / 3; */
         scroll-margin-top: 4rem;
     }
     .bd-cheatsheet section,
@@ -249,11 +249,25 @@ html {
 
 aside {
     margin-left: 10px;
+    grid-column: 1;
+}
+
+main {
+    grid-column: 2/span 2;
 }
 
 .settings-titles {
     margin-top: 50px;
     margin-bottom: 20px;
+}
+
+@media (max-width: 767.98px) {
+    aside {
+        width: 100vw !important;
+    }
+    main {
+        grid-column: 1;
+    }
 }
 
 .left-nav {

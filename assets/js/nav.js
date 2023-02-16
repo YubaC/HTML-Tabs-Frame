@@ -22,6 +22,7 @@ var tabNavItemsSelector = "#header-tabnav>li";
 var $navViewAllBox = $("#nav-view-all-box");
 var $navViewAllBoxTabList = $("#nav-view-all-box-tab-list");
 var navViewAllBoxTabListItemsSelector = "#nav-view-all-box-tab-list>li";
+var $navViewAllBoxSearchInput = $("#search-input");
 // var $navViewAllBoxTabListItems = $("#nav-view-all-box-tab-list>li");
 
 // Menu box
@@ -41,6 +42,20 @@ var base = "";
 
 // Opened windows number
 var openedWindows = 0;
+
+var oldSrc = "";
+var page = {
+    "before": {
+        "title": "",
+        "src": "",
+        "id": ""
+    },
+    "current": {
+        "title": "",
+        "src": "",
+        "id": ""
+    },
+};
 
 // *Features
 // // Number of windows that can remain loaded
@@ -115,6 +130,9 @@ function newPage(title, index, src, isActive) {
     }
     // 移除class=new_tab
     $newTab.removeClass("new-tab");
+
+    // 因为新建了标签页，所以要重新绑定标签页栏的快捷键
+    reBlindHotKey();
 }
 
 // !这一部分负责左右滑动导航栏
@@ -258,6 +276,15 @@ function reBlindNavLinkClick() {
     $navTabs.off("click");
     // 添加点击事件
     $navTabs.on("click", function() {
+        // 隐藏#view-all-box
+        $navViewAllBox.hide();
+        $MenuBox.hide();
+        $boxMusk.hide();
+
+        oldSrc = $("." + activeClass).attr("target-src");
+        page.before.src = oldSrc;
+        page.before.id = $("." + activeClass).attr("id");
+        page.before.title = $("." + activeClass).text();
         // 遍历所有tab
         $navTabs.each(function() {
             // 为所有的tab移除close button
@@ -282,8 +309,13 @@ function reBlindNavLinkClick() {
 
         // Change the content from the tab src
         var $tab = $(this);
-        var $tabSrc = $tab.attr("target-src");
-        changeTabContent($tabSrc);
+        var tabSrc = $tab.attr("target-src");
+
+        page.current.src = tabSrc;
+        page.current.id = $tab.attr("id");
+        page.current.title = $tab.text();
+
+        changeTabContent(tabSrc);
 
         slideXToActiveTab($(this));
     });
@@ -296,16 +328,39 @@ function reBlindNavLinkClick() {
  * @param {String} src The src of the page to be requested.
  */
 function changeTabContent(src) {
+    // Save the scroll position of the tabcontent box.
+    // 保存tabcontent的滚动位置
+    var tabContentScrollTop = $contentBox.scrollTop();
+    // Save to localStorage
+    localStorage.setItem(page.before.id, tabContentScrollTop);
+
     // 如果存在名为leaveTab的函数，就执行它
     if (typeof leaveTab === "function") {
         leaveTab();
     }
+
+    // Sometimes the src is the same as the oldSrc, so we need to check it.
+    // If src is the same as oldSrc, we don't need to request the src.
+    // Instead, we just need to execute the reenterTab function.
+    if (src === oldSrc && typeof reenterTab === "function") {
+        // 如果存在名为reenterTab的函数，就执行它
+        reenterTab();
+        // 读取localStorage
+        var scrollTop = localStorage.getItem(page.current.id);
+        // 重新设置tabcontent的滚动位置
+        $contentBox.scrollTop(scrollTop);
+        return;
+    }
+
+    // Now it is time to request the src.
     // 请求src的内容，然后替换到content中
     // 加载完成后，如果存在名为enterTab的函数，就执行它
     $contentBox.load(src, function() {
         if (typeof enterTab === "function") {
             enterTab();
         }
+        var scrollTop = localStorage.getItem(page.current.id);
+        $contentBox.scrollTop(scrollTop);
     });
 }
 
@@ -429,10 +484,6 @@ $tabViewAllBtn.on("click", function() {
         // 触发click事件
         var $originalId = $(this).attr("original-id");
         $tabNav.find("#" + $originalId).click();
-        // 隐藏#view-all-box
-        $viewAllBox.hide();
-        $MenuBox.hide();
-        $viewAllBoxMusk.hide();
     });
 
     // 将#view-all-box显示出来
@@ -441,10 +492,25 @@ $tabViewAllBtn.on("click", function() {
     // 竖直方向滑动到当前活跃的标签页
     slideYToActiveTab($activeTab);
 
-    // viewAllBoxFocusSet();
-
+    // 添加拖动事件
     var node = document.querySelector("#nav-view-all-box-tab-list");
     addDragFunction(node, syncSortToTabnav);
+
+    // 重新绑定快捷键
+    reBlindHotKey();
+
+    // 如果搜索框有内容，则聚焦到搜索框
+    if ($navViewAllBoxSearchInput.val()) {
+        $navViewAllBoxSearchInput.focus();
+        // 光标移至最后
+        var len = $navViewAllBoxSearchInput.val().length;
+        $navViewAllBoxSearchInput[0].setSelectionRange(len, len);
+        // 搜索
+        searchTabs();
+    } else {
+        // 聚焦到当前活跃的标签页
+        $activeTab.focus();
+    }
 });
 
 // !Menu
@@ -452,6 +518,7 @@ $tabViewAllBtn.on("click", function() {
 $tabMenuBtn.on("click", function() {
     $navViewAllBox.hide();
     $MenuBox.show();
+    $boxMusk.show();
     var $menuItems = $MenuBox.find("li");
     // 为#view-all-box内的ul里的li添加点击事件
     $menuItems.on("click", function() {
@@ -630,4 +697,48 @@ function _css(el, prop, val) {
         }
     }
 }
+
+// !Search tabs
 // ------------------------------
+// 搜索框，搜索设置项
+/**
+ * Search tabs and show result.
+ */
+function searchTabs() {
+    var $searchInput = $navViewAllBoxSearchInput;
+
+    // 从搜索框获取搜索内容
+    var searchContent = $searchInput.val();
+
+    // 如果搜索内容为空，则不执行搜索
+    if (searchContent == "") {
+        // Empty.
+        $navViewAllBoxTabList.children().removeClass("visually-hidden");
+        // 清除搜索结果中的高亮
+        $navViewAllBoxTabList.children().each(function() {
+            $(this).html($(this).text());
+        });
+        return;
+    }
+
+    $navViewAllBoxTabList.children().addClass("visually-hidden");
+
+    // 如果搜索内容不为空，则执行搜索
+    // 遍历所有设置项
+    // 设置项为class为options的span
+    // 搜索时使用模糊搜索，忽略大小写
+    $navViewAllBoxTabList.children().each(function() {
+        // console.log($(this).text());
+        // 如果搜索内容在设置项中，则在search-result-list中添加对应的#settings-list > li > div > ul > li
+        if ($(this).text().toLowerCase().indexOf(searchContent.toLowerCase()) != -1) {
+            $(this).removeClass("visually-hidden");
+            $(this).html($(this).text().replace(searchContent, "<span style='color: #ff0000;'>" + searchContent + "</span>"));
+        }
+    });
+}
+
+// Run search when input value changed.
+// 搜索框内容改变时执行搜索
+$navViewAllBoxSearchInput.on("input", function() {
+    searchTabs();
+});

@@ -295,14 +295,6 @@ button:not(:disabled) {
     list-style: none;
 }
 
-.tabnav-item {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: #000;
-    text-decoration: none;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
-}
-
 @media (prefers-reduced-motion: reduce) {
     .tabnav-item {
         transition: none;
@@ -335,7 +327,7 @@ button:not(:disabled) {
 }
 
 .tabnav-tabs .tabnav-item.active {
-    color: #495057;
+    /* color: #495057; */
     background-color: #fff;
     /* border-color: blue!important; */
     border-color: #dee2e6 #dee2e6 #fff;
@@ -383,7 +375,13 @@ button:not(:disabled) {
     display: none;
 }
 
-.tabnav-item {
+.tabnav-item,
+.tabnav-options {
+    /* display: block; */
+    padding: 0.5rem 1rem;
+    color: #000;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
     margin-top: 3px;
     margin-bottom: 3px;
     margin-left: 3px;
@@ -411,14 +409,17 @@ button:not(:disabled) {
 
 #nav-view-all-box,
 #nav-menu-box {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
     z-index: 999999999;
     /* 隐藏横向滚动条 */
     overflow-x: hidden;
     min-width: 250px;
     /* min-height: 500px; */
     max-height: 80vh;
-    overflow-x: scroll;
-    overflow-y: scroll auto;
+    /* overflow-y: scroll auto; */
     position: absolute;
     right: 0px;
     top: 50px;
@@ -440,6 +441,10 @@ button:not(:disabled) {
 #nav-menu-box,
 #nav-menu-box-menu-list {
     overflow-x: hidden;
+}
+
+#nav-view-all-box-tab-list {
+    overflow-y: scroll;
 }
 
 
@@ -466,7 +471,8 @@ body {
 #tabContent {
     width: 100vw;
     height: calc(100vh - 38px);
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: auto;
 }
 
 .active {

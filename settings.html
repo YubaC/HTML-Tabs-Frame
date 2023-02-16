@@ -17,7 +17,8 @@
     </div>
 </div>
 
-<div class="row main-display">
+<!-- <div class="row main-display container-fluid"> -->
+<div class="laout" style="display: grid;">
     <aside class="left-nav col-sm-3 p-3 bd-aside px-2" style="width: 275px;">
         <!-- <h2 class="h6 pt-4 pb-3 mb-4 border-bottom">On this page</h2> -->
         <nav class="small" id="toc">
@@ -126,7 +127,8 @@
 
     <!-- <div class="modal-fullscreen"> -->
     <!-- <div></div> -->
-    <main class="settings col p-3">
+    <!-- <main class="settings col-sm- p-3"> -->
+    <main class="settings p-3">
         <img src="assets/images/light-picture-example.jpg" style="width: 100%;">
         <!-- Set display -->
         <h2 class="settings-titles"><i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-display"></span></h2>
@@ -314,24 +316,26 @@
         if (searchContent == "") {
             // 提示用户搜索内容为空
             $("#search-result-list").append("<li class='lang' key='search-result-empty'></li>");
-        } else {
-            // 如果搜索内容不为空，则执行搜索
-            // 遍历所有设置项
-            // 设置项为class为options的span
-            // 搜索时使用模糊搜索，忽略大小写
-            $(".options").each(function() {
-                console.log($(this).text());
-                // 如果搜索内容在设置项中，则在search-result-list中添加对应的#settings-list > li > div > ul > li
-                if ($(this).text().toLowerCase().indexOf(searchContent.toLowerCase()) != -1) {
-                    $("#search-result-list").append($(this).parent().parent().clone());
-                    // 在search-result-list中高亮搜索内容
-                    // 高亮时忽略大小写
-                    $("#search-result-list > li > a > span").each(function() {
-                        $(this).html($(this).text().replace(searchContent, "<span style='color: #ff0000;'>" + searchContent + "</span>"));
-                    });
-                }
-            });
+            return;
         }
+
+        // 如果搜索内容不为空，则执行搜索
+        // 遍历所有设置项
+        // 设置项为class为options的span
+        // 搜索时使用模糊搜索，忽略大小写
+        $(".options").each(function() {
+            console.log($(this).text());
+            // 如果搜索内容在设置项中，则在search-result-list中添加对应的#settings-list > li > div > ul > li
+            if ($(this).text().toLowerCase().indexOf(searchContent.toLowerCase()) != -1) {
+                $("#search-result-list").append($(this).parent().parent().clone());
+                // 在search-result-list中高亮搜索内容
+                // 高亮时忽略大小写
+            }
+        });
+
+        $("#search-result-list > li > a > span").each(function() {
+            $(this).html($(this).text().replace(searchContent, "<span style='color: #ff0000;'>" + searchContent + "</span>"));
+        });
 
         // 如果搜索结果为空，则在search-result-list中添加提示
         if ($("#search-result-list").html() == "") {
@@ -508,4 +512,16 @@
 
     // 为.color-blind-label 移除class visually-hidden
     // $(".color-blind-label").removeClass("visually-hidden");
+    // function leaveTab() {
+    //     // 获取tabContent的scroll位置
+    //     var scroll = tabContent.scrollTop();
+    //     // 将scroll位置存入localStorage
+    //     localStorage.setItem(page.before.id, scroll);
+    // }
+
+    // function enterTab() {}
+
+    // function reenterTab() {
+    //     console.log("Reenter!");
+    // }
 </script>

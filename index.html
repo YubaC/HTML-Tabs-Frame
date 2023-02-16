@@ -50,7 +50,8 @@
     <!-- <link href="bootstrap-dark-5-main/examples/cheatsheet-nights.css" rel="stylesheet"> -->
     <!-- <link href="assets/css/settings.css" rel="stylesheet"> -->
 
-    <link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/all.min.css">
+    <link rel="stylesheet" href="assets/lib/fontawesome-free-5.15.4-web/css/all.min.css">
+    <!-- <link rel="stylesheet" href="assets/css/high-contrast.css"> -->
 
     <!--
     *************************************************************************
@@ -235,6 +236,20 @@
 
     <!-- Tab list -->
     <div id="nav-view-all-box" class="bg-white" style="display:none;">
+        <ul id="nav-view-all-box-options-list" class="list-group border-bottom">
+            <!-- <li key="nav-view-all-box-options-list-search" tabindex="0" class="tabnav-options lang" role="tab"></li> -->
+            <!-- Search -->
+            <li>
+                <form id="search" action="">
+                    <div class="mb-3 mt-3 d-grid">
+                        <input class="ms-1 me-1" id="search-input" placeholder="Search... (Ctrl + S)" name="search">
+                        <label tabindex="-1" key="nav-view-all-box-options-list-search" for="search-input" class="form-label lang visually-hidden"></label>
+                    </div>
+                </form>
+            </li>
+
+        </ul>
+
         <ul id="nav-view-all-box-tab-list" class="list-group"></ul>
     </div>
 
@@ -264,7 +279,7 @@
                 newPage("settings", -1, "settings.html", true);
 
                 for (var i = 1; i < 32; i++) {
-                    newPage("Home" + i, -1, "home.html", false);
+                    newPage("Home" + i, -1, "settings.html", false);
                 }
             }
             // function openSettings() {
@@ -276,7 +291,7 @@
     <!-- <iframe class="tab-pane fade" src="settings.html" id="menu1"></iframe>
     <iframe class="tab-pane fade" src="settings.html" id="menu2"></iframe> -->
 
-    <!-- <script src="assets/js/accessibility.js"></script> -->
+    <script src="assets/js/accessibility.js"></script>
 
 </body>
 

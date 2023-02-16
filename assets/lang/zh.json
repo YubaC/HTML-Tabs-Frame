@@ -13,6 +13,8 @@
     "tabnav-menu-tabbtn-label":"打开标签页菜单",
     "tabnav-menu-tabbtn-title":"打开标签页菜单",
 
+    "nav-view-all-box-options-list-search":"搜索标签页",
+
     "//":"//!以下是settings.html的语言包",
     "//":"--------------------显示部分--------------------",
     "message-ask-save":"您已经做出了更改，请手动保存它们以避免丢失。",
