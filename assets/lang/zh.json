@@ -67,10 +67,23 @@
     "settings-accessibility-tips-switch-title":"开启或关闭提示文本",
     "settings-advanced-title":"微调程序运行时的一些参数",
     "search-btn-title":"搜索设置项",
-    "//":"--------------------Roles--------------------",
 
+    "//":"//!welcome.html的语言包",
     "welcome-no-repo":"没有打开的存档",
     "welcome-suggestion":"没有打开的存档。下面是一些关于下一步该做什么的友好建议。",
 
-    "hot-key-settings-ctrl-s":"<p>Use <kbd>ctrl + s</kbd> to save the page.</p>"
+    "hot-key-settings-ctrl-s":"<p>Use <kbd>ctrl + s</kbd> to save the page.</p>",
+
+    "//":"//!以下是newPage.html的语言包",
+    "new-page-nav-options-local":"本地仓库",
+    "new-page-nav-options-local-title":"查看导入过的本地仓库",
+    "new-page-nav-options-remote":"远程仓库",
+    "new-page-nav-options-remote-title":"查看所有的远程仓库",
+    "new-page-nav-options-clone":"克隆仓库",
+    "new-page-nav-options-clone-title":"克隆一个远程仓库",
+    "new-page-nav-options-add":"导入仓库",
+    "new-page-nav-options-add-title":"导入一个本地仓库",
+    "new-page-nav-options-create":"创建仓库",
+    "new-page-nav-options-create-title":"创建一个新的仓库"
+
 }

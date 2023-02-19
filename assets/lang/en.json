@@ -1,6 +1,20 @@
 {
     "//": "--------------------提示部分--------------------",
-    "tabnav-close-tab-btn": "Close this tab",
+    "tabnav-close-tab-btn-label": "关闭这个标签页",
+    "tabnav-close-tab-btn-title": "关闭这个标签页",
+    "tabnav-left-tabbtn-label": "向左滑动标签页栏",
+    "tabnav-left-tabbtn-title": "向左滑动标签页栏",
+    "tabnav-right-tabbtn-label": "向右滑动标签页栏",
+    "tabnav-right-tabbtn-title": "向右滑动标签页栏",
+    "tabnav-add-tabbtn-label": "打开新的标签页",
+    "tabnav-add-tabbtn-title": "打开新的标签页",
+    "tabnav-view-all-tabbtn-label": "列出所有标签页",
+    "tabnav-view-all-tabbtn-title": "列出所有标签页",
+    "tabnav-menu-tabbtn-label": "打开标签页菜单",
+    "tabnav-menu-tabbtn-title": "打开标签页菜单",
+
+    "nav-view-all-box-options-list-search": "搜索标签页",
+
     "message-ask-save": "You have made changes, please save them manually to avoid loss.",
     "settings": "Settings",
     "settings-display": "Display",
@@ -49,8 +63,21 @@
     "settings-accessibility-tips-switch-title": "Turn on/off prompt text",
     "settings-advanced-title": "Fine tune some parameters when the program runs",
     "search-btn-title": "Search Settings",
-    "welcome-no-repo": "没有打开的存档",
-    "welcome-suggestion": "没有打开的存档。下面是一些关于下一步该做什么的友好建议。",
-    "hot-key-settings-ctrl-s": "<p>Use <kbd>ctrl + s</kbd> to save the page.</p>"
+    "welcome-no-repo": "No repository is currently open. ",
+    "welcome-suggestion": "No repository is currently open. You can open a repository by clicking the button below.",
+    "hot-key-settings-ctrl-s": "<p>Use <kbd>ctrl + s</kbd> to save the page.</p>",
+    "new-page-nav-options-local": "Local repositories",
 
+    "new-page-nav-options-local-title": "View all local repositories",
+    "new-page-nav-options-remote": "Remote repositories",
+    "new-page-nav-options-remote-title": "View all remote repositories",
+
+    "new-page-nav-options-clone": "Clone a repository",
+
+    "new-page-nav-options-clone-title": "Clone a remote repository",
+    "new-page-nav-options-add": "Import a repository",
+    "new-page-nav-options-add-title": "Import a local repository",
+    "new-page-nav-options-create": "Create a repository",
+    "new-page-nav-options-create-title": "Create a new repository",
+    "tabnav-close-tab-btn": "Close this tab"
 }

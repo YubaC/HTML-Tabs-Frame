@@ -1,26 +1,65 @@
 "use strict";
 // !Load languages
 // available languages list
-var languages = {};
+var languages = settings.availableLanguages;
+// Current language
+var lang;
+// All the text in the website
 var html_lang = {};
 
 
-// 请求languages.json文件，获取支持的语言列表
-$.getJSON("assets/lang/languages.json", function(data) {
-    languages = data;
-})
-
-.then(function() {
-    var lang;
-    // Check for localStorage support
-    if ('localStorage' in window) {
-        lang = localStorage.getItem('lang') || navigator.language.slice(0, 2);
-        if (!Object.keys(languages).includes(lang)) {
-            lang = 'en';
-        }
+// Check for localStorage support
+if ('localStorage' in window) {
+    lang = localStorage.getItem('lang') || navigator.language.slice(0, 2);
+    if (!Object.keys(languages).includes(lang)) {
+        lang = 'en';
     }
-    switchLanguage(lang);
-});
+}
+switchLanguage(lang);
+
+/**
+ * Load the language file 
+ * and replace the text of all elements 
+ * with class="lang" through the "key" attr.
+ */
+function loadLanguage() {
+    $.each(html_lang, function(key, value) {
+        if (value != "") {
+            $(".lang[key='" + key + "']").text(value);
+        }
+
+        // *Features ：添加popover
+        // // 如果启用了提示，并且存在key+"-content"的内容，就添加popover
+        // if (settings.tips && html_lang[key + "-content"]) {
+        //     $(".lang[key='" + key + "']").attr("data-content", html_lang[key + "-content"]);
+        //     $(".lang[key='" + key + "']").attr("data-toggle", "popover");
+        //     $(".lang[key='" + key + "']").attr("data-trigger", "hover");
+        //     $(".lang[key='" + key + "']").attr("data-placement", "top");
+        //     $(".lang[key='" + key + "']").attr("data-container", "body");
+        //     $(".lang[key='" + key + "']").attr("data-html", "true");
+        //     $(".lang[key='" + key + "']").attr("data-animation", "true");
+        // }
+
+        // 如果key以-title结尾，就提取出来，作为新key
+        if (key.endsWith("-title")) {
+            key = key.slice(0, key.length - 6);
+
+            // 更改提示框文本
+            // 如果启用了提示，并且存在key+"-title"的内容，就添加title
+            // Add title to those elements that have it
+            if (settings.tips) {
+                $(".lang[key='" + key + "']").attr("title", html_lang[key + "-title"]);
+            }
+
+            // Add alt to images
+            if ($(".lang[key='" + key + "']").is("img")) {
+                $(".lang[key='" + key + "']").attr("alt", html_lang[key + "-title"]);
+            }
+
+            return;
+        }
+    });
+}
 
 /**
  * Switch the language of the website.
@@ -48,44 +87,7 @@ function switchLanguage(language) {
     )
 
     // 替换所有的class="lang"的元素的内容
-    .then(function() {
-        $.each(html_lang, function(key, value) {
-            if (value != "") {
-                $(".lang[key='" + key + "']").text(value);
-            }
-
-            // *Features ：添加popover
-            // // 如果启用了提示，并且存在key+"-content"的内容，就添加popover
-            // if (settings.tips && html_lang[key + "-content"]) {
-            //     $(".lang[key='" + key + "']").attr("data-content", html_lang[key + "-content"]);
-            //     $(".lang[key='" + key + "']").attr("data-toggle", "popover");
-            //     $(".lang[key='" + key + "']").attr("data-trigger", "hover");
-            //     $(".lang[key='" + key + "']").attr("data-placement", "top");
-            //     $(".lang[key='" + key + "']").attr("data-container", "body");
-            //     $(".lang[key='" + key + "']").attr("data-html", "true");
-            //     $(".lang[key='" + key + "']").attr("data-animation", "true");
-            // }
-
-            // 如果key以-title结尾，就提取出来，作为新key
-            if (key.endsWith("-title")) {
-                key = key.slice(0, key.length - 6);
-
-                // 更改提示框文本
-                // 如果启用了提示，并且存在key+"-title"的内容，就添加title
-                // Add title to those elements that have it
-                if (settings.tips) {
-                    $(".lang[key='" + key + "']").attr("title", html_lang[key + "-title"]);
-                }
-
-                // Add alt to images
-                if ($(".lang[key='" + key + "']").is("img")) {
-                    $(".lang[key='" + key + "']").attr("alt", html_lang[key + "-title"]);
-                }
-
-                return;
-            }
-        });
-    })
+    .then(loadLanguage);
 
     // $.getJSON("assets/lang/" + language + ".json", function(data) {
     //         $.each(data, function(key, value) {

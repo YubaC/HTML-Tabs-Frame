@@ -40,7 +40,7 @@ var $contentBox = $("#tabContent");
 // var base = "file:///";
 var base = "";
 
-// Opened windows number
+// Opened windows number, used as id, won't go down when a window is closed.
 var openedWindows = 0;
 
 var oldSrc = "";
@@ -57,6 +57,8 @@ var page = {
     },
 };
 
+var openedPages = [];
+
 // *Features
 // // Number of windows that can remain loaded
 // var maxWindows = 5;
@@ -70,8 +72,9 @@ var page = {
  * @param {Number} index Whrer to insert the new tab, after the tab with the index. If 0, insert at the beginning; if -1, insert at the end.
  * @param {String} src the src of the target.
  * @param {Boolean} isActive If true, the new tab will be actived.
+ * @param {Object} data Data to be added to the target.
  */
-function newPage(title, index, src, isActive) {
+function newPage(title, index, src, isActive, data = null) {
     if (isActive) {
         var tabindex = 0;
     } else {
@@ -96,6 +99,15 @@ function newPage(title, index, src, isActive) {
     // 如果insertPlace是0，表示在第一个Tab前面插入新的Tab
     // 如果insertPlace是-1，表示在最后一个Tab后面插入新的Tab
     // 等这些执行完了后，如果isActive为true，表示新的Tab是活跃的，就点击它
+
+    var thisPage = {
+        "title": title,
+        "src": src,
+        "id": openedWindows,
+        data: data
+    };
+    // 在pages内添加新的页面
+    openedPages.push(thisPage);
 
     // 如果insertPlace是0，表示在第一个Tab前面插入新的Tab
     switch (index) {
@@ -351,6 +363,9 @@ function changeTabContent(src) {
         var scrollTop = localStorage.getItem(page.current.id);
         // 重新设置tabcontent的滚动位置
         $contentBox.scrollTop(scrollTop);
+
+        // Load language file
+        loadLanguage();
         return;
     }
 
@@ -363,6 +378,9 @@ function changeTabContent(src) {
         }
         var scrollTop = localStorage.getItem(page.current.id);
         $contentBox.scrollTop(scrollTop);
+
+        // Load language file
+        loadLanguage();
     });
 }
 
@@ -373,7 +391,7 @@ $tabAddBtn.on("click", function() {
     var $activeTab = $(".tabnav-item.active");
     // 获取当前标签页的index
     var index = $activeTab.index();
-    newPage("baidu", index, "baidu.com", true)
+    newPage("baidu", index, "newTab.html", true)
 });
 
 // !View all
@@ -551,6 +569,7 @@ function closeWin() {
     var $activeTab = $(".tabnav-item.active");
     // 为这个tab添加class tab-to-close
     $activeTab.addClass("tab-to-close");
+    var windowId = $activeTab.attr("id");
     // 如果这个窗口右边还有窗口，就把这个窗口右边的窗口激活；
     // 否则如果这个窗口左边还有窗口，就把这个窗口左边的窗口激活；
     // 否则新建窗口
@@ -568,6 +587,14 @@ function closeWin() {
 
     // 移除.tab-to-close
     $tabNav.find(".tab-to-close").remove();
+
+    // 从openedPages中移除这个窗口
+    for (var i = 0; i < openedPages.length; i++) {
+        if (openedPages[i].id == windowId) {
+            openedPages.splice(i, 1);
+            break;
+        }
+    }
 }
 
 // !Drag and drop tabs

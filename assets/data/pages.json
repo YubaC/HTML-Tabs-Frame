@@ -1,0 +1,22 @@
+{
+    "pages": [
+        {
+        "title": "Home",
+        "src": "welcome.html",
+        "data": "This is the home page"
+        },
+        {
+        "title": "About",
+        "src": "settings.html",
+        "data": "This is the about page"
+        },
+        {
+        "title": "Contact",
+        "src": "settings.html",
+        "data": "This is the contact page"
+        }
+    ],
+
+    "scrollLeft": 0,
+    "activePage": 1
+}
