@@ -44,24 +44,24 @@
     color: rgba(0, 0, 0, .85);
 }
 
-.bd-aside .btn:not(#search-button):not(#hide-result-button) {
+.bd-aside .btn:not(#settings-search-button):not(#hide-result-button) {
     padding: .25rem .5rem;
     font-weight: 600;
     color: rgba(0, 0, 0, .65);
     border: 0;
 }
 
-.bd-aside .btn:not(#search-button):not(#hide-result-button):hover,
-.bd-aside .btn:not(#search-button):not(#hide-result-button):focus {
+.bd-aside .btn:not(#settings-search-button):not(#hide-result-button):hover,
+.bd-aside .btn:not(#settings-search-button):not(#hide-result-button):focus {
     color: rgba(0, 0, 0, .85);
     background-color: rgba(121, 82, 179, .1);
 }
 
-.bd-aside .btn:not(#search-button):not(#hide-result-button):focus {
+.bd-aside .btn:not(#settings-search-button):not(#hide-result-button):focus {
     box-shadow: 0 0 0 1px rgba(121, 82, 179, .7);
 }
 
-.bd-aside .btn:not(#search-button):not(#hide-result-button)::before {
+.bd-aside .btn:not(#settings-search-button):not(#hide-result-button)::before {
     width: 1.25em;
     line-height: 0;
     content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%28127,127,127,1%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
@@ -90,29 +90,29 @@ html.dark .bd-aside .active,
     color: rgba(255, 255, 255, .85);
 }
 
-.color-scheme-dark .bd-aside .btn:not(#search-button):not(#hide-result-button),
-html.dark .bd-aside .btn:not(#search-button):not(#hide-result-button),
-[data-bs-color-scheme="dark"] .bd-aside .btn:not(#search-button):not(#hide-result-button) {
+.color-scheme-dark .bd-aside .btn:not(#settings-search-button):not(#hide-result-button),
+html.dark .bd-aside .btn:not(#settings-search-button):not(#hide-result-button),
+[data-bs-color-scheme="dark"] .bd-aside .btn:not(#settings-search-button):not(#hide-result-button) {
     color: rgba(255, 255, 255, .65);
 }
 
-.color-scheme-dark .bd-aside .btn:not(#search-button):not(#hide-result-button):hover,
-.color-scheme-dark .bd-aside .btn:not(#search-button):not(#hide-result-button):focus,
-html.dark .bd-aside .btn:not(#search-button):not(#hide-result-button):hover,
-html.dark .bd-aside .btn:not(#search-button):not(#hide-result-button):focus,
-[data-bs-color-scheme="dark"] .bd-aside .btn:not(#search-button):not(#hide-result-button):hover,
-[data-bs-color-scheme="dark"] .bd-aside .btn:not(#search-button):not(#hide-result-button):focus {
+.color-scheme-dark .bd-aside .btn:not(#settings-search-button):not(#hide-result-button):hover,
+.color-scheme-dark .bd-aside .btn:not(#settings-search-button):not(#hide-result-button):focus,
+html.dark .bd-aside .btn:not(#settings-search-button):not(#hide-result-button):hover,
+html.dark .bd-aside .btn:not(#settings-search-button):not(#hide-result-button):focus,
+[data-bs-color-scheme="dark"] .bd-aside .btn:not(#settings-search-button):not(#hide-result-button):hover,
+[data-bs-color-scheme="dark"] .bd-aside .btn:not(#settings-search-button):not(#hide-result-button):focus {
     color: rgba(255, 255, 255, .85);
     background-color: rgba(140, 179, 82, .1);
 }
 
-.color-scheme-dark .bd-aside .btn:not(#search-button):not(#hide-result-button):focus,
-html.dark .bd-aside .btn:not(#search-button):not(#hide-result-button):focus,
-[data-bs-color-scheme="dark"] .bd-aside .btn:not(#search-button):not(#hide-result-button):focus {
+.color-scheme-dark .bd-aside .btn:not(#settings-search-button):not(#hide-result-button):focus,
+html.dark .bd-aside .btn:not(#settings-search-button):not(#hide-result-button):focus,
+[data-bs-color-scheme="dark"] .bd-aside .btn:not(#settings-search-button):not(#hide-result-button):focus {
     box-shadow: 0 0 0 1px rgba(140, 179, 82, .7);
 }
 
-.bd-aside .btn:not(#search-button):not(#hide-result-button)[aria-expanded="true"]::before {
+.bd-aside .btn:not(#settings-search-button):not(#hide-result-button)[aria-expanded="true"]::before {
     transform: rotate(90deg)/* rtl:ignore */
     ;
 }
@@ -127,11 +127,11 @@ html.dark .bd-aside .btn:not(#search-button):not(#hide-result-button):focus,
     overflow: auto;
 }
 
-[id="modal"] .bd-example .btn:not(#search-button):not(#hide-result-button),
-[id="buttons"] .bd-example .btn:not(#search-button):not(#hide-result-button),
-[id="tooltips"] .bd-example .btn:not(#search-button):not(#hide-result-button),
-[id="popovers"] .bd-example .btn:not(#search-button):not(#hide-result-button),
-[id="dropdowns"] .bd-example .btn:not(#search-button):not(#hide-result-button)-group,
+[id="modal"] .bd-example .btn:not(#settings-search-button):not(#hide-result-button),
+[id="buttons"] .bd-example .btn:not(#settings-search-button):not(#hide-result-button),
+[id="tooltips"] .bd-example .btn:not(#settings-search-button):not(#hide-result-button),
+[id="popovers"] .bd-example .btn:not(#settings-search-button):not(#hide-result-button),
+[id="dropdowns"] .bd-example .btn:not(#settings-search-button):not(#hide-result-button)-group,
 [id="dropdowns"] .bd-example .dropdown,
 [id="dropdowns"] .bd-example .dropup,
 [id="dropdowns"] .bd-example .dropend,
@@ -315,14 +315,14 @@ main {
 }
 
 
-/* .btn:not(#search-button):not(#hide-result-button)-toggle:hover,
-.btn:not(#search-button):not(#hide-result-button)-toggle:focus {
+/* .btn:not(#settings-search-button):not(#hide-result-button)-toggle:hover,
+.btn:not(#settings-search-button):not(#hide-result-button)-toggle:focus {
     color: rgba(0, 0, 0, 0.85);
     background-color: #d2f4ea;
 } */
 
 
-/* .btn:not(#search-button):not(#hide-result-button)-toggle::before {
+/* .btn:not(#settings-search-button):not(#hide-result-button)-toggle::before {
     width: 1.25em;
     line-height: 0;
     content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
@@ -331,11 +331,11 @@ main {
 } */
 
 
-/* .btn:not(#search-button):not(#hide-result-button)-toggle[aria-expanded="true"] {
+/* .btn:not(#settings-search-button):not(#hide-result-button)-toggle[aria-expanded="true"] {
     color: rgba(0, 0, 0, 0.85);
 }
 
-.btn:not(#search-button):not(#hide-result-button)-toggle[aria-expanded="true"]::before {
+.btn:not(#settings-search-button):not(#hide-result-button)-toggle[aria-expanded="true"]::before {
     transform: rotate(90deg);
 } */
 
@@ -356,7 +356,7 @@ main {
 
 
 /* 
-.btn:not(#search-button):not(#hide-result-button)-toggle-nav2 a {
+.btn:not(#settings-search-button):not(#hide-result-button)-toggle-nav2 a {
     display: inline-flex;
     padding: 0.1875rem 0.5rem;
     margin-top: 0.125rem;
@@ -364,8 +364,8 @@ main {
     text-decoration: none;
 }
 
-.btn:not(#search-button):not(#hide-result-button)-toggle-nav a:hover,
-.btn:not(#search-button):not(#hide-result-button)-toggle-nav a:focus {
+.btn:not(#settings-search-button):not(#hide-result-button)-toggle-nav a:hover,
+.btn:not(#settings-search-button):not(#hide-result-button)-toggle-nav a:focus {
     background-color: #d2f4ea;
 } */
 

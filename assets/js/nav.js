@@ -342,9 +342,11 @@ function changeTabContent(src) {
     // Sometimes the src is the same as the oldSrc, so we need to check it.
     // If src is the same as oldSrc, we don't need to request the src.
     // Instead, we just need to execute the reenterTab function.
-    if (src === oldSrc && typeof reenterTab === "function") {
+    if (src === oldSrc) {
         // 如果存在名为reenterTab的函数，就执行它
-        reenterTab();
+        if (typeof reenterTab === "function") {
+            reenterTab();
+        }
         // 读取localStorage
         var scrollTop = localStorage.getItem(page.current.id);
         // 重新设置tabcontent的滚动位置

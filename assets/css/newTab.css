@@ -1,0 +1,88 @@
+html,
+body {
+    overflow: auto !important;
+}
+
+
+/* Nav font size */
+
+#new-page-nav-options {
+    font-size: 0.8rem;
+}
+
+#new-page-nav-options i {
+    font-size: 1.5rem;
+}
+
+#new-page-nav-options>li>a {
+    text-align: center;
+}
+
+
+/* Branch badge */
+
+.badge-outer {
+    /* 禁止换行 */
+    white-space: nowrap;
+    padding: 0.1em 5px 0.1em 0px;
+}
+
+.badge-outer:not(.badge-inner) {
+    font-size: 0.8rem;
+    font-weight: 900;
+}
+
+.badge-inner {
+    /*  解决badge-inner总会比badge-outer低一点的边缘错位问题 */
+    position: relative;
+    top: -0.25em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 0.8em;
+    padding-right: 0.8em;
+}
+
+
+/* Footer*/
+
+#new-page-footer-options {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+#new-page-footer-options button {
+    border: none !important;
+}
+
+#new-page-footer-options:first-child {
+    margin-left: 0.5rem;
+}
+
+#new-page-footer-options button:focus {
+    box-shadow: none;
+}
+
+
+/* Footer Font size */
+
+#new-page-footer-options {
+    /* 横向排列 */
+    display: flex;
+    justify-content: left;
+}
+
+#new-page-footer-options button {
+    font-size: 0.8rem;
+    /* 竖直居中 */
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+#new-page-footer-options button i {
+    margin-right: 0.4em;
+}
+
+#new-page-footer-options i {
+    font-size: 1.5rem;
+}

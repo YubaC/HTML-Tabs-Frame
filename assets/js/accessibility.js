@@ -10,6 +10,9 @@
 
 // Hot key
 var hotkey = {
+    // Global
+    document: {},
+
     // Tab navigation
     tabNav: {
         // 快速聚焦到tabNav ctrl+1
@@ -37,13 +40,15 @@ var hotkey = {
         enter: 13,
         // search ctrl+s
         search: 83,
+        // esc
+        esc: 27,
     },
 }
 
 // !Define functions
 // ------------------------------
 function reBlindHotKey() {
-    // document
+    // !document
     // 清除快捷键
     $(document).off("keydown");
     $(document).on("keydown", function(e) {
@@ -88,7 +93,7 @@ function reBlindHotKey() {
         }
     });
 
-    // Tabnav
+    // !Tabnav
     // 清除快捷键
     $tabNav.children().off("keydown");
     $tabNav.children().on("keydown", function(e) {
@@ -113,7 +118,7 @@ function reBlindHotKey() {
         }
     });
 
-    // View all box
+    // !View all box
     // 清除快捷键
     $navViewAllBox.off("keydown");
     $navViewAllBox.on("keydown", function(e) {
@@ -174,6 +179,18 @@ function reBlindHotKey() {
                 }
                 e.preventDefault();
                 $navViewAllBoxSearchInput.focus();
+                break;
+
+                // esc
+                // close box
+            case hotkey.navBox.esc:
+                e.preventDefault();
+                // hide all
+                $navViewAllBox.hide();
+                $MenuBox.hide();
+                $boxMusk.hide();
+                // focus tabNav
+                $("." + activeClass).focus();
                 break;
         }
     });
