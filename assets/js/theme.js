@@ -1,14 +1,40 @@
 function onNightMode() {
-    // var element = document.body;
-    // element.classList.toggle("dark-mode");
-    // var nightMode = localStorage.getItem('nightMode');
-    // if (nightMode !== "enabled") {
-    //     localStorage.setItem('nightMode', "enabled");
-    // } else {
-    //     localStorage.setItem('nightMode', null);
-    // }
+    // 为图片添加深色滤镜
+    // $("img").css("filter", "invert(1) hue-rotate(180deg)");
+    // console.log("图片添加深色滤镜");
+    $("img").css("filter", "brightness(0.7)");
+    // 将导航栏的bg-light class改为bg-dark
+    $("#header-tabnav").removeClass("bg-light");
+    $("#header-tabnav").addClass("bg-dark");
+    $("#nav-view-all-box").removeClass("bg-white");
+    $("#nav-view-all-box").addClass("bg-dark");
+    $("#nav-menu-box").removeClass("bg-white");
+    $("#nav-menu-box").addClass("bg-dark");
+
+    $("body").addClass("prefers-dark");
+
+    // $("#header-tabnav>li").removeClass("text-black");
+    // $("#header-tabnav>li").addClass("text-light");
+
+    // 字体颜色
 }
 
+function onLightMode() {
+    // console.log("图片移除深色滤镜");
+    $("img").css("filter", "");
+    // 将导航栏的bg-dark class改为bg-light
+    $("#header-tabnav").removeClass("bg-dark");
+    $("#header-tabnav").addClass("bg-light");
+    $("#nav-view-all-box").addClass("bg-white");
+    $("#nav-view-all-box").removeClass("bg-dark");
+    $("#nav-menu-box").addClass("bg-white");
+    $("#nav-menu-box").removeClass("bg-dark");
+
+    $("body").removeClass("prefers-dark");
+
+    // $("#header-tabnav>li").removeClass("text-light");
+    // $("#header-tabnav>li").addClass("text-black");
+}
 
 // If `prefers-color-scheme` is not supported, fall back to light mode.
 // i.e. In this case, inject the `light` CSS before the others, with
@@ -17,7 +43,7 @@ if (window.matchMedia("(prefers-color-scheme: dark)").media === "not all") {
     document.documentElement.style.display = "none";
     document.head.insertAdjacentHTML(
         "beforeend",
-        "<link id=\"css\" rel=\"stylesheet\" href=\"assets/css/index.css\" onload=\"document.documentElement.style.display = ''\">"
+        "<link id=\"css\" rel=\"stylesheet\" href=\"assets/css/theme.css\" onload=\"document.documentElement.style.display = ''\">"
     );
 }
 
@@ -50,27 +76,9 @@ docReady(function() {
 
         // 如果是切换到深色模式就给图片添加深色滤镜
         if (new_s == "dark") {
-            // 为图片添加深色滤镜
-            // $("img").css("filter", "invert(1) hue-rotate(180deg)");
-            // console.log("图片添加深色滤镜");
-            $("img").css("filter", "brightness(0.7)");
-            // 将导航栏的bg-light class改为bg-dark
-            $("#header-tabnav").removeClass("bg-light");
-            $("#header-tabnav").addClass("bg-dark");
-
-            // $("#header-tabnav>li").removeClass("text-black");
-            // $("#header-tabnav>li").addClass("text-light");
-
-            // 字体颜色
+            onNightMode();
         } else {
-            // console.log("图片移除深色滤镜");
-            $("img").css("filter", "");
-            // 将导航栏的bg-dark class改为bg-light
-            $("#header-tabnav").removeClass("bg-dark");
-            $("#header-tabnav").addClass("bg-light");
-
-            // $("#header-tabnav>li").removeClass("text-light");
-            // $("#header-tabnav>li").addClass("text-black");
+            onLightMode();
         }
 
         if (persist) {

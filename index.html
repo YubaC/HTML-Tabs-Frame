@@ -11,6 +11,7 @@
     *** CODE FOR THE CSS STARTS HERE
     *************************************************************************
     -->
+    <link rel="stylesheet" href="assets/css/main.css">
 
     <!-- Bootstrap CSS -->
     <!-- Inform modern browsers that this page supports both dark and light color schemes,
@@ -18,9 +19,9 @@
     <meta name="color-scheme" content="light dark">
 
     <!-- Load the alternate CSS first ... -->
-    <link id="css-dark" rel="stylesheet" href="assets/css/index-night.css" media="(prefers-color-scheme: dark)">
+    <link id="css-dark" rel="stylesheet" href="assets/css/theme-night.css" media="(prefers-color-scheme: dark)">
     <!-- ... and then the primary CSS last for a fallback on very old browsers that don't support media filtering -->
-    <link id="css-light" rel="stylesheet" href="assets/css/index.css" media="(prefers-color-scheme: light)">
+    <link id="css-light" rel="stylesheet" href="assets/css/theme.css" media="(prefers-color-scheme: light)">
     <!-- / Bootstrap CSS -->
 
     <title>Cheatsheet · Bootstrap v5.0</title>
@@ -67,14 +68,15 @@
 
     <!-- Tab list -->
     <div id="nav-view-all-box" class="bg-white" style="display:none;">
-        <ul id="nav-view-all-box-options-list" class="list-group border-bottom">
+        <ul id="nav-view-all-box-options-list" class="list-group border-bottom rounded-0">
             <!-- <li key="nav-view-all-box-options-list-search" tabindex="0" class="tabnav-options lang" role="tab"></li> -->
             <!-- Search -->
             <li>
                 <form id="search" action="">
                     <div class="mb-3 mt-3 d-grid">
                         <input class="ms-1 me-1" id="search-input" placeholder="Search... (Ctrl + S)" name="search">
-                        <label tabindex="-1" key="nav-view-all-box-options-list-search" for="search-input" class="form-label lang visually-hidden"></label>
+                        <label tabindex="-1" key="nav-view-all-box-options-list-search" for="search-input"
+                            class="form-label lang visually-hidden"></label>
                     </div>
                 </form>
             </li>
@@ -87,17 +89,19 @@
     <!-- Menu list -->
     <div style="display:none;" id="nav-menu-box" class="bg-white">
         <ul class="list-group" id="nav-menu-box-menu-list">
-            <li class="nav-item d-grid"><button class="tabbtn tabbtn-outline-primary tabbtn-sm" onclick="openSettings()">Settings</button></li>
+            <li class="nav-item d-grid"><button class="tabbtn tabbtn-light tabbtn-sm"
+                    onclick="openSettings()">Settings</button></li>
             <li>
                 <div class="form-check form-switch tooltip-demo">
-                    <input class="form-check-input" type="checkbox" id="toggle-btn" title="" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Toggle Dark Mode or press [D] hot-key">
-                    <label class="form-check-label" for="toggle-btn"></label>
+                    <input class="form-check-input" type="checkbox" id="toggle-btn">
+                    <label class="ms-2 form-check-label" for="toggle-btn">深色模式</label>
                 </div>
             </li>
         </ul>
     </div>
 
-    <div id="tabContent"></div>
+    <div id="tabContent" class="tabContent"></div>
+    <iframe id="tabContentIframe" class="tabContent" src="" frameborder="0"></iframe>
 
     <!-- <iframe class="tab-pane fade" src="settings.html" id="menu1"></iframe>
     <iframe class="tab-pane fade" src="settings.html" id="menu2"></iframe> -->

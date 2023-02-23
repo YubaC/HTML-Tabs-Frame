@@ -139,14 +139,3 @@ function switchLanguage(language) {
     //         });
     //     })
 }
-
-// 点击按钮后更改语言
-function goSwitchLanguage(lang) {
-    // update localStorage key
-    if ('localStorage' in window) {
-        localStorage.setItem('lang', lang);
-        // console.log(localStorage.getItem('lang'));
-    }
-
-    switchLanguage(lang);
-}

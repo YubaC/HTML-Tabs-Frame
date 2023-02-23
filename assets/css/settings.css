@@ -432,7 +432,7 @@ main {
     border-left: 4px solid #055160;
 }
 
-.form-switch .form-check-input {
+#tabContent .form-switch .form-check-input {
     width: 60px;
     height: 30px;
 }

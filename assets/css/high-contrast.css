@@ -1,0 +1,21 @@
+/* 设置高对比度 */
+
+
+/* 将所有的文字 设置为黑色 */
+
+
+/* * {
+    color: #000 !important;
+} */
+
+
+/* Dark mode only */
+
+.prefers-dark .nav-link,
+.prefers-dark .nav-link:hover,
+.prefers-dark .nav-link:focus,
+.prefers-dark .nav-link:active,
+.prefers-dark .nav-link:visited,
+.prefers-dark .btn.btn-outline-primary {
+    color: var(--bs-body-color);
+}
