@@ -48,6 +48,7 @@ HTML Tabs Frame 可以创建一个网页内的多标签页切换器，它可以�
     │   │   ├── languages.js // 负责加载语言包
     │   │   ├── load-settings.js // 负责加载设置项以及资源
     │   │   ├── nav.js // 标签导航栏脚本
+    │   │   ├── reload-settings.js // 当在设置页面中更改设置或添加新的内容div或iframe时重新加载设置项
     │   │   ├── theme.js // 加载主题脚本（light/night）
     │   │   └── ...
     │   │

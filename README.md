@@ -48,6 +48,7 @@ Use `index.html` to start.
     │   │   ├── languages.js // responsible for loading language packs.
     │   │   ├── load-settings.js // responsible for loading settings and resources.
     │   │   ├── nav.js // script for the tab navigation bar.
+    │   │   ├── reload-settings.js // Reload the settings item when changing settings or adding new content div or iframe in the settings page.
     │   │   ├── theme.js // script for loading themes (light/night).
     │   │   └── ...
     │   │
