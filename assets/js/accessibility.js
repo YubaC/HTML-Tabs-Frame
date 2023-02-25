@@ -217,9 +217,19 @@ document.addEventListener("keydown", function (e) {
   switch (e.keyCode) {
     case hotkey.navBox.esc:
       if (boxOpened) {
+        // 如果打开的是view all box
+        if ($navViewAllBox.is(":visible")) {
+          // 聚焦到view all按钮
+          $tabViewAllBtn.focus();
+        }
+        // 如果打开的是menu box
+        else if ($MenuBox.is(":visible")) {
+          // 聚焦到menu按钮
+          $tabMenuBtn.focus();
+        }
         e.preventDefault();
         $navViewAllBox.hide();
-        $navMenuBox.hide();
+        $MenuBox.hide();
         boxOpened = false;
       }
   }

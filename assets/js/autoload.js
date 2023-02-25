@@ -45,7 +45,7 @@ const jsFiles = [
 function loadExternalResource(url, type) {
   return new Promise((resolve, reject) => {
     let tag;
-    console.log(url);
+    // console.log(url);
 
     if (type === "css") {
       tag = document.createElement("link");
