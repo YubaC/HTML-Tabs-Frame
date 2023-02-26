@@ -6,6 +6,8 @@
 
 一个无障碍的网页内多标签页切换器。
 
+预览（我们推荐Chrome浏览器）：[Github Pages](https://yubac.github.io/HTML-Tabs-Frame)
+
 ## Introduce
 
 HTML Tabs Frame 是一个无障碍的网页内多标签页切换器，它可以让你在网页内创建多个标签页，每个标签页都可以包含任意内容，包括图片、视频、音频、表格、表单等等。

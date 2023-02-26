@@ -8,24 +8,31 @@
             "keep": false
         },
         {
-            "title": "About",
+            "title": "New Tab",
             "src": "newTab.html",
-            "data": "This is the about page",
+            "data": "This is the new tab",
             "type": "inner",
             "keep": false
         },
         {
-            "title": "Contact",
+            "title": "Settings",
             "src": "settings.html",
-            "data": "This is the contact page",
+            "data": "This is the Settings page",
             "type": "inner",
             "keep": true
         },
         {
-            "title": "Baidu",
+            "title": "Github",
+            "src": "https://github.com/YubaC/HTML-Tabs-Frame",
+            "data": "This is the Github page",
+            "type": "inner",
+            "keep": true
+        },
+        {
+            "title": "套娃！",
             "//": "https://yubac.github.io/2810security.github.io",
-            "src": "https://github.com/YubaC/filemanager",
-            "data": "This is the contact page",
+            "src": "https://yubac.github.io/HTML-Tabs-Frame/",
+            "data": "Inner's inner!",
             "type": "iframe",
             "keep": true
         }

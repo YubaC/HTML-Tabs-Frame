@@ -6,6 +6,8 @@
 
 A web page tab switcher with accessibility.
 
+Preview(We suggest Google Chrome): [Github Pages](https://yubac.github.io/HTML-Tabs-Frame)
+
 ## Introduce
 
 HTML Tabs Frame is a web page tab switcher with accessibility. It allows you to create multiple tabs in a web page, each of which can contain any content, including images, videos, audios, tables, forms, etc.
