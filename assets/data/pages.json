@@ -20,21 +20,6 @@
             "data": "This is the Settings page",
             "type": "inner",
             "keep": true
-        },
-        {
-            "title": "Github",
-            "src": "https://github.com/YubaC/HTML-Tabs-Frame",
-            "data": "This is the Github page",
-            "type": "inner",
-            "keep": true
-        },
-        {
-            "title": "套娃！",
-            "//": "https://yubac.github.io/2810security.github.io",
-            "src": "https://yubac.github.io/HTML-Tabs-Frame/",
-            "data": "Inner's inner!",
-            "type": "iframe",
-            "keep": true
         }
     ],
 

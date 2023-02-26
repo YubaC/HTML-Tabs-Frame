@@ -312,13 +312,14 @@ function sendSettings() {
 //     return "确认离开当前页面吗？未保存的数据将会丢失";
 // }
 
+// *为了美观暂时不使用
 // need-save被点击后触发提示
-$(".need-save").click(function () {
-    // 留出顶部空间
-    $(".main-display").css("padding-top", "80px");
-    // 提示用户设置未保存
-    $("#messages").show();
-});
+// $(".need-save").click(function () {
+//     // 留出顶部空间
+//     $(".main-display").css("padding-top", "80px");
+//     // 提示用户设置未保存
+//     $("#messages").show();
+// });
 
 var fontSizeSlider = $("#font-size-slider");
 // font_list = ["xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large"];

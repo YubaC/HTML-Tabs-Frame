@@ -106,7 +106,7 @@ function newPage(options) {
     openedWindows++;
     options.id = openedWindows;
 
-    // 在pages内添加新的页面
+    // 在page内添加新的页面
     page.opened.push(options);
 
     // 允许聚焦当前活跃的页面
@@ -472,7 +472,7 @@ function changeTabContent(src) {
     }
 
     // 2. look into the olds
-    // 寻找data-id数字那和pages.current.id一样的元素并将其class设为activeContentBoxClass
+    // 寻找data-id数字那和page.current.id一样的元素并将其class设为activeContentBoxClass
     // 如果找不到，就新建一个div并将其class设为activeContentBoxClass
 
     // 选中.tabContentBox中data-id属性值和page.current.id一样的元素
@@ -740,6 +740,11 @@ $boxMusk.on("click", function () {
  * Close the active window.
  */
 function closeWin() {
+    // 寻找data-id数字那和page.current.id一样的元素并删除
+    // 为了防止误删，先判断是否有这个元素
+    if ($(".tabContentActive[data-id='" + page.current.id + "']").length > 0) {
+        $(".tabContentActive[data-id='" + page.current.id + "']").remove();
+    }
     // 获取当前active的tab
     var $activeTab = $(".tabnav-item.active");
     // 为这个tab添加class tab-to-close
