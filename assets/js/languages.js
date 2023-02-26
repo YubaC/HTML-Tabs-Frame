@@ -7,23 +7,22 @@ var lang;
 // All the text in the website
 var html_lang = {};
 
-
 // Check for localStorage support
-if ('localStorage' in window) {
-    lang = localStorage.getItem('lang') || navigator.language.slice(0, 2);
+if ("localStorage" in window) {
+    lang = localStorage.getItem("lang") || navigator.language.slice(0, 2);
     if (!Object.keys(languages).includes(lang)) {
-        lang = 'en';
+        lang = "en";
     }
 }
 switchLanguage(lang);
 
 /**
- * Load the language file 
- * and replace the text of all elements 
+ * Load the language file
+ * and replace the text of all elements
  * with class="lang" through the "key" attr.
  */
 function loadLanguage() {
-    $.each(html_lang, function(key, value) {
+    $.each(html_lang, function (key, value) {
         if (value != "") {
             $(".lang[key='" + key + "']").text(value);
         }
@@ -48,12 +47,18 @@ function loadLanguage() {
             // 如果启用了提示，并且存在key+"-title"的内容，就添加title
             // Add title to those elements that have it
             if (settings.tips) {
-                $(".lang[key='" + key + "']").attr("title", html_lang[key + "-title"]);
+                $(".lang[key='" + key + "']").attr(
+                    "title",
+                    html_lang[key + "-title"]
+                );
             }
 
             // Add alt to images
             if ($(".lang[key='" + key + "']").is("img")) {
-                $(".lang[key='" + key + "']").attr("alt", html_lang[key + "-title"]);
+                $(".lang[key='" + key + "']").attr(
+                    "alt",
+                    html_lang[key + "-title"]
+                );
             }
 
             return;
@@ -71,23 +76,24 @@ function switchLanguage(language) {
     // 当在language.json文件里查找不到对应的keys时，会自动使用en.json文件里的内容
 
     // 合并两个语言文件
-    $.getJSON("assets/lang/" + language + ".json", function(data) {
-        $.each(data, function(key, value) {
+    $.getJSON("assets/lang/" + language + ".json", function (data) {
+        $.each(data, function (key, value) {
             html_lang[key] = value;
-        })
-    }).then(
-        $.getJSON("assets/lang/en.json", function(data) {
-            $.each(data, function(key, value) {
-                // 如果html_lang中不存在这个key，就添加
-                if (!html_lang[key]) {
-                    html_lang[key] = value;
-                }
-            });
-        })
-    )
+        });
+    })
+        .then(
+            $.getJSON("assets/lang/en.json", function (data) {
+                $.each(data, function (key, value) {
+                    // 如果html_lang中不存在这个key，就添加
+                    if (!html_lang[key]) {
+                        html_lang[key] = value;
+                    }
+                });
+            })
+        )
 
-    // 替换所有的class="lang"的元素的内容
-    .then(loadLanguage);
+        // 替换所有的class="lang"的元素的内容
+        .then(loadLanguage);
 
     // $.getJSON("assets/lang/" + language + ".json", function(data) {
     //         $.each(data, function(key, value) {

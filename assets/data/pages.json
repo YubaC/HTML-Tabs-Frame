@@ -1,36 +1,36 @@
 {
-  "pages": [
-    {
-      "title": "Home",
-      "src": "welcome.html",
-      "data": "This is the home page",
-      "type": "inner",
-      "keep": false
-    },
-    {
-      "title": "About",
-      "src": "newTab.html",
-      "data": "This is the about page",
-      "type": "inner",
-      "keep": false
-    },
-    {
-      "title": "Contact",
-      "src": "settings.html",
-      "data": "This is the contact page",
-      "type": "inner",
-      "keep": true
-    },
-    {
-      "title": "Baidu",
-      "//": "https://yubac.github.io/2810security.github.io",
-      "src": "https://github.com/YubaC/filemanager",
-      "data": "This is the contact page",
-      "type": "iframe",
-      "keep": true
-    }
-  ],
+    "pages": [
+        {
+            "title": "Home",
+            "src": "welcome.html",
+            "data": "This is the home page",
+            "type": "inner",
+            "keep": false
+        },
+        {
+            "title": "About",
+            "src": "newTab.html",
+            "data": "This is the about page",
+            "type": "inner",
+            "keep": false
+        },
+        {
+            "title": "Contact",
+            "src": "settings.html",
+            "data": "This is the contact page",
+            "type": "inner",
+            "keep": true
+        },
+        {
+            "title": "Baidu",
+            "//": "https://yubac.github.io/2810security.github.io",
+            "src": "https://github.com/YubaC/filemanager",
+            "data": "This is the contact page",
+            "type": "iframe",
+            "keep": true
+        }
+    ],
 
-  "scrollLeft": 0,
-  "activePage": 1
+    "scrollLeft": 0,
+    "activePage": 1
 }
