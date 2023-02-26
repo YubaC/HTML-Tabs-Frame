@@ -2,7 +2,7 @@ function onNightMode() {
     // 为图片添加深色滤镜
     // $("img").css("filter", "invert(1) hue-rotate(180deg)");
     // console.log("图片添加深色滤镜");
-    $("img").css("filter", "brightness(0.7)");
+    // $('img:not([src$="#night-mode-only"])').css("filter", "brightness(0.7)");
     // 将导航栏的bg-light class改为bg-dark
     $("#header-tabnav").removeClass("bg-light");
     $("#header-tabnav").addClass("bg-dark");
@@ -21,7 +21,7 @@ function onNightMode() {
 
 function onLightMode() {
     // console.log("图片移除深色滤镜");
-    $("img").css("filter", "");
+    $('img:not([src$="#night-mode-only"])').css("filter", "");
     // 将导航栏的bg-dark class改为bg-light
     $("#header-tabnav").removeClass("bg-dark");
     $("#header-tabnav").addClass("bg-light");
@@ -79,8 +79,12 @@ docReady(function () {
 
         // 如果是切换到深色模式就给图片添加深色滤镜
         if (new_s == "dark") {
+            // 将<meta name="theme-color" content="light">改为night
+            $("meta[name='theme-color']").attr("content", "night");
             onNightMode();
         } else {
+            // 将<meta name="theme-color" content="night">改为light
+            $("meta[name='theme-color']").attr("content", "light");
             onLightMode();
         }
 

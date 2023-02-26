@@ -1,0 +1,92 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <title>welcome</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div> -->
+
+<div class="text-center">
+    <h1>Welcome To -- Yuba Technology!</h1>
+
+    <img width="300px" class="mx-auto" alt="Yuba Technology logo" src="assets/images/logo.svg#light-mode-only">
+    <img width="300px" class="mx-auto" alt="Yuba Technology logo" src="assets/images/logo-night.svg#night-mode-only">
+
+    <p><img src="https://forthebadge.com/images/badges/built-by-developers.svg" alt="forthebadge"> <img
+            src="https://forthebadge.com/images/badges/built-with-love.svg" alt="forthebadge"> <img
+            src="https://forthebadge.com/images/badges/open-source.svg" alt="forthebadge"></p>
+    <h2>Organization Introduction</h2>
+
+    <p><strong>Theory</strong> is when you know everything but nothing works.</p>
+    <p><strong>Practice</strong> is when everything works but no one knows why.</p>
+    <p><strong>In our organization</strong>,theory and practice are combined:</p>
+    <p>Nothing works and no one knows why.</p>
+    <script>
+        // 获取meta标签
+        const metaTag = document.querySelector('meta[name="theme-color"]')
+
+        // 监听meta标签变化
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'content') {
+                    const newTheme = metaTag.getAttribute('content')
+                    if (newTheme === 'night') {
+                        changeStyleToNight();
+                    } else if (newTheme === 'light') {
+                        changeStyleToLight();
+                    }
+                }
+            });
+        })
+
+        // 开始监听
+        observer.observe(metaTag, { attributes: true })
+
+        function changeStyleToNight() {
+            // 遍历所有的img标签
+            $('img:not([src$="#night-mode-only"])').css("filter", "brightness(0.7)");
+            const images = document.querySelectorAll('img');
+            images.forEach((image) => {
+                // 查找src末尾为#night-mode-only的图片并设置显示
+                if (image.getAttribute('src').endsWith('#night-mode-only')) {
+                    image.style.display = 'block';
+                } else if (image.getAttribute('src').endsWith('#light-mode-only')) {
+                    image.style.display = 'none';
+                }
+
+            })
+        }
+
+        function changeStyleToLight() {
+            // 遍历所有的img标签
+            $('img:not([src$="#night-mode-only"])').css("filter", "");
+            const images = document.querySelectorAll('img');
+            images.forEach((image) => {
+                // 查找src末尾为#light-mode-only的图片并设置显示
+                if (image.getAttribute('src').endsWith('#light-mode-only')) {
+                    image.style.display = 'block';
+                } else if (image.getAttribute('src').endsWith('#night-mode-only')) {
+                    image.style.display = 'none';
+                }
+            })
+        }
+
+        function enterTab() {
+            // 判断当前主题
+            const currentTheme = metaTag.getAttribute('content');
+            if (currentTheme === 'night') {
+                changeStyleToNight();
+            } else if (currentTheme === 'light') {
+                changeStyleToLight();
+            }
+        }
+
+    </script>
+</div>
+<!-- </body>
+
+</html> -->
