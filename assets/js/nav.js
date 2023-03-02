@@ -463,13 +463,19 @@ function changeTabContent(src) {
     // Instead, we just need to execute the reenterTab function.
 
     //   1. reenter
-    if (page.before.type === "inner" && src === oldSrc) {
-        // 如果存在名为reenterTab的函数，就执行它
-        if (typeof reenterTab === "function") {
-            reenterTab();
-        }
-        return;
-    }
+    // TODO: Still have so many bugs. Need to fix it later.
+    // if (
+    //     page.before.type === "inner" &&
+    //     page.before.src === src &&
+    //     page.before.keep === false &&
+    //     page.current.keep === false
+    // ) {
+    //     // 如果存在名为reenterTab的函数，就执行它
+    //     if (typeof reenterTab === "function") {
+    //         reenterTab();
+    //     }
+    //     return;
+    // }
 
     // 2. look into the olds
     // 寻找data-id数字那和page.current.id一样的元素并将其class设为activeContentBoxClass
@@ -503,6 +509,7 @@ function changeTabContent(src) {
                         '"></div>'
                 );
             } else {
+                console.log("page.current.id", page.current.id);
                 var newContent = $tabContent;
                 newContent
                     .attr("data-id", page.current.id)
