@@ -10,7 +10,7 @@
 <body>
     <div> -->
 
-<div class="text-center">
+<div class="text-center mt-4">
     <h1>Welcome To -- Yuba Technology!</h1>
 
     <img width="300px" class="mx-auto" alt="Yuba Technology logo" src="assets/images/logo.svg#light-mode-only">
@@ -26,11 +26,12 @@
     <p><strong>In our organization</strong>,theory and practice are combined:</p>
     <p>Nothing works and no one knows why.</p>
     <script>
+        // 使用var是因为这个page的keep是false，所以每次进入都会重新执行这个js，所以会有重定义的问题，所以使用var
         // 获取meta标签
-        const metaTag = document.querySelector('meta[name="theme-color"]')
+        var metaTag = document.querySelector('meta[name="theme-color"]')
 
         // 监听meta标签变化
-        const observer = new MutationObserver((mutations) => {
+        var observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.attributeName === 'content') {
                     const newTheme = metaTag.getAttribute('content')

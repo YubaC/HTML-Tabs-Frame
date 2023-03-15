@@ -149,8 +149,11 @@
     min-height: 20px;
     height: 38px;
     border: none;
-    scrollbar-width: thin;
+    scrollbar-width: none;
+    /* 隐藏滚动条 */
+    -ms-overflow-style: none;
 
+    /* 隐藏滚动条 */
     &::-webkit-scrollbar
     {
         min-width: 16px;
@@ -182,7 +185,6 @@
     / width: 100vw !important; /
     / left: 0 !important; /
     / 滚动条设置为thin */
-    scrollbar-width: thin;
     min-height: 20px;
     height: 38px;
     border: none;
