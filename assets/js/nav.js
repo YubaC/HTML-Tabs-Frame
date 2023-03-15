@@ -450,11 +450,11 @@ function changeTabContent(src) {
         leaveTab();
     }
 
-    // 清除tabContent、tabContentIframe的内容
-    $tabContent.html("");
-    $tabContent.attr("data-id", "");
-    $tabContentIframe.src = "";
-    $tabContentIframe.attr("data-id", "");
+    // 如果keep=false就删除
+    if (page.before.keep === false) {
+        // 删除data-id = id的div或iframe
+        $(`[data-id="${page.before.id}"].${contentBoxClass}`).remove();
+    }
 
     // *Now we've closed the old, and we need to open the new.
 
@@ -482,9 +482,8 @@ function changeTabContent(src) {
     // 如果找不到，就新建一个div并将其class设为activeContentBoxClass
 
     // 选中.tabContentBox中data-id属性值和page.current.id一样的元素
-    var $contentBox = $(
-        "[data-id='" + page.current.id + "']" + "." + contentBoxClass
-    );
+    var $contentBox = $(`[data-id="${page.current.id}"].${contentBoxClass}`);
+
     if ($contentBox.length !== 0) {
         // 如果找到了，就将其class设为activeContentBoxClass
         $contentBox
@@ -500,23 +499,9 @@ function changeTabContent(src) {
         // 如果没有找到，就创建一个新的元素
         // 创建元素
         if (page.current.type === "inner") {
-            if (page.current.keep) {
-                var newContent = $(
-                    '<div class="' +
-                        activeContentBoxClass +
-                        '" data-id="' +
-                        page.current.id +
-                        '"></div>'
-                );
-            } else {
-                console.log("page.current.id", page.current.id);
-                var newContent = $tabContent;
-                newContent
-                    .attr("data-id", page.current.id)
-                    .removeClass(contentBoxClass)
-                    .addClass(activeContentBoxClass);
-            }
-
+            var newContent = $(
+                `<div class="${activeContentBoxClass}" data-id="${page.current.id}"></div>`
+            );
             // Now it is time to request the src.
             // 请求src的内容，然后替换到content中
             // 加载完成后，如果存在名为enterTab的函数，就执行它
@@ -524,6 +509,7 @@ function changeTabContent(src) {
                 if (typeof enterTab === "function") {
                     enterTab();
                 }
+
                 var scrollTop = localStorage.getItem(page.current.id);
                 newContent.scrollTop(scrollTop);
 
@@ -531,23 +517,9 @@ function changeTabContent(src) {
                 loadLanguage();
             });
         } else if (page.current.type === "iframe") {
-            if (page.current.keep) {
-                var newContent = $(
-                    '<iframe class="' +
-                        activeContentBoxClass +
-                        '" src="' +
-                        page.current.src +
-                        '" data-id="' +
-                        page.current.id +
-                        '"></iframe>'
-                );
-            } else {
-                var newContent = $tabContentIframe;
-                newContent
-                    .attr("data-id", page.current.id)
-                    .removeClass(contentBoxClass)
-                    .addClass(activeContentBoxClass);
-            }
+            var newContent = $(
+                `<iframe class="${activeContentBoxClass}" src="${page.current.src}" data-id="${page.current.id}"></iframe>`
+            );
         }
 
         // 将新创建的元素添加到document中
@@ -568,6 +540,7 @@ $tabAddBtn.on("click", function () {
         src: "newtab.html",
         index: index,
         isActive: true,
+        keep: true,
     });
 });
 
