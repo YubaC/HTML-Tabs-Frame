@@ -38,9 +38,6 @@ const activeClass = "active";
 const contentBoxClass = "tabContent";
 const activeContentBoxClass = "tabContentActive";
 
-const $tabContent = $("#tabContent");
-const $tabContentIframe = $("#tabContentIframe");
-
 // Base path
 // var base = "file:///";
 const base = "";
@@ -487,7 +484,7 @@ function changeTabContent() {
 
         if (page.current.type === "inner") {
             newContent = $(
-                `<div class="${activeContentBoxClass}" data-id="${page.current.id}"></div>`
+                `<div class="${activeContentBoxClass}" data-id="${page.current.id}" tabindex="-1"></div>`
             );
             newContent.load(src, function () {
                 if (typeof enterTab === "function") {
@@ -504,7 +501,7 @@ function changeTabContent() {
             });
         } else if (page.current.type === "iframe") {
             newContent = $(
-                `<iframe class="${activeContentBoxClass}" src="${page.current.src}" data-id="${page.current.id}"></iframe>`
+                `<iframe class="${activeContentBoxClass}" src="${page.current.src}" data-id="${page.current.id}" tabindex="-1"></iframe>`
             );
         }
 
