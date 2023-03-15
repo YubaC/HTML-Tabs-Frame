@@ -416,7 +416,7 @@ function reBlindNavLinkClick() {
             }
         }
 
-        changeTabContent(tabSrc);
+        changeTabContent();
 
         slideXToActiveTab($(this));
     });
@@ -426,43 +426,37 @@ function reBlindNavLinkClick() {
 // ------------------------------
 /**
  * Request the src and replace the content.
- * @param {String} src The src of the page to be requested.
  */
-function changeTabContent(src) {
+
+function changeTabContent() {
+    const src = page.current.src;
     // *Leave tab
     // Save the scroll position of the tabcontent box.
     // 保存tabcontent的滚动位置
-    var oldActivePage = $("." + activeContentBoxClass);
-    var tabContentScrollTop = oldActivePage.scrollTop();
+    const oldActivePage = $("." + activeContentBoxClass);
+    const tabContentScrollTop = oldActivePage.scrollTop();
     // Save to localStorage
     localStorage.setItem(page.before.id, tabContentScrollTop);
 
     oldActivePage.removeClass(activeContentBoxClass).addClass(contentBoxClass);
 
-    // *这个方法暂不可用
-    //   // 如果是iframe元素就冷冻它
-    //   if (oldActivePage.is("iframe") && oldActivePage !== $tabContentIframe) {
-    //     oldActivePage.freezeiframe();
-    //     // console.log("freeze");
-    //   }
     // 如果存在名为leaveTab的函数，就执行它
+    // Run leaveTab function, if it exists and the type of the page is "inner".
     if (page.before.type === "inner" && typeof leaveTab === "function") {
         leaveTab();
     }
 
-    // 如果keep=false就删除
+    // 如果keep==false就删除以节省内存
+    // If keep==false, delete the element to save memory.
     if (page.before.keep === false) {
-        // 删除data-id = id的div或iframe
         $(`[data-id="${page.before.id}"].${contentBoxClass}`).remove();
     }
-
     // *Now we've closed the old, and we need to open the new.
-
+    // 1. reenter
     // Sometimes the src is the same as the oldSrc, so we need to check it.
     // If src is the same as oldSrc, we don't need to request the src.
     // Instead, we just need to execute the reenterTab function.
 
-    //   1. reenter
     // TODO: Still have so many bugs. Need to fix it later.
     // if (
     //     page.before.type === "inner" &&
@@ -482,42 +476,34 @@ function changeTabContent(src) {
     // 如果找不到，就新建一个div并将其class设为activeContentBoxClass
 
     // 选中.tabContentBox中data-id属性值和page.current.id一样的元素
-    var $contentBox = $(`[data-id="${page.current.id}"].${contentBoxClass}`);
+    const $contentBox = $(`[data-id="${page.current.id}"].${contentBoxClass}`);
 
     if ($contentBox.length !== 0) {
-        // 如果找到了，就将其class设为activeContentBoxClass
         $contentBox
             .removeClass(contentBoxClass)
             .addClass(activeContentBoxClass);
-        // *这个方法暂不可用
-        // // 如果是iframe元素就解冻它
-        // if ($contentBox.is("iframe")) {
-        //   $contentBox.unfreezeiframe();
-        //   // console.log("unfreeze");
-        // }
     } else {
-        // 如果没有找到，就创建一个新的元素
-        // 创建元素
+        let newContent;
+
         if (page.current.type === "inner") {
-            var newContent = $(
+            newContent = $(
                 `<div class="${activeContentBoxClass}" data-id="${page.current.id}"></div>`
             );
-            // Now it is time to request the src.
-            // 请求src的内容，然后替换到content中
-            // 加载完成后，如果存在名为enterTab的函数，就执行它
             newContent.load(src, function () {
                 if (typeof enterTab === "function") {
                     enterTab();
                 }
 
-                var scrollTop = localStorage.getItem(page.current.id);
+                // 从localStorage中加载滚动条位置
+                // Load scroll position from localStorage.
+                const scrollTop = localStorage.getItem(page.current.id);
                 newContent.scrollTop(scrollTop);
 
-                // Load language file
+                // Load language file after the page is loaded. (inner type only)
                 loadLanguage();
             });
         } else if (page.current.type === "iframe") {
-            var newContent = $(
+            newContent = $(
                 `<iframe class="${activeContentBoxClass}" src="${page.current.src}" data-id="${page.current.id}"></iframe>`
             );
         }
