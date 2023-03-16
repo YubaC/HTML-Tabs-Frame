@@ -9,9 +9,9 @@ var html_lang = {};
 
 // Check for localStorage support
 if ("localStorage" in window) {
-    lang = localStorage.getItem("lang") || navigator.language.slice(0, 2);
+    lang = localStorage.getItem("lang") || navigator.language;
     if (!Object.keys(languages).includes(lang)) {
-        lang = "en";
+        lang = "en-US";
     }
 }
 switchLanguage(lang);
@@ -71,6 +71,8 @@ function loadLanguage() {
  * @param {String} language The language to be shown.
  */
 function switchLanguage(language) {
+    settings.language = language;
+    $("html").attr("lang", language);
     // 读取对应的language + .json文件和en.json文件，并替换新的语言
     // language.json文件的格式为：{"key":"value"}
     // 当在language.json文件里查找不到对应的keys时，会自动使用en.json文件里的内容
@@ -82,7 +84,7 @@ function switchLanguage(language) {
         });
     })
         .then(
-            $.getJSON("assets/lang/en.json", function (data) {
+            $.getJSON("assets/lang/en-US.json", function (data) {
                 $.each(data, function (key, value) {
                     // 如果html_lang中不存在这个key，就添加
                     if (!html_lang[key]) {

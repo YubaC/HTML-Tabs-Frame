@@ -486,11 +486,7 @@ function changeTabContent() {
             newContent = $(
                 `<div class="${activeContentBoxClass}" data-id="${page.current.id}" tabindex="-1"></div>`
             );
-            newContent.load(src, function () {
-                if (typeof enterTab === "function") {
-                    enterTab();
-                }
-
+            newContent.load(src, () => {
                 // 从localStorage中加载滚动条位置
                 // Load scroll position from localStorage.
                 const scrollTop = localStorage.getItem(page.current.id);
@@ -498,6 +494,17 @@ function changeTabContent() {
 
                 // Load language file after the page is loaded. (inner type only)
                 loadLanguage();
+
+                const deferred = $.Deferred();
+                $("script, link").on("load", () => {
+                    deferred.resolve();
+                });
+                $.when(deferred).done(() => {
+                    // 所有外部资源都加载完成后执行enterTab函数
+                    if (typeof enterTab === "function") {
+                        enterTab();
+                    }
+                });
             });
         } else if (page.current.type === "iframe") {
             newContent = $(

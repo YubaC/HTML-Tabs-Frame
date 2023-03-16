@@ -5,9 +5,7 @@
  * Reloads the settings, this is called when the settings are changed in the settings page or when a new content div or iframe is added.
  */
 function reloadSettings() {
-    var $itemsToUpdate = $(
-        "." + contentBoxClass + ", ." + contentBoxClass + "Active"
-    );
+    var $itemsToUpdate = $(`.${activeContentBoxClass}`);
 
     //   !Settings to be updated
     //   * font-size

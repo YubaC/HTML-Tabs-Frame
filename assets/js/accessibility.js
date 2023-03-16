@@ -201,6 +201,7 @@ function reBlindHotKey() {
                 e.preventDefault();
                 // 点击当前选中的标签页
                 $navViewAllBox.find(":focus").click();
+                $tabViewAllBtn.focus();
                 break;
 
             // ctrl + s
