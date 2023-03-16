@@ -12,6 +12,8 @@ Preview(We suggest Google Chrome): [Github Pages](https://yubac.github.io/HTML-T
 
 HTML Tabs Frame is a web page tab switcher with accessibility. It allows you to create multiple tabs in a web page, each of which can contain any content, including images, videos, audios, tables, forms, etc.
 
+The intent of this project is to provide an accessible in-page multi-tab switcher for desktop applications such as QT, as QT's QWebEngineView does not support accessibility very well, so it can only be implemented via the web. However, this project can be used in any other scenario where an accessible in-page multi-tab switcher is needed.
+
 HTML Tabs Frame can create a multi-tab switcher in a web page, allowing users to switch between different tabs within the web page without leaving the current web page.
 
 We provide two types of tabs:

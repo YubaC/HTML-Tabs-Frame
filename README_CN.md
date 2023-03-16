@@ -6,11 +6,13 @@
 
 一个无障碍的网页内多标签页切换器。
 
-预览（我们推荐Chrome浏览器）：[Github Pages](https://yubac.github.io/HTML-Tabs-Frame)
+预览（我们推荐 Chrome 浏览器）：[Github Pages](https://yubac.github.io/HTML-Tabs-Frame)
 
 ## Introduce
 
 HTML Tabs Frame 是一个无障碍的网页内多标签页切换器，它可以让你在网页内创建多个标签页，每个标签页都可以包含任意内容，包括图片、视频、音频、表格、表单等等。
+
+这个项目的本意是，为 QT 等桌面应用提供一个无障碍的网页内多标签页切换器，因为 QT 的 QWebEngineView 对无障碍的支持并不好，所以只能通过网页来实现。但是，这个项目也可以用于其他任何需要无障碍的网页内多标签页切换器的场景。
 
 HTML Tabs Frame 可以创建一个网页内的多标签页切换器，它可以让用户在网页内切换不同的标签页，而不需要离开当前网页。
 
