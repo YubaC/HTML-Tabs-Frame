@@ -24,7 +24,7 @@ switchLanguage(lang);
 function loadLanguage() {
     $.each(html_lang, function (key, value) {
         if (value != "") {
-            $(".lang[key='" + key + "']").text(value);
+            $(".lang[data-lang-key='" + key + "']").text(value);
         }
 
         // *Features ：添加popover
@@ -47,15 +47,15 @@ function loadLanguage() {
             // 如果启用了提示，并且存在key+"-title"的内容，就添加title
             // Add title to those elements that have it
             if (settings.tips) {
-                $(".lang[key='" + key + "']").attr(
+                $(".lang[data-lang-key='" + key + "']").attr(
                     "title",
                     html_lang[key + "-title"]
                 );
             }
 
             // Add alt to images
-            if ($(".lang[key='" + key + "']").is("img")) {
-                $(".lang[key='" + key + "']").attr(
+            if ($(".lang[data-lang-key='" + key + "']").is("img")) {
+                $(".lang[data-lang-key='" + key + "']").attr(
                     "alt",
                     html_lang[key + "-title"]
                 );

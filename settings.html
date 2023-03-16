@@ -3,8 +3,9 @@
 
 
 <!-- 一键回到顶部 -->
-<button onclick="scrollToTop();" id="scrollUp" key="back-to-top-button" class="lang btn btn-lg btn-outline-primary"
-    alt="back to top button"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+<button onclick="scrollToTop();" id="scrollUp" data-lang-key="back-to-top-button"
+    class="lang btn btn-lg btn-outline-primary" alt="back to top button"><i class="fas fa-arrow-up"
+        aria-hidden="true"></i></button>
 
 <!-- 提示信息窗口 -->
 <div class="container-fluid mt-3 fixed-top" style="display: none;" id="messages">
@@ -12,10 +13,10 @@
         <!-- Cancel Button -->
         <!-- Message -->
         <span class="color-blind-label">Tips:&nbsp;</span>
-        <span class="lang" key="message-ask-save"></span>&emsp;
+        <span class="lang" data-lang-key="message-ask-save"></span>&emsp;
         <!-- Save Button -->
-        <button type="button" class="lang far fa-save btn btn-lg btn-outline-primary" key="message-save-button"
-            alt="save button" onclick="sendSettings()"></button>
+        <button type="button" class="lang far fa-save btn btn-lg btn-outline-primary"
+            data-lang-key="message-save-button" alt="save button" onclick="sendSettings()"></button>
     </div>
 </div>
 
@@ -27,7 +28,7 @@
             <a aria-hidden="true"
                 class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
                 <span class="fs-5 fw-semibold"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;<span class="lang"
-                        key="settings"></span></span>
+                        data-lang-key="settings"></span></span>
             </a>
             <ul class="list-unstyled ps-0" id="settings-list">
                 <!-- Home -->
@@ -48,15 +49,15 @@
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
                         data-bs-target="#display-collapse" aria-expanded="false">
                         <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang"
-                            key="settings-display"></span></button>
+                            data-lang-key="settings-display"></span></button>
                     <div class="collapse" id="display-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
                             <li><a href="#settings-display-high-dip-type" class="link-dark rounded"><i class="fas fa-tv"
                                         aria-hidden="true"></i>&nbsp;<span class="lang options"
-                                        key="settings-display-high-dip-type"></span></a></li>
+                                        data-lang-key="settings-display-high-dip-type"></span></a></li>
                             <li><a href="#settings-display-high-dip-images" class="link-dark rounded"><i
                                         class="far fa-images" aria-hidden="true"></i>&nbsp;<span class="lang options"
-                                        key="settings-display-high-dip-images"></span></a></li>
+                                        data-lang-key="settings-display-high-dip-images"></span></a></li>
                         </ul>
                     </div>
                 </li>
@@ -66,12 +67,12 @@
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
                         data-bs-target="#language-collapse" aria-expanded="false">
                         <i class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang"
-                            key="settings-language"></span></button>
+                            data-lang-key="settings-language"></span></button>
                     <div class="collapse" id="language-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
                             <li><a href="#settings-language-language" class="link-dark rounded"><i
                                         class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;<span
-                                        class="lang options" key="settings-language-language"></span></a></li>
+                                        class="lang options" data-lang-key="settings-language-language"></span></a></li>
                         </ul>
                     </div>
                 </li>
@@ -81,19 +82,21 @@
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
                         data-bs-target="#accessibility-collapse" aria-expanded="false">
                         <i class="fas fa-universal-access fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang"
-                            key="settings-accessibility"></span></button>
+                            data-lang-key="settings-accessibility"></span></button>
                     <div class="collapse" id="accessibility-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
                             <li><a href="#settings-accessibility-font-size" class="link-dark rounded"><i
                                         class="fas fa-font fa-fw" aria-hidden="true"></i>&nbsp;<span
-                                        class="lang options" key="settings-accessibility-font-size"></span></a></li>
+                                        class="lang options"
+                                        data-lang-key="settings-accessibility-font-size"></span></a></li>
                             <li><a href="#settings-accessibility-page-zoom-factor" class="link-dark rounded"><i
                                         class="fas fa-search-plus fa-fw" aria-hidden="true"></i>&nbsp;<span
-                                        class="lang options" key="settings-accessibility-page-zoom-factor"></span></a>
+                                        class="lang options"
+                                        data-lang-key="settings-accessibility-page-zoom-factor"></span></a>
                             </li>
                             <li><a href="#settings-accessibility-tips" class="link-dark rounded"><i
                                         class="fas fa-hands-helping" aria-hidden="true"></i>&nbsp;<span
-                                        class="lang options" key="settings-accessibility-tips"></a></li>
+                                        class="lang options" data-lang-key="settings-accessibility-tips"></a></li>
                         </ul>
                     </div>
                 </li>
@@ -103,15 +106,15 @@
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
                         data-bs-target="#advanced-collapse" aria-expanded="false">
                         <i class="fas fa-cogs fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang"
-                            key="settings-advanced"></span></button>
+                            data-lang-key="settings-advanced"></span></button>
                     <div class="collapse" id="advanced-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
                             <li><a href="#settings-language-language" class="link-dark rounded"><i
                                         class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;<span
-                                        class="lang options" key="settings-language-language"></span></a></li>
+                                        class="lang options" data-lang-key="settings-language-language"></span></a></li>
                             <li><a href="#settings-accessibility-tips" class="link-dark rounded"><i
                                         class="fas fa-hands-helping" aria-hidden="true"></i>&nbsp;<span
-                                        class="lang options" key="settings-accessibility-tips"></a></li>
+                                        class="lang options" data-lang-key="settings-accessibility-tips"></a></li>
                         </ul>
                     </div>
                 </li>
@@ -140,7 +143,7 @@
                             <input class="form-control" id="settings-search-input" placeholder="Search..."
                                 name="search">
                             <button id="settings-search-button" type="submit"
-                                class="mt-3 btn btn-primary lang btn-block" key="search-btn"></button>
+                                class="mt-3 btn btn-primary lang btn-block" data-lang-key="search-btn"></button>
                         </div>
                     </form>
                 </li>
@@ -149,8 +152,9 @@
                 <div id="settings-search-result" style="display: none;">
                     <li class="border-top my-3"></li>
                     <li class="mb-1">
-                        <span class="lang" key="search-result" id="settings-search-result"></span>&emsp;<button
-                            id="hide-result-button" class="btn btn-sm far fa-trash-alt" alt="Delete Search Result"
+                        <span class="lang" data-lang-key="search-result"
+                            id="settings-search-result"></span>&emsp;<button id="hide-result-button"
+                            class="btn btn-sm far fa-trash-alt" alt="Delete Search Result"
                             onclick="$('#settings-search-result').hide();"></button>
                         <ul class="list-unstyled ps-0 btn-toggle-nav" id="settings-search-result-list"></ul>
                     </li>
@@ -167,33 +171,34 @@
         <img src="assets/images/light-picture-example.jpg" style="width: 100%;">
         <!-- Set display -->
         <h2 class="settings-titles"><i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang"
-                key="settings-display"></span></h2>
+                data-lang-key="settings-display"></span></h2>
         <div>
             <!-- Set high-dip-type -->
             <div>
                 <!-- Title -->
                 <h3 id="settings-display-high-dip-type" class="settings-titles"><i class="fas fa-tv"
-                        aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-display-high-dip-type"></span>
+                        aria-hidden="true"></i>&nbsp;<span class="lang"
+                        data-lang-key="settings-display-high-dip-type"></span>
                 </h3>
                 <!-- Text for description -->
-                <p class="lang" key="settings-display-high-dip-type-description"></p>
+                <p class="lang" data-lang-key="settings-display-high-dip-type-description"></p>
                 <!-- tips -->
                 <div class="info-info"><span class="color-blind-label">Info:&nbsp;</span><span class="lang"
-                        key="settings-display-ask-reset-software"></span></div>
+                        data-lang-key="settings-display-ask-reset-software"></span></div>
                 <!-- 高清修复 二选一 -->
                 <div class="form-check need-save" id="settings-display-high-dip-type-radiobutton">
                     <input class="form-check-input setting-items" id="high-dip-type-0" type="radio"
                         name="settings-display-high-dip-type-radiobutton" setting-name="high-dip-type" value="0">
                     <label class="form-check label" for="high-dip-type-0"><span class="lang"
-                            key="settings-display-high-dip-type-0"></span></label>
+                            data-lang-key="settings-display-high-dip-type-0"></span></label>
                     <input class="form-check-input setting-items" id="high-dip-type-1" type="radio"
                         name="settings-display-high-dip-type-radiobutton" setting-name="high-dip-type" value="1">
                     <label class="form-check label" for="high-dip-type-1"><span class="lang"
-                            key="settings-display-high-dip-type-1"></span></label>
+                            data-lang-key="settings-display-high-dip-type-1"></span></label>
                     <input class="form-check-input setting-items" id="high-dip-type-2" type="radio"
                         name="settings-display-high-dip-type-radiobutton" setting-name="high-dip-type" value="2">
                     <label class="form-check label" for="high-dip-type-2"><span class="lang"
-                            key="settings-display-high-dip-type-2"></span></label>
+                            data-lang-key="settings-display-high-dip-type-2"></span></label>
                 </div>
             </div>
             <!-- <div class="dropdown-menu rounded-3 shadow" style="width: 280px;">
@@ -231,17 +236,18 @@
             <!-- Set high-dip-images -->
             <div>
                 <h3 id="settings-display-high-dip-images" class="settings-titles"><i class="far fa-images"
-                        aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-display-high-dip-images"></span>
+                        aria-hidden="true"></i>&nbsp;<span class="lang"
+                        data-lang-key="settings-display-high-dip-images"></span>
                 </h3>
                 <!-- Text for description -->
-                <p class="lang" key="settings-display-high-dip-images-description"></p>
+                <p class="lang" data-lang-key="settings-display-high-dip-images-description"></p>
                 <!-- tips -->
                 <div class="info-info"><span class="color-blind-label">Info:&nbsp;</span><span class="lang"
-                        key="settings-display-ask-reset-software"></span></div>
+                        data-lang-key="settings-display-ask-reset-software"></span></div>
                 <!-- Switch -->
                 <div class="form-check form-switch">
                     <input class="form-check-input lang setting-items need-save" setting-name="high-dip-images"
-                        key="settings-display-high-dip-images-switch" type="checkbox"
+                        data-lang-key="settings-display-high-dip-images-switch" type="checkbox"
                         id="settings-display-high-dip-images-switch">
                 </div>
             </div>
@@ -250,13 +256,14 @@
         <!-- Set language -->
         <div>
             <h2 class="settings-titles"><i class="fa fa-language fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang"
-                    key="settings-language"></span></h2>
+                    data-lang-key="settings-language"></span></h2>
             <!-- title -->
             <h3 id="settings-language-language" class="settings-titles"><i class="fa fa-language fa-fw"
-                    aria-hidden="true"></i>&nbsp;<span class="lang" key="settings-language-language-title"></span></h3>
+                    aria-hidden="true"></i>&nbsp;<span class="lang"
+                    data-lang-key="settings-language-language-title"></span></h3>
             <!-- Set language button and its dropdown-menu -->
             <div class="dropdown">
-                <button type="button" key="set-language-key" id="languages-button"
+                <button type="button" data-lang-key="set-language-data-lang-key" id="languages-button"
                     class="btn btn-primary dropdown-toggle lang need-save" data-bs-toggle="dropdown"></button>
                 <ul class="dropdown-menu" id="languages-list"></ul>
             </div>
@@ -266,22 +273,24 @@
         <div id="settings-accessibility">
             <!-- title -->
             <h2 class="settings-titles"><i class="fas fa-universal-access fa-fw" aria-hidden="true"></i>&nbsp;<span
-                    class="lang" key="settings-accessibility"></span></h2>
+                    class="lang" data-lang-key="settings-accessibility"></span></h2>
 
             <!-- Set font-size -->
             <div id="settings-accessibility-font-size">
                 <!-- title -->
                 <h3 class="settings-titles"><i class="fas fa-font fa-fw" aria-hidden="true"></i>&nbsp;<span class="lang"
-                        key="settings-accessibility-font-size"></span></h3>
+                        data-lang-key="settings-accessibility-font-size"></span></h3>
                 <!-- tips -->
                 <div class="info-info"><span class="color-blind-label">Info:&nbsp;</span><span class="lang"
-                        key="settings-accessibility-font-size-tips"></span></div>
+                        data-lang-key="settings-accessibility-font-size-tips"></span></div>
                 <!-- Set font-size slider -->
                 <input type="range" min="0" max="10" value="0" class="form-range lang setting-items need-save"
-                    key="settings-accessibility-font-size-slidebar" id="font-size-slider" setting-name="font-size">
+                    data-lang-key="settings-accessibility-font-size-slidebar" id="font-size-slider"
+                    setting-name="font-size">
                 <!-- Restore Default Settings button -->
                 <button type="button" class="btn btn-primary lang need-save"
-                    key="settings-accessibility-font-size-restore-default" id="font-size-restore-default"></button>
+                    data-lang-key="settings-accessibility-font-size-restore-default"
+                    id="font-size-restore-default"></button>
                 <p style="margin-top:20px;">Example: The quick brown fox jumps over the lazy dog.</p>
             </div>
 
@@ -289,16 +298,16 @@
             <div id="settings-accessibility-page-zoom-factor">
                 <!-- title -->
                 <h3 class="settings-titles"><i class="fas fa-search-plus fa-fw" aria-hidden="true"></i>&nbsp;<span
-                        class="lang" key="settings-accessibility-page-zoom-factor"></span></h3>
+                        class="lang" data-lang-key="settings-accessibility-page-zoom-factor"></span></h3>
                 <!-- Text for description -->
-                <p class="lang" key="settings-accessibility-page-zoom-factor-description"></p>
+                <p class="lang" data-lang-key="settings-accessibility-page-zoom-factor-description"></p>
                 <!-- Set Page ZoomFactor slider -->
                 <input type="range" min="0" max="30" value="5" class="form-range lang setting-items need-save"
-                    key="settings-accessibility-page-zoom-factor-slidebar" id="page-zoom-factor-slider"
+                    data-lang-key="settings-accessibility-page-zoom-factor-slidebar" id="page-zoom-factor-slider"
                     setting-name="page-zoom-factor">
                 <!-- Restore Default Settings button -->
                 <button type="button" class="btn btn-primary lang need-save"
-                    key="settings-accessibility-page-zoom-factor-restore-default"
+                    data-lang-key="settings-accessibility-page-zoom-factor-restore-default"
                     id="page-zoom-factor-restore-default"></button>
             </div>
 
@@ -306,14 +315,14 @@
             <div id="settings-accessibility-tips">
                 <!-- title -->
                 <h3 class="settings-titles"><i class="fas fa-hands-helping fa-fw" aria-hidden="true"></i>&nbsp;<span
-                        class="lang" key="settings-accessibility-tips"></span></h3>
+                        class="lang" data-lang-key="settings-accessibility-tips"></span></h3>
                 <!-- Text for description -->
-                <p class="lang" key="settings-accessibility-tips-description"></p>
+                <p class="lang" data-lang-key="settings-accessibility-tips-description"></p>
                 <!-- Switch -->
                 <div class="form-check form-switch">
                     <input class="form-check-input lang setting-items need-save" setting-name="tips"
-                        key="settings-accessibility-tips-switch" type="checkbox" id="settings-accessibility-tips-switch"
-                        checked>
+                        data-lang-key="settings-accessibility-tips-switch" type="checkbox"
+                        id="settings-accessibility-tips-switch" checked>
                     <!-- <label class="form-check-label" for="mySwitch"></label> -->
                 </div>
             </div>

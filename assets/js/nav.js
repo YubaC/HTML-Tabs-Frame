@@ -495,16 +495,9 @@ function changeTabContent() {
                 // Load language file after the page is loaded. (inner type only)
                 loadLanguage();
 
-                const deferred = $.Deferred();
-                $("script, link").on("load", () => {
-                    deferred.resolve();
-                });
-                $.when(deferred).done(() => {
-                    // 所有外部资源都加载完成后执行enterTab函数
-                    if (typeof enterTab === "function") {
-                        enterTab();
-                    }
-                });
+                if (typeof enterTab === "function") {
+                    enterTab();
+                }
             });
         } else if (page.current.type === "iframe") {
             newContent = $(

@@ -24,13 +24,13 @@
             <li class="nav-item">
                 <a class="nav-link " data-bs-toggle="pill" href="#new-local">
                     <i class="fas fa-desktop" aria-hidden="true"></i><br>
-                    <span key="new-page-nav-options-local" class="lang"></span>
+                    <span data-lang-key="new-page-nav-options-local" class="lang"></span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="pill" href="#new-remote">
                     <i class="fas fa-cloud" aria-hidden="true"></i><br>
-                    <span key="new-page-nav-options-remote" class="lang"></span>
+                    <span data-lang-key="new-page-nav-options-remote" class="lang"></span>
                 </a>
             </li>
 
@@ -39,19 +39,19 @@
             <li class="nav-item">
                 <a class="nav-link active" data-bs-toggle="pill" href="#new-clone">
                     <i class="fas fa-download" aria-hidden="true"></i><br>
-                    <span key="new-page-nav-options-clone" class="lang"></span>
+                    <span data-lang-key="new-page-nav-options-clone" class="lang"></span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="pill" href="#new-import">
                     <i class="fas fa-folder-open" aria-hidden="true"></i><br>
-                    <span key="new-page-nav-options-add" class="lang"></span>
+                    <span data-lang-key="new-page-nav-options-add" class="lang"></span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="pill" href="#new-add">
                     <i class="fas fa-plus" aria-hidden="true"></i><br>
-                    <span key="new-page-nav-options-create" class="lang"></span>
+                    <span data-lang-key="new-page-nav-options-create" class="lang"></span>
                 </a>
             </li>
         </ul>
@@ -62,31 +62,34 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div id="new-local" class="container tab-pane fade"><br>
-            <h1><span key="new-page-nav-options-local" class="lang"></span></h1>
+            <h1><span data-lang-key="new-page-nav-options-local" class="lang"></span></h1>
             <form class="mt-3 mb-3">
-                <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2">
+                <input type="text" class="form-control" placeholder="Search..." aria-label="Search"
+                    aria-describedby="button-addon2">
             </form>
             <ul class="list-group list-group-flush">
                 <li href="#" class="list-group-item list-group-item-action">第一项
                     <br>
                     <span badge-inner class="badge-outer border rounded bg-light text-body small mx-auto">
-                            <span class="badge badge-inner bg-primary rounded text-light">
-                                <i class="fas fa-code-branch" aria-hidden="true"></i>
-                            </span> master
+                        <span class="badge badge-inner bg-primary rounded text-light">
+                            <i class="fas fa-code-branch" aria-hidden="true"></i>
+                        </span> master
                     </span>
-                    <li href="#" class="list-group-item list-group-item-action">第二项</li>
-                    <li href="#" class="list-group-item list-group-item-action">第三项</li>
+                <li href="#" class="list-group-item list-group-item-action">第二项</li>
+                <li href="#" class="list-group-item list-group-item-action">第三项</li>
             </ul>
         </div>
         <div id="new-remote" class="container tab-pane fade"><br>
             <h1>remote</h1>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.</p>
         </div>
         <div id="new-clone" class="container tab-pane fade active show"><br>
             <h1>Clone</h1>
             <form>
                 <div class="form-floating mb-3 mt-3">
-                    <input type="text" class="form-control" id="new-clone-url" placeholder="Enter URL or path to clone from">
+                    <input type="text" class="form-control" id="new-clone-url"
+                        placeholder="Enter URL or path to clone from">
                     <label for="new-clone-url">源路径/URL:</label>
                 </div>
                 <div class="form-floating mt-3 mb-3">
@@ -94,7 +97,8 @@
                     <label for="new-clone-target">目标路径:</label>
                 </div>
                 <div class="form-floating mt-3 mb-3">
-                    <input type="text" class="form-control" id="new-clone-name" placeholder="Enter the name you want to name the folder">
+                    <input type="text" class="form-control" id="new-clone-name"
+                        placeholder="Enter the name you want to name the folder">
                     <label for="pwd">名字:</label>
                 </div>
 
@@ -105,7 +109,8 @@
             <h1>import</h1>
             <form>
                 <div class="form-floating mb-3 mt-3">
-                    <input type="text" class="form-control" id="new-clone-url" placeholder="Enter URL or path to clone from">
+                    <input type="text" class="form-control" id="new-clone-url"
+                        placeholder="Enter URL or path to clone from">
                     <label for="new-clone-url">源路径/URL:</label>
                 </div>
                 <div class="form-floating mt-3 mb-3">
@@ -113,7 +118,8 @@
                     <label for="new-clone-target">目标路径:</label>
                 </div>
                 <div class="form-floating mt-3 mb-3">
-                    <input type="text" class="form-control" id="new-clone-name" placeholder="Enter the name you want to name the folder">
+                    <input type="text" class="form-control" id="new-clone-name"
+                        placeholder="Enter the name you want to name the folder">
                     <label for="pwd">名字:</label>
                 </div>
 
@@ -122,7 +128,8 @@
         </div>
         <div id="new-add" class="container tab-pane fade"><br>
             <h1>add</h1>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+                rem aperiam.</p>
         </div>
     </div>
     </div>
@@ -131,11 +138,15 @@
 <footer class="border-top fixed-bottom">
 
     <div id="new-page-footer-options">
-        <button type="button" class="btn btn-outline-primary"><i class="fas fa-sync-alt" aria-hidden="true"></i>Refresh</button>
-        <button type="button" class="btn btn-outline-primary"><i class="fas fa-folder-plus" aria-hidden="true"></i>Create new folder</button>
+        <button type="button" class="btn btn-outline-primary"><i class="fas fa-sync-alt"
+                aria-hidden="true"></i>Refresh</button>
+        <button type="button" class="btn btn-outline-primary"><i class="fas fa-folder-plus"
+                aria-hidden="true"></i>Create new folder</button>
         <span class="border-start ms-4 me-4 mt-2 mb-2"></span>
-        <button type="button" class="btn btn-outline-primary"><i class="fas fa-database" aria-hidden="true"></i>View remote</button>
-        <button type="button" class="btn btn-outline-primary"><i class="fas fa-terminal" aria-hidden="true"></i>Open in terminal</button>
+        <button type="button" class="btn btn-outline-primary"><i class="fas fa-database" aria-hidden="true"></i>View
+            remote</button>
+        <button type="button" class="btn btn-outline-primary"><i class="fas fa-terminal" aria-hidden="true"></i>Open in
+            terminal</button>
     </div>
 
 </footer>
