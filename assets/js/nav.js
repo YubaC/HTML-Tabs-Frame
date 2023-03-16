@@ -46,7 +46,7 @@ const base = "";
 var openedWindows = 0;
 
 var oldSrc = "";
-var page = {
+var pages = {
     before: {},
     current: {},
     opened: [],
@@ -104,7 +104,7 @@ function newPage(options) {
     options.id = openedWindows;
 
     // 在page内添加新的页面
-    page.opened.push(options);
+    pages.opened.push(options);
 
     // 允许聚焦当前活跃的页面
     if (isActive) {
@@ -373,9 +373,9 @@ function reBlindNavLinkClick() {
         $boxMusk.hide();
 
         var _id = $(tabNavItemsSelector + "." + activeClass).attr("id");
-        for (var _page of page.opened) {
+        for (var _page of pages.opened) {
             if (_page.id == _id) {
-                page.before = _page;
+                pages.before = _page;
                 break;
             }
         }
@@ -406,9 +406,9 @@ function reBlindNavLinkClick() {
         var tabSrc = $tab.attr("target-src");
 
         var _id = $tab.attr("id");
-        for (var _page of page.opened) {
+        for (var _page of pages.opened) {
             if (_page.id == _id) {
-                page.current = _page;
+                pages.current = _page;
                 break;
             }
         }
@@ -426,27 +426,27 @@ function reBlindNavLinkClick() {
  */
 
 function changeTabContent() {
-    const src = page.current.src;
+    const src = pages.current.src;
     // *Leave tab
     // Save the scroll position of the tabcontent box.
     // 保存tabcontent的滚动位置
     const oldActivePage = $("." + activeContentBoxClass);
     const tabContentScrollTop = oldActivePage.scrollTop();
     // Save to localStorage
-    localStorage.setItem(page.before.id, tabContentScrollTop);
+    localStorage.setItem(pages.before.id, tabContentScrollTop);
 
     oldActivePage.removeClass(activeContentBoxClass).addClass(contentBoxClass);
 
     // 如果存在名为leaveTab的函数，就执行它
-    // Run leaveTab function, if it exists and the type of the page is "inner".
-    if (page.before.type === "inner" && typeof leaveTab === "function") {
+    // Run leaveTab function, if it exists and the type of the pages is "inner".
+    if (pages.before.type === "inner" && typeof leaveTab === "function") {
         leaveTab();
     }
 
     // 如果keep==false就删除以节省内存
     // If keep==false, delete the element to save memory.
-    if (page.before.keep === false) {
-        $(`[data-id="${page.before.id}"].${contentBoxClass}`).remove();
+    if (pages.before.keep === false) {
+        $(`[data-id="${pages.before.id}"].${contentBoxClass}`).remove();
     }
     // *Now we've closed the old, and we need to open the new.
     // 1. reenter
@@ -456,10 +456,10 @@ function changeTabContent() {
 
     // TODO: Still have so many bugs. Need to fix it later.
     // if (
-    //     page.before.type === "inner" &&
-    //     page.before.src === src &&
-    //     page.before.keep === false &&
-    //     page.current.keep === false
+    //     pages.before.type === "inner" &&
+    //     pages.before.src === src &&
+    //     pages.before.keep === false &&
+    //     pages.current.keep === false
     // ) {
     //     // 如果存在名为reenterTab的函数，就执行它
     //     if (typeof reenterTab === "function") {
@@ -473,7 +473,7 @@ function changeTabContent() {
     // 如果找不到，就新建一个div并将其class设为activeContentBoxClass
 
     // 选中.tabContentBox中data-id属性值和page.current.id一样的元素
-    const $contentBox = $(`[data-id="${page.current.id}"].${contentBoxClass}`);
+    const $contentBox = $(`[data-id="${pages.current.id}"].${contentBoxClass}`);
 
     if ($contentBox.length !== 0) {
         $contentBox
@@ -482,26 +482,26 @@ function changeTabContent() {
     } else {
         let newContent;
 
-        if (page.current.type === "inner") {
+        if (pages.current.type === "inner") {
             newContent = $(
-                `<div class="${activeContentBoxClass}" data-id="${page.current.id}" tabindex="-1"></div>`
+                `<div class="${activeContentBoxClass}" data-id="${pages.current.id}" tabindex="-1"></div>`
             );
             newContent.load(src, () => {
                 // 从localStorage中加载滚动条位置
                 // Load scroll position from localStorage.
-                const scrollTop = localStorage.getItem(page.current.id);
+                const scrollTop = localStorage.getItem(pages.current.id);
                 newContent.scrollTop(scrollTop);
 
-                // Load language file after the page is loaded. (inner type only)
+                // Load language file after the pages is loaded. (inner type only)
                 loadLanguage();
 
                 if (typeof enterTab === "function") {
                     enterTab();
                 }
             });
-        } else if (page.current.type === "iframe") {
+        } else if (pages.current.type === "iframe") {
             newContent = $(
-                `<iframe class="${activeContentBoxClass}" src="${page.current.src}" data-id="${page.current.id}" tabindex="-1"></iframe>`
+                `<iframe class="${activeContentBoxClass}" src="${pages.current.src}" data-id="$pagese.current.id}" tabindex="-1"></iframe>`
             );
         }
 
@@ -705,8 +705,8 @@ $boxMusk.on("click", function () {
 function closeWin() {
     // 寻找data-id数字那和page.current.id一样的元素并删除
     // 为了防止误删，先判断是否有这个元素
-    if ($(".tabContentActive[data-id='" + page.current.id + "']").length > 0) {
-        $(".tabContentActive[data-id='" + page.current.id + "']").remove();
+    if ($(".tabContentActive[data-id='" + pages.current.id + "']").length > 0) {
+        $(".tabContentActive[data-id='" + pages.current.id + "']").remove();
     }
     // 获取当前active的tab
     var $activeTab = $(".tabnav-item.active");
@@ -732,9 +732,9 @@ function closeWin() {
     $tabNav.find(".tab-to-close").remove();
 
     // 从opened中移除这个窗口
-    for (var i = 0; i < page.opened.length; i++) {
-        if (page.opened[i].id == windowId) {
-            page.opened.splice(i, 1);
+    for (var i = 0; i < pages.opened.length; i++) {
+        if (pages.opened[i].id == windowId) {
+            pages.opened.splice(i, 1);
             break;
         }
     }

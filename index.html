@@ -39,21 +39,17 @@
 
     <!-- tabnav tabs -->
     <div tabindex="-1" class="d-inline-flex tabnav-master tabbtn-group">
-        <label for="tabnav-close-tab-btn" data-lang-keya-lang-key="tabnav-close-tab-btn-label"
+        <label for="tabnav-close-tab-btn" data-lang-key="tabnav-close-tab-btn-label"
             class="lang visually-hidden"></label>
-        <label for="tabnav-left-tabbtn" data-lang-keya-lang-key="tabnav-left-tabbtn-label"
+        <label for="tabnav-left-tabbtn" data-lang-key="tabnav-left-tabbtn-label" class="lang visually-hidden"></label>
+        <label for="tabnav-right-tabbtn" data-lang-key="tabnav-right-tabbtn-label" class="lang visually-hidden"></label>
+        <label for="tabnav-add-tabbtn" data-lang-key="tabnav-add-tabbtn-label" class="lang visually-hidden"></label>
+        <label for="tabnav-view-all-tabbtn" data-lang-key="tabnav-view-all-tabbtn-label"
             class="lang visually-hidden"></label>
-        <label for="tabnav-right-tabbtn" data-lang-keya-lang-key="tabnav-right-tabbtn-label"
-            class="lang visually-hidden"></label>
-        <label for="tabnav-add-tabbtn" data-lang-keya-lang-key="tabnav-add-tabbtn-label"
-            class="lang visually-hidden"></label>
-        <label for="tabnav-view-all-tabbtn" data-lang-keya-lang-key="tabnav-view-all-tabbtn-label"
-            class="lang visually-hidden"></label>
-        <label for="tabnav-menu-tabbtn" data-lang-keya-lang-key="tabnav-menu-tabbtn-label"
-            class="lang visually-hidden"></label>
+        <label for="tabnav-menu-tabbtn" data-lang-key="tabnav-menu-tabbtn-label" class="lang visually-hidden"></label>
 
         <button tabindex="-1" id="tabnav-left-tabbtn" class="tabbtn tabbtn-light lang"
-            data-lang-keya-lang-key="tabnav-left-tabbtn">
+            data-lang-key="tabnav-left-tabbtn">
             <i class="fas fa-angle-left"></i>
         </button>
 
@@ -62,32 +58,31 @@
         </div>
 
         <button tabindex="-1" id="tabnav-right-tabbtn" class="tabbtn tabbtn-light lang"
-            data-lang-keya-lang-key="tabnav-right-tabbtn">
+            data-lang-key="tabnav-right-tabbtn">
             <i class="fas fa-angle-right"></i>
         </button>
-        <button id="tabnav-add-tabbtn" class="tabbtn tabbtn-light lang" data-lang-keya-lang-key="tabnav-add-tabbtn">
+        <button id="tabnav-add-tabbtn" class="tabbtn tabbtn-light lang" data-lang-key="tabnav-add-tabbtn">
             <small><i class="fas fa-plus small"></i></small>
         </button>
-        <button id="tabnav-view-all-tabbtn" class="tabbtn tabbtn-light lang"
-            data-lang-keya-lang-key="tabnav-view-all-tabbtn">
+        <button id="tabnav-view-all-tabbtn" class="tabbtn tabbtn-light lang" data-lang-key="tabnav-view-all-tabbtn">
             <i class="fas fa-angle-down"></i>
         </button>
-        <button id="tabnav-menu-tabbtn" class="tabbtn tabbtn-light lang" data-lang-keya-lang-key="tabnav-menu-tabbtn">
+        <button id="tabnav-menu-tabbtn" class="tabbtn tabbtn-light lang" data-lang-key="tabnav-menu-tabbtn">
             <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
     </div>
 
     <!-- Tab list -->
-    <div id="nav-view-all-box" class="bg-white" style="display:none;">
+    <div id="nav-view-all-box" class="bg-white pb-2" style="display:none;">
         <ul id="nav-view-all-box-options-list" class="list-group border-bottom rounded-0">
-            <!-- <li data-lang-keya-lang-key="nav-view-all-box-options-list-search" tabindex="0" class="tabnav-options lang" role="tab"></li> -->
+            <!-- <li data-lang-key="nav-view-all-box-options-list-search" tabindex="0" class="tabnav-options lang" role="tab"></li> -->
             <!-- Search -->
             <li>
                 <form id="search" action="">
                     <div class="mb-3 mt-3 d-grid">
                         <input class="ms-1 me-1" id="search-input" placeholder="Search... (Ctrl + S)" name="search">
-                        <label tabindex="-1" data-lang-keya-lang-key="nav-view-all-box-options-list-search"
-                            for="search-input" class="form-label lang visually-hidden"></label>
+                        <label tabindex="-1" data-lang-key="nav-view-all-box-options-list-search" for="search-input"
+                            class="form-label lang visually-hidden"></label>
                     </div>
                 </form>
             </li>
@@ -100,9 +95,9 @@
     <!-- Menu list -->
     <div style="display:none;" id="nav-menu-box" class="bg-white">
         <ul class="list-group" id="nav-menu-box-menu-list">
-            <li class="nav-item d-grid"><button class="tabbtn tabbtn-light tabbtn-sm"
+            <li class="nav-item d-grid"><button class="list-group-item list-group-item-action"
                     onclick="openSettings()">Settings</button></li>
-            <li>
+            <li class="list-group-item list-group-item-action">
                 <div class="form-check form-switch tooltip-demo">
                     <input class="form-check-input" type="checkbox" id="toggle-btn">
                     <label class="ms-2 form-check-label" for="toggle-btn">深色模式</label>
@@ -110,6 +105,31 @@
             </li>
         </ul>
     </div>
+
+    <script>
+        function openSettings() {
+            // 如果pages.opened存在打开了的settings标签页，则聚焦到该标签页
+            for (var i = 0; i < pages.opened.length; i++) {
+                if (pages.opened[i].src == "settings.html") {
+                    // 聚焦到该标签页
+                    $(`#${pages.opened[i].id}`).click();
+                    return;
+                }
+            }
+
+            // 在active的标签页右面插入新标签页并聚焦
+            var $activeTab = $(".tabnav-item.active");
+            // 获取当前标签页的index
+            var index = $activeTab.index();
+            newPage({
+                title: "Settings",
+                src: "settings.html",
+                index: index,
+                isActive: true,
+                keep: true,
+            });
+        }
+    </script>
 
     <!-- <iframe class="tab-pane fade" src="settings.html" id="menu1"></iframe>
     <iframe class="tab-pane fade" src="settings.html" id="menu2"></iframe> -->

@@ -123,7 +123,7 @@ function changeZoom(zoom) {
 
 // 滑回顶部的动画
 function scrollToTop() {
-    $(`[data-id=${page.current.id}]`).animate(
+    $(`[data-id=${pages.current.id}]`).animate(
         {
             scrollTop: 0,
         },
