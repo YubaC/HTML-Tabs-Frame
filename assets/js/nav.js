@@ -520,7 +520,7 @@ $tabAddBtn.on("click", function () {
     var index = $activeTab.index();
     newPage({
         title: "New Tab",
-        src: "newtab.html",
+        src: "newTab.html",
         index: index,
         isActive: true,
         keep: true,
