@@ -14,6 +14,7 @@ function loadSettings() {
     // 写入css代码
     var style = document.createElement("style");
     style.type = "text/css";
+    style.id = "config-font-size"
     style.innerHTML = `
     .tabContent, .tabContentActive {
         font-size: ${settings["font-size"] * 20 + 100}% !important;

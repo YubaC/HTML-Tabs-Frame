@@ -27,6 +27,7 @@ const cssFiles = [
 // Path: assets\lib\qt\js\qwebchannel.js
 
 const jsFiles = [
+    "assets/js/defines.js",
     "https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js",
     // "assets/lib/jquery/js/jquery-3.6.3.min.js",
     "assets/lib/jquery/js/jquery-ui.min.js",
