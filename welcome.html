@@ -26,65 +26,65 @@
     <p><strong>In our organization</strong>,theory and practice are combined:</p>
     <p>Nothing works and no one knows why.</p>
     <script>
-        // 使用var是因为这个page的keep是false，所以每次进入都会重新执行这个js，所以会有重定义的问题，所以使用var
-        // 获取meta标签
-        var metaTag = document.querySelector('meta[name="theme-color"]')
+        // // 使用var是因为这个page的keep是false，所以每次进入都会重新执行这个js，所以会有重定义的问题，所以使用var
+        // // 获取meta标签
+        // var metaTag = document.querySelector('meta[name="theme-color"]')
 
-        // 监听meta标签变化
-        var observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.attributeName === 'content') {
-                    const newTheme = metaTag.getAttribute('content')
-                    if (newTheme === 'night') {
-                        changeStyleToNight();
-                    } else if (newTheme === 'light') {
-                        changeStyleToLight();
-                    }
-                }
-            });
-        })
+        // // 监听meta标签变化
+        // var observer = new MutationObserver((mutations) => {
+        //     mutations.forEach((mutation) => {
+        //         if (mutation.attributeName === 'content') {
+        //             const newTheme = metaTag.getAttribute('content')
+        //             if (newTheme === 'night') {
+        //                 changeStyleToNight();
+        //             } else if (newTheme === 'light') {
+        //                 changeStyleToLight();
+        //             }
+        //         }
+        //     });
+        // })
 
-        // 开始监听
-        observer.observe(metaTag, { attributes: true })
+        // // 开始监听
+        // observer.observe(metaTag, { attributes: true })
 
-        function changeStyleToNight() {
-            // 遍历所有的img标签
-            $('img:not([src$="#night-mode-only"])').css("filter", "brightness(0.7)");
-            const images = document.querySelectorAll('img');
-            images.forEach((image) => {
-                // 查找src末尾为#night-mode-only的图片并设置显示
-                if (image.getAttribute('src').endsWith('#night-mode-only')) {
-                    image.style.display = 'block';
-                } else if (image.getAttribute('src').endsWith('#light-mode-only')) {
-                    image.style.display = 'none';
-                }
+        // function changeStyleToNight() {
+        //     // 遍历所有的img标签
+        //     $('img:not([src$="#night-mode-only"])').css("filter", "brightness(0.7)");
+        //     const images = document.querySelectorAll('img');
+        //     images.forEach((image) => {
+        //         // 查找src末尾为#night-mode-only的图片并设置显示
+        //         if (image.getAttribute('src').endsWith('#night-mode-only')) {
+        //             image.style.display = 'block';
+        //         } else if (image.getAttribute('src').endsWith('#light-mode-only')) {
+        //             image.style.display = 'none';
+        //         }
 
-            })
-        }
+        //     })
+        // }
 
-        function changeStyleToLight() {
-            // 遍历所有的img标签
-            $('img:not([src$="#night-mode-only"])').css("filter", "");
-            const images = document.querySelectorAll('img');
-            images.forEach((image) => {
-                // 查找src末尾为#light-mode-only的图片并设置显示
-                if (image.getAttribute('src').endsWith('#light-mode-only')) {
-                    image.style.display = 'block';
-                } else if (image.getAttribute('src').endsWith('#night-mode-only')) {
-                    image.style.display = 'none';
-                }
-            })
-        }
+        // function changeStyleToLight() {
+        //     // 遍历所有的img标签
+        //     $('img:not([src$="#night-mode-only"])').css("filter", "");
+        //     const images = document.querySelectorAll('img');
+        //     images.forEach((image) => {
+        //         // 查找src末尾为#light-mode-only的图片并设置显示
+        //         if (image.getAttribute('src').endsWith('#light-mode-only')) {
+        //             image.style.display = 'block';
+        //         } else if (image.getAttribute('src').endsWith('#night-mode-only')) {
+        //             image.style.display = 'none';
+        //         }
+        //     })
+        // }
 
-        function enterTab() {
-            // 判断当前主题
-            const currentTheme = metaTag.getAttribute('content');
-            if (currentTheme === 'night') {
-                changeStyleToNight();
-            } else if (currentTheme === 'light') {
-                changeStyleToLight();
-            }
-        }
+        // function enterTab() {
+        //     // 判断当前主题
+        //     const currentTheme = metaTag.getAttribute('content');
+        //     if (currentTheme === 'night') {
+        //         changeStyleToNight();
+        //     } else if (currentTheme === 'light') {
+        //         changeStyleToLight();
+        //     }
+        // }
 
     </script>
 </div>
