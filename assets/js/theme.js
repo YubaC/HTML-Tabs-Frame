@@ -90,111 +90,73 @@ if (window.matchMedia("(prefers-color-scheme: dark)").media === "not all") {
     );
 }
 
-// from: https://stackoverflow.com/questions/9899372#9899701
-function docReady(fn) {
-    // see if DOM is already available
-    if (
-        document.readyState === "complete" ||
-        document.readyState === "interactive"
-    ) {
-        // call on next available tick
-        setTimeout(fn, 1);
-    } else {
-        document.addEventListener("DOMContentLoaded", fn);
-    }
-}
+$(document).ready(function () {
+    const toggleButton = $("#toggle-btn");
+    var isCssInitialized = false;
 
-docReady(function () {
-    // DOM is loaded and ready for manipulation from here
-
-    // parts from: https://radek.io/posts/secret-darkmode-toggle/
-
-    const toggle_btn = document.getElementById("toggle-btn");
-    var isCssInit = false;
-
-    function setColorPreference(color_p, persist = false) {
-        const new_s = color_p;
-        const old_s = color_p === "light" ? "dark" : "light";
-
-        const el = document.body; // gets root <html> tag
-        el.classList.add("color-scheme-" + new_s);
-        el.classList.remove("color-scheme-" + old_s);
-
-        // 如果是切换到深色模式就给图片添加深色滤镜
-        if (new_s == "dark") {
-            // 将<meta name="theme-color" content="light">改为night
+    function setColorPreference(colorPreference, persist = false) {
+        const newColorScheme = colorPreference;
+        const oldColorScheme = colorPreference === "light" ? "dark" : "light";
+        const body = $("body");
+        body.addClass("color-scheme-" + newColorScheme);
+        body.removeClass("color-scheme-" + oldColorScheme);
+        if (newColorScheme == "dark") {
             $("meta[name='theme-color']").attr("content", "night");
             onNightMode();
         } else {
-            // 将<meta name="theme-color" content="night">改为light
             $("meta[name='theme-color']").attr("content", "light");
             onLightMode();
         }
-
         if (persist) {
-            localStorage.setItem("preferred-color-scheme", color_p);
+            localStorage.setItem("preferred-color-scheme", colorPreference);
         }
     }
 
-    function updateUI(color_p, id = "css") {
-        toggle_btn.checked = color_p === "dark";
-
-        if (isCssInit) {
-            const el = document.querySelector("#" + id);
-            const data = el.dataset;
-            if (toggle_btn.checked) {
-                el.setAttribute("href", data.hrefDark);
+    function updateUI(colorPreference, id = "css") {
+        toggleButton.prop("checked", colorPreference === "dark");
+        if (isCssInitialized) {
+            const linkElement = $("#" + id);
+            const linkData = linkElement.data();
+            if (toggleButton.prop("checked")) {
+                linkElement.attr("href", linkData.hrefDark);
             } else {
-                el.setAttribute("href", data.hrefLight);
+                linkElement.attr("href", linkData.hrefLight);
             }
-            data.colorScheme = color_p;
+            linkData.colorScheme = colorPreference;
         }
     }
 
-    function initColorCSS(color_p, id = "css") {
-        isCssInit = true;
-
-        el_o = document.querySelector("#" + id);
-        if (el_o !== null) el_o.remove();
-        el_l = document.querySelector("#" + id + "-light");
-        el_d = document.querySelector("#" + id + "-dark");
-        if (color_p === "dark") {
-            el = el_d;
-            el_o = el_l;
+    function initColorCSS(colorPreference, id = "css") {
+        isCssInitialized = true;
+        $("#" + id).remove();
+        const lightLinkElement = $("#" + id + "-light");
+        const darkLinkElement = $("#" + id + "-dark");
+        let linkElement, otherLinkElement;
+        if (colorPreference === "dark") {
+            linkElement = darkLinkElement;
+            otherLinkElement = lightLinkElement;
         } else {
-            el = el_l;
-            el_o = el_d;
+            linkElement = lightLinkElement;
+            otherLinkElement = darkLinkElement;
         }
-        el.setAttribute("data-href-light", el_l.getAttribute("href"));
-        el.setAttribute("data-href-dark", el_d.getAttribute("href"));
-        el.setAttribute("data-color-scheme", color_p);
-        el.setAttribute("media", "all");
-        el.setAttribute("id", id);
-        el_o.remove();
+        linkElement.attr("data-href-light", lightLinkElement.attr("href"));
+        linkElement.attr("data-href-dark", darkLinkElement.attr("href"));
+        linkElement.attr("data-color-scheme", colorPreference);
+        linkElement.attr("media", "all");
+        linkElement.attr("id", id);
+        otherLinkElement.remove();
     }
 
-    toggle_btn.addEventListener("click", () => {
-        const color_p = toggle_btn.checked ? "dark" : "light";
-
-        if (!isCssInit) console.log("initColorCSS");
-
-        setColorPreference(color_p, true);
-        updateUI(color_p);
+    toggleButton.on("click", function () {
+        const colorPreference = toggleButton.prop("checked") ? "dark" : "light";
+        if (!isCssInitialized) console.log("initColorCSS");
+        setColorPreference(colorPreference, true);
+        updateUI(colorPreference);
     });
-
-    // document.addEventListener("keypress", function(event) {
-    //     var keyName = event.key;
-    //     if ((keyName == 'd') || (keyName == 'D')) {
-    //         toggle_btn.click();
-    //     }
-    // });
-
-    /* Set Preference on load */
     const osColorPreference = window.matchMedia("(prefers-color-scheme: dark)")
         .matches
         ? "dark"
         : "light";
-    // console.log('OS wants ' + osColorPreference);
     var preferredColorScheme = localStorage.getItem("preferred-color-scheme");
     if (preferredColorScheme !== null) {
         initColorCSS(preferredColorScheme);
