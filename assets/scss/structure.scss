@@ -270,7 +270,7 @@ body
     display: block;
     width: 100vw;
     height: calc(100vh - 38px);
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: auto;
 
     // 大按钮，方便点击
