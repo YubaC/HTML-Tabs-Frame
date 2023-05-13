@@ -103,8 +103,11 @@
   width: 38px;
   height: 38px;
 }
-#header-tabnav .tabnav-item {
-  padding-top: 4px;
+.tabnav#header-tabnav {
+  outline: none !important;
+}
+.tabnav#header-tabnav .tabnav-item {
+  padding-top: 2px;
   padding-bottom: 4px;
   height: 30px;
   display: flex;
