@@ -307,6 +307,11 @@ function reBlindNavLinkClick() {
     $navTabs.off("click");
     // 添加点击事件
     $navTabs.on("click", function () {
+        // 如果点击的是当前tab，就不做任何事
+        if ($(this).hasClass(activeClass)) {
+            return;
+        }
+
         // 隐藏#view-all-box
         $navViewAllBox.hide();
         $MenuBox.hide();
@@ -375,7 +380,9 @@ async function changeTabContent() {
     // 如果存在名为leaveTab的函数，就执行它
     // Run leaveTab function, if it exists and the type of the pages is "inner".
     if (pages.before.type === "inner" && typeof leaveTab === "function") {
-        leaveTab();
+        await leaveTab();
+    } else if (pages.before.type === "inner") {
+        leaveTab = function () {};
     }
 
     const oldActivePage = $("." + activeContentBoxClass);
@@ -421,6 +428,12 @@ async function changeTabContent() {
         $contentBox
             .removeClass(contentBoxClass)
             .addClass(activeContentBoxClass);
+
+        if (pages.before.type === "inner" && typeof enterTab === "function") {
+            await enterTab();
+        } else if (pages.before.type === "inner") {
+            enterTab = function () {};
+        }
     } else {
         let newContent;
 
@@ -428,18 +441,20 @@ async function changeTabContent() {
             newContent = $(
                 `<div class="${activeContentBoxClass}" data-id="${pages.current.id}" tabindex="-1"></div>`
             );
-            newContent.load(src, () => {
+            newContent.load(src, async () => {
                 // 从localStorage中加载滚动条位置
                 // Load scroll position from localStorage.
                 const scrollTop = localStorage.getItem(pages.current.id);
                 newContent.scrollTop(scrollTop);
 
+                if (typeof enterTab === "function") {
+                    await enterTab();
+                } else if (pages.before.type === "inner") {
+                    enterTab = function () {};
+                }
+
                 // Load language file after the pages is loaded. (inner type only)
                 loadLanguage();
-
-                if (typeof enterTab === "function") {
-                    enterTab();
-                }
             });
         } else if (pages.current.type === "iframe") {
             newContent = $(

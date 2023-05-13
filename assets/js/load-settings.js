@@ -14,7 +14,7 @@ function loadSettings() {
     // 写入css代码
     var style = document.createElement("style");
     style.type = "text/css";
-    style.id = "config-font-size"
+    style.id = "config-font-size";
     style.innerHTML = `
     .tabContent, .tabContentActive {
         font-size: ${settings["font-size"] * 20 + 100}% !important;
@@ -81,17 +81,17 @@ $.getJSON("assets/data/settings.json", function (data) {
     .then(() => {
         // !Autoload resources
         // After we load the settings, we can load the rest of the application
+        loadAssets(assetsToLoad, loadSettings);
+        // for (var file of cssFiles) {
+        //     resourcesToLoad.push(loadExternalResource(file, "css"));
+        // }
 
-        for (var file of cssFiles) {
-            resourcesToLoad.push(loadExternalResource(file, "css"));
-        }
+        // for (file of jsFiles) {
+        //     resourcesToLoad.push(loadExternalResource(file, "js"));
+        // }
 
-        for (file of jsFiles) {
-            resourcesToLoad.push(loadExternalResource(file, "js"));
-        }
-
-        // Load files
-        Promise.all(resourcesToLoad).then(() => {
-            loadSettings();
-        });
+        // // Load files
+        // Promise.all(resourcesToLoad).then(() => {
+        //     loadSettings();
+        // });
     });

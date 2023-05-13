@@ -1,67 +1,106 @@
 "use strict";
-// !Autoload assets for theapplication
+// !Autoload assets for the application.
 
-// !CSS
-// Path: assets\lib\bootstrap\css\bootstrap.min.css
-// Path: assets\lib\fontawesome\css\all.min.css
-// Path: assets\lib\jquery\jquery-ui.min.css
-// // Path: assets\css\index.css
+const assetsToLoad = `
+<link rel="stylesheet" href="assets/lib/fontawesome-free-5.15.4-web/css/all.min.css">
+<link rel="stylesheet" href="assets/lib/jquery/css/jquery-ui.min.css">
+<script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/defines.js"></script>
+<script src="assets/lib/jquery/js/jquery-ui.min.js"></script>
+<script src="assets/js/languages.js"></script>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/accessibility.js"></script>
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/cookies.js"></script>
+<script src="assets/lib/qt/js/qwebchannel.js"></script>`;
 
-const cssFiles = [
-    // "assets/lib/bootstrap-dark-5-main/dist/css/bootstrap.css",
-    "assets/lib/fontawesome-free-5.15.4-web/css/all.min.css",
-    "assets/lib/jquery/css/jquery-ui.min.css",
-    // "assets/css/index.css"
-];
-
-// !Javascript
-// Path: assets\lib\bootstrap\js\bootstrap.bundle.min.js
-// Path: assets\lib\jquery\js\jquery-3.6.3.min.js
-// Path: assets\lib\jquery\js\jquery-ui.min.js
-// Path: assets\js\load-settings.js
-// Path: assets\js\theme.js
-// Path: assets\js\accessibility.js
-// Path: assets\js\nav.js
-// // Path: assets\js\languages.js
-// Path: assets\js\cookies.js
-// Path: assets\lib\qt\js\qwebchannel.js
-
-const jsFiles = [
-    "assets/js/defines.js",
-    "https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js",
-    // "assets/lib/jquery/js/jquery-3.6.3.min.js",
-    "assets/lib/jquery/js/jquery-ui.min.js",
-    // "assets/js/reload-settings.js",
-    "assets/js/languages.js",
-    // "assets/js/load-settings.js",
-    "assets/js/theme.js",
-    "assets/js/accessibility.js",
-    "assets/js/nav.js",
-    "assets/js/cookies.js",
-    "assets/lib/qt/js/qwebchannel.js",
-];
-
-// Functions to load the files
-// 封装异步加载资源的方法
-function loadExternalResource(url, type) {
+/**
+ * Load assets from a string of html. Returns a promise that resolves when all assets are loaded.
+ * @param {string} asset The asset to load, usually a script or link tag. Attributes will be copied to the new element.
+ * @returns {promise} A promise that resolves when the asset is loaded.
+ */
+function loadAsset(asset) {
     return new Promise((resolve, reject) => {
-        let tag;
-        // console.log(url);
+        // element.addEventListener("load", () => resolve());
+        // element.addEventListener("error", () => reject());
+        const isScript = asset.nodeName === "SCRIPT";
+        const element = isScript
+            ? document.createElement("script")
+            : document.createElement("link");
 
-        if (type === "css") {
-            tag = document.createElement("link");
-            tag.rel = "stylesheet";
-            tag.href = url;
-        } else if (type === "js") {
-            tag = document.createElement("script");
-            tag.src = url;
+        // 把所有的属性和值都复制到新的元素上
+        [...asset.attributes].forEach((attr) => {
+            element.setAttribute(attr.name, attr.value);
+        });
+        // 如果标签内有内容，也复制过去
+        if (asset.innerHTML) {
+            element.innerHTML = asset.innerHTML;
         }
-        if (tag) {
-            tag.onload = () => resolve(url);
-            tag.onerror = () => reject(url);
-            document.head.appendChild(tag);
+
+        // 如果没有src或者href，判定为已经加载完成
+        if (!asset.src && !asset.href) {
+            document.head.appendChild(element);
+            console.warn(`A resource without src or href is loaded.`);
+            resolve(element);
+            return;
         }
+
+        element.addEventListener("load", () => {
+            resolve(element);
+            console.info(`Loaded: ${element.src || element.href}`);
+        });
+
+        element.addEventListener("error", () => {
+            reject(element);
+            console.error(`Error loading: ${element.src || element.href}`);
+        });
+
+        // console.info(element);
+        document.head.appendChild(element);
     });
+}
+
+/**
+ * Load assets from a string of html.
+ * @param {string} html The html string to load, usually script or link tags, or a combination of both. Attributes will be copied to the new element.
+ * @param {function} callback The callback function to call when all assets are loaded.
+ */
+async function loadAssets(html, callback) {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    const assets = [...doc.querySelectorAll("script, link")];
+    const totalAssets = assets.length;
+
+    if (totalAssets === 0) {
+        if (callback) {
+            callback();
+        }
+        return;
+    }
+
+    const promiseArray = assets.map((asset) => {
+        return () => {
+            return loadAsset(asset);
+        };
+    });
+
+    let promiseChain = Promise.resolve();
+
+    promiseArray.forEach((promise) => {
+        promiseChain = promiseChain.then(() => {
+            return Promise.resolve(promise());
+        });
+    });
+
+    promiseChain
+        .then((result) => {
+            console.log("All promises are resolved.");
+            if (callback) {
+                callback();
+            }
+        })
+        .catch((error) => {
+            console.error("An error occurred:", error);
+        });
 }
 
 // Load resources one by one

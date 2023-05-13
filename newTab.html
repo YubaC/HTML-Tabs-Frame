@@ -15,6 +15,49 @@
 
 <body> -->
 
+<script>
+    function enterTab() {
+        // 将页面内所有id前缀为data-的元素的data-去掉
+        // 以便于在页面内使用
+
+        // 使用promise封装异步操作，以便于在异步操作完成后执行后续操作
+        console.log("enterTab: " + pages.current.id);
+        // 1. 获取所有id前缀为data-的元素
+        var activePage = $(`[data-id="${pages.current.id}"]`);
+        console.log(pages.before.id);
+        var dataElements = activePage.find("[id^='data-']");
+        // 2. 遍历所有元素
+        dataElements.each(function (index, element) {
+            // 3. 获取元素的id
+            var id = $(element).attr("id");
+            // 4. 去掉id前缀
+            var newId = id.replace("data-", "");
+            // 5. 设置元素的id
+            $(element).attr("id", newId);
+        });
+    }
+    function leaveTab() {
+        // 为了防止页面内的元素id冲突，离开页面时将页面内所有id添加data-前缀
+        // 以便于在页面内使用
+
+        // 使用promise封装异步操作，以便于在异步操作完成后执行后续操作
+        console.log("leaveTab: " + pages.before.id);
+        // 1. 获取所有id前缀为data-的元素
+        var activePage = $(`[data-id="${pages.before.id}"]`);
+        var dataElements = activePage.find("[id]");
+        // 2. 遍历所有元素
+        dataElements.each(function (index, element) {
+            // 3. 获取元素的id
+            var id = $(element).attr("id");
+            // 4. 添加id前缀
+            var newId = "data-" + id;
+            // 5. 设置元素的id
+            $(element).attr("id", newId);
+        });
+
+    }
+</script>
+
 <link rel="stylesheet" href="assets/css/high-contrast.css">
 
 <nav>
