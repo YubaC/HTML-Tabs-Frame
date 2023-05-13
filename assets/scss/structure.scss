@@ -132,9 +132,14 @@
     height: 38px;
     border: none;
 
-    #header-tabnav &-item
+    &#header-tabnav
     {
-        padding-top: 4px;
+        outline: none !important;
+    }
+
+    &#header-tabnav &-item
+    {
+        padding-top: 2px;
         padding-bottom: 4px;
         height: 30px;
         display: flex;
