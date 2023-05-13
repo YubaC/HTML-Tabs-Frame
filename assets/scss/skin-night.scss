@@ -1,0 +1,94 @@
+@import 'colors-night';
+
+*
+{
+    &:focus
+    {
+        outline: 2px solid $outline-color  !important;
+    }
+
+    &:active:focus
+    {
+        @extend :focus;
+    }
+}
+
+.tabbtn
+{
+    color: $tab-btn-font-color;
+    background-color: transparent;
+    border: 1px solid transparent;
+
+    /* transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; */
+    &:disabled
+    {
+        opacity: 0.65;
+    }
+}
+
+.tabbtn-light
+{
+    color: $tab-btn-font-color;
+    background-color: $tab-btn-background-color;
+
+    // border-color: $tab-btn-border-color;
+    &:hover
+    {
+        background-color: $tab-btn-hover-background-color;
+        // border-color: $tab-btn-hover-background-color;
+    }
+
+    &:active
+    {
+        background-color: $tab-btn-active-background-color;
+        // border-color: $tab-btn-hover-background-color;
+    }
+
+    &:disabled
+    {
+        background-color: $tab-btn-background-color;
+        border-color: $tab-btn-background-color;
+    }
+}
+
+.tabbtn-close
+{
+    background: $tab-btn-close-background;
+
+    &:hover
+    {
+        text-decoration: none;
+        opacity: 0.75;
+    }
+
+    &:focus
+    {
+        @extend :hover;
+    }
+}
+
+.tabnav-item
+{
+    color: $tab-font-color;
+    color: var(--bs-body-color);
+
+    &:focus,
+    &:hover
+    {
+        background-color: $tab-hover-background-color;
+        isolation: isolate;
+    }
+
+    &.active
+    {
+        background-color: $tab-active-background-color;
+        border-color: $tab-active-border-color;
+        box-shadow: 0 0 5px $shadow-color;
+    }
+}
+
+#nav-view-all-box,
+#nav-menu-box
+{
+    box-shadow: 0 0 5px $shadow-color;
+}
