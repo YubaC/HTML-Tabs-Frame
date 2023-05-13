@@ -11,11 +11,21 @@ var pagesToBeLoaded;
 function loadSettings() {
     // !load font size
     // 设置字体大小
-    $(".tabContent, .tabContentActive").css(
-        "font-size",
-        settings["font-size"] * 20 + 100 + "%",
-        " !important"
-    );
+    // 写入css代码
+    var style = document.createElement("style");
+    style.type = "text/css";
+    style.innerHTML = `
+    .tabContent, .tabContentActive {
+        font-size: ${settings["font-size"] * 20 + 100}% !important;
+    }
+    `;
+    document.getElementsByTagName("head")[0].appendChild(style);
+
+    // $(".tabContent, .tabContentActive").css(
+    //     "font-size",
+    //     settings["font-size"] * 20 + 100 + "%",
+    //     " !important"
+    // );
 
     var pages = pagesToBeLoaded;
     // !Load saved pages

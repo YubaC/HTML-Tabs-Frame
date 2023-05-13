@@ -1,5 +1,26 @@
 function onNightMode() {
     // 为图片添加深色滤镜
+    // 写入css代码
+    const imgFilter = `
+    img:not([src$="#night-mode-only"]) {
+        filter: brightness(0.7);
+    }
+    img[src$="#light-mode-only"] {
+        display: none;
+    }
+    img[src$="#night-mode-only"] {
+        display: block;
+    }
+    `;
+    if ($("#img-filter").length == 0) {
+        var style = document.createElement("style");
+        style.id = "img-filter";
+        style.type = "text/css";
+        document.getElementsByTagName("head")[0].appendChild(style);
+    }
+
+    $("#img-filter").html(imgFilter);
+
     // $("img").css("filter", "invert(1) hue-rotate(180deg)");
     // console.log("图片添加深色滤镜");
     // $('img:not([src$="#night-mode-only"])').css("filter", "brightness(0.7)");
@@ -20,8 +41,30 @@ function onNightMode() {
 }
 
 function onLightMode() {
+    const imgFilter = `
+    img:not([src$="#night-mode-only"]) {
+        filter: none;
+    }
+    img[src$="#light-mode-only"] {
+        display: block;
+    }
+    img[src$="#night-mode-only"] {
+        display: none;
+    }
+    `;
+    // 为图片移除深色滤镜
+    // 写入css代码
+    if ($("#img-filter").length == 0) {
+        var style = document.createElement("style");
+        style.id = "img-filter";
+        style.type = "text/css";
+        document.getElementsByTagName("head")[0].appendChild(style);
+    }
+
+    $("#img-filter").html(imgFilter);
+
     // console.log("图片移除深色滤镜");
-    $('img:not([src$="#night-mode-only"])').css("filter", "");
+    // $('img:not([src$="#night-mode-only"])').css("filter", "");
     // 将导航栏的bg-dark class改为bg-light
     $("#header-tabnav").removeClass("bg-dark");
     $("#header-tabnav").addClass("bg-light");

@@ -425,23 +425,25 @@ function reBlindNavLinkClick() {
  * Request the src and replace the content.
  */
 
-function changeTabContent() {
+async function changeTabContent() {
     const src = pages.current.src;
+
     // *Leave tab
     // Save the scroll position of the tabcontent box.
     // 保存tabcontent的滚动位置
-    const oldActivePage = $("." + activeContentBoxClass);
-    const tabContentScrollTop = oldActivePage.scrollTop();
-    // Save to localStorage
-    localStorage.setItem(pages.before.id, tabContentScrollTop);
-
-    oldActivePage.removeClass(activeContentBoxClass).addClass(contentBoxClass);
 
     // 如果存在名为leaveTab的函数，就执行它
     // Run leaveTab function, if it exists and the type of the pages is "inner".
     if (pages.before.type === "inner" && typeof leaveTab === "function") {
         leaveTab();
     }
+
+    const oldActivePage = $("." + activeContentBoxClass);
+    const tabContentScrollTop = oldActivePage.scrollTop();
+    // Save to localStorage
+    localStorage.setItem(pages.before.id, tabContentScrollTop);
+
+    oldActivePage.removeClass(activeContentBoxClass).addClass(contentBoxClass);
 
     // 如果keep==false就删除以节省内存
     // If keep==false, delete the element to save memory.
@@ -507,7 +509,7 @@ function changeTabContent() {
 
         // 将新创建的元素添加到document中
         $("body").append(newContent);
-        reloadSettings();
+        // reloadSettings();
     }
 }
 

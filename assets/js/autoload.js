@@ -30,7 +30,7 @@ const jsFiles = [
     "https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js",
     // "assets/lib/jquery/js/jquery-3.6.3.min.js",
     "assets/lib/jquery/js/jquery-ui.min.js",
-    "assets/js/reload-settings.js",
+    // "assets/js/reload-settings.js",
     "assets/js/languages.js",
     // "assets/js/load-settings.js",
     "assets/js/theme.js",
