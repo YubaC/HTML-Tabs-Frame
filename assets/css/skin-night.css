@@ -41,7 +41,7 @@
   background-color: var(--bs-gray-600);
   isolation: isolate;
 }
-.tabstrip-item.active {
+.tabstrip-item.active:not(#nav-view-all-box-tab-list .active) {
   background-color: var(--bs-gray-600);
   border-color: var(--bs-gray-500);
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);

@@ -79,7 +79,7 @@
         isolation: isolate;
     }
 
-    &.active
+    &.active:not(#nav-view-all-box-tab-list .active)
     {
         background-color: $tab-active-background-color;
         border-color: $tab-active-border-color;
