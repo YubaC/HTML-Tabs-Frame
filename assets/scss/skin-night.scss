@@ -87,8 +87,15 @@
     }
 }
 
+#header-tabnav
+{
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity));
+}
+
 #nav-view-all-box,
 #nav-menu-box
 {
+    background-color: rgb(var(--bs-gray-600));
     box-shadow: 0 0 5px $shadow-color;
 }

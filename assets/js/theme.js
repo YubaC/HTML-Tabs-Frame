@@ -21,23 +21,7 @@ function onNightMode() {
 
     $("#img-filter").html(imgFilter);
 
-    // $("img").css("filter", "invert(1) hue-rotate(180deg)");
-    // console.log("图片添加深色滤镜");
-    // $('img:not([src$="#night-mode-only"])').css("filter", "brightness(0.7)");
-    // 将导航栏的bg-light class改为bg-dark
-    $("#header-tabnav").removeClass("bg-light");
-    $("#header-tabnav").addClass("bg-dark");
-    $("#nav-view-all-box").removeClass("bg-white");
-    $("#nav-view-all-box").addClass("bg-dark");
-    $("#nav-menu-box").removeClass("bg-white");
-    $("#nav-menu-box").addClass("bg-dark");
-
     $("body").addClass("prefers-dark");
-
-    // $("#header-tabnav>li").removeClass("text-black");
-    // $("#header-tabnav>li").addClass("text-light");
-
-    // 字体颜色
 }
 
 function onLightMode() {
@@ -63,20 +47,7 @@ function onLightMode() {
 
     $("#img-filter").html(imgFilter);
 
-    // console.log("图片移除深色滤镜");
-    // $('img:not([src$="#night-mode-only"])').css("filter", "");
-    // 将导航栏的bg-dark class改为bg-light
-    $("#header-tabnav").removeClass("bg-dark");
-    $("#header-tabnav").addClass("bg-light");
-    $("#nav-view-all-box").addClass("bg-white");
-    $("#nav-view-all-box").removeClass("bg-dark");
-    $("#nav-menu-box").addClass("bg-white");
-    $("#nav-menu-box").removeClass("bg-dark");
-
     $("body").removeClass("prefers-dark");
-
-    // $("#header-tabnav>li").removeClass("text-light");
-    // $("#header-tabnav>li").addClass("text-black");
 }
 
 // If `prefers-color-scheme` is not supported, fall back to light mode.

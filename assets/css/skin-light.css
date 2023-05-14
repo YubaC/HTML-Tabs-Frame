@@ -47,7 +47,12 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+#header-tabnav {
+  background-color: rgb(var(--bs-light-rgb));
+}
+
 #nav-view-all-box,
 #nav-menu-box {
+  background-color: rgb(var(--bs-light-rgb));
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }/*# sourceMappingURL=skin-light.css.map */
