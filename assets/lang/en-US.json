@@ -1,17 +1,17 @@
 {
-    "//": "//!This is the language pack for tabnav",
-    "tabnav-close-tab-btn-label": "Close this tab",
-    "tabnav-close-tab-btn-title": "Close this tab",
-    "tabnav-left-tabbtn-label": "Slide tab bar to the left",
-    "tabnav-left-tabbtn-title": "Slide tab bar to the left",
-    "tabnav-right-tabbtn-label": "Slide tab bar to the right",
-    "tabnav-right-tabbtn-title": "Slide tab bar to the right",
-    "tabnav-add-tabbtn-label": "Open new tab",
-    "tabnav-add-tabbtn-title": "Open new tab",
-    "tabnav-view-all-tabbtn-label": "List all tabs",
-    "tabnav-view-all-tabbtn-title": "List all tabs",
-    "tabnav-menu-tabbtn-label": "Open tab menu",
-    "tabnav-menu-tabbtn-title": "Open tab menu",
+    "//": "//!This is the language pack for tabstrip",
+    "tabstrip-close-tab-btn-label": "Close this tab",
+    "tabstrip-close-tab-btn-title": "Close this tab",
+    "tabstrip-left-tabbtn-label": "Slide tab bar to the left",
+    "tabstrip-left-tabbtn-title": "Slide tab bar to the left",
+    "tabstrip-right-tabbtn-label": "Slide tab bar to the right",
+    "tabstrip-right-tabbtn-title": "Slide tab bar to the right",
+    "tabstrip-add-tabbtn-label": "Open new tab",
+    "tabstrip-add-tabbtn-title": "Open new tab",
+    "tabstrip-view-all-tabbtn-label": "List all tabs",
+    "tabstrip-view-all-tabbtn-title": "List all tabs",
+    "tabstrip-menu-tabbtn-label": "Open tab menu",
+    "tabstrip-menu-tabbtn-title": "Open tab menu",
 
     "nav-view-all-box-options-list-search": "Search for tabs",
 
@@ -80,5 +80,5 @@
     "new-page-nav-options-add-title": "Import a local repository",
     "new-page-nav-options-create": "Create a repository",
     "new-page-nav-options-create-title": "Create a new repository",
-    "tabnav-close-tab-btn": "Close this tab"
+    "tabstrip-close-tab-btn": "Close this tab"
 }

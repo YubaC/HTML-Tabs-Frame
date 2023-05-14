@@ -1,4 +1,11 @@
 @charset "UTF-8";
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 .tabbtn {
   outline-offset: -3px;
   display: inline-block;
@@ -60,7 +67,7 @@
   margin-left: 10px;
 }
 
-.tabnav {
+.tabstrip {
   display: flex;
   flex-wrap: nowrap;
   padding-left: 0;
@@ -89,36 +96,36 @@
   height: 38px;
   border: none;
 }
-.tabnav::-webkit-scrollbar {
+.tabstrip::-webkit-scrollbar {
   min-width: 16px;
   height: 6px;
   /* 组件内滚动条不显示 */
   display: none;
 }
-.tabnav-master {
+.tabstrip-master {
   width: 100vw;
 }
-.tabnav-left-tabbtn, .tabnav-right-tabbtn {
+.tabstrip-left-tabbtn, .tabstrip-right-tabbtn {
   width: 38px;
   height: 38px;
 }
-.tabnav#header-tabnav {
+.tabstrip#header-tabstrip {
   outline: none !important;
 }
-.tabnav#header-tabnav .tabnav-item {
+.tabstrip#header-tabstrip .tabstrip-item {
   padding-top: 4px;
   padding-bottom: 4px;
   height: 30px;
   display: flex;
   font-size: smaller;
 }
-.tabnav::-webkit-scrollbar {
+.tabstrip::-webkit-scrollbar {
   min-width: 16px;
   height: 6px;
   display: none;
   /* 组件内滚动条不显示 */
 }
-.tabnav-item {
+.tabstrip-item {
   margin-top: 3px;
   margin-bottom: 3px;
   margin-left: 3px;
@@ -129,8 +136,8 @@
       -ms-user-select: none;
           user-select: none;
 }
-.tabnav-item a {
-  /* 移除.tabnav-item上的链接的点击事件 */
+.tabstrip-item a {
+  /* 移除.tabstrip-item上的链接的点击事件 */
   pointer-events: none;
   /* 不能被选中 */
   -webkit-touch-callout: none;
@@ -145,7 +152,7 @@
   user-select: none;
 }
 
-.tabnav-item {
+.tabstrip-item {
   display: block;
   padding: 0.5rem 1rem;
   text-decoration: none;
@@ -155,17 +162,17 @@
   border-radius: 0.25rem;
 }
 @media (prefers-reduced-motion: reduce) {
-  .tabnav-item {
+  .tabstrip-item {
     transition: none;
   }
 }
 
-.tabnav-master {
+.tabstrip-master {
   width: 100vw;
 }
 
-#tabnav-left-tabbtn,
-#tabnav-right-tabbtn {
+#tabstrip-left-tabbtn,
+#tabstrip-right-tabbtn {
   width: 38px;
   height: 38px;
 }
@@ -186,6 +193,10 @@
   top: 50px;
   border-radius: 8px;
 }
+#nav-view-all-box .tabstrip-item.active,
+#nav-menu-box .tabstrip-item.active {
+  font-weight: bold;
+}
 #nav-view-all-box .list-group-item,
 #nav-menu-box .list-group-item {
   border: none;
@@ -198,13 +209,6 @@
 #nav-view-all-box #nav-menu-box-menu-list,
 #nav-menu-box #nav-menu-box-menu-list {
   overflow-x: hidden;
-}
-
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
 }
 
 #box-musk {
@@ -229,4 +233,12 @@ body {
 .tabContentActive .form-switch .form-check-input {
   width: 60px;
   height: 30px;
+}
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
 }/*# sourceMappingURL=structure.css.map */

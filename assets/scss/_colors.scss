@@ -1,14 +1,16 @@
 @charset "UTF-8";
-// _colors.scss
+$tabstrip-bg-color: var(--bs-gray-100);
+$tabstrip-hover-bg-color: var(--bs-gray-300);
+// tab strip
 $outline-color: blue;
 $tab-font-color: var(--bs-body-color);
-$tab-hover-background-color: var(--bs-gray-300);
+$tab-hover-background-color: $tabstrip-hover-bg-color;
 $tab-active-background-color: var(--bs-white);
 $tab-active-border-color: var(--bs-gray-300);
 $shadow-color: rgba(0, 0, 0, 0.5);
 // Tab button
 $tab-btn-font-color: var(--bs-body-color);
-$tab-btn-background-color: var(--bs-gray-100);
+$tab-btn-background-color: $tabstrip-bg-color;
 $tab-btn-border-color: var(--bs-gray-100);
 $tab-btn-hover-background-color: var(--bs-gray-300);
 $tab-btn-active-background-color: var(--bs-gray-500);

@@ -11,28 +11,28 @@
 
 <div id="box-musk" style="display:none;"></div>
 
-<!-- tabnav tabs -->
-<div class="d-inline-flex tabnav-master tabbtn-group">
-    <button tabindex="-1" id="tabnav-left-tabbtn" class="tabbtn tabbtn-light">
-            <i class="fas fa-angle-left"></i>
-        </button>
+<!-- tabstrip tabs -->
+<div class="d-inline-flex tabstrip-master tabbtn-group">
+    <button tabindex="-1" id="tabstrip-left-tabbtn" class="tabbtn tabbtn-light">
+        <i class="fas fa-angle-left"></i>
+    </button>
 
     <div>
-        <ul id="header-tabnav" class="tabnav tabnav-tabs bg-light" role="tablist"></ul>
+        <ul id="header-tabstrip" class="tabstrip tabstrip-tabs bg-light" role="tablist"></ul>
     </div>
 
-    <button tabindex="-1" id="tabnav-right-tabbtn" class="tabbtn tabbtn-light">
+    <button tabindex="-1" id="tabstrip-right-tabbtn" class="tabbtn tabbtn-light">
         <i class="fas fa-angle-right"></i>
-        </button>
-    <button id="tabnav-add-tabbtn" class="tabbtn tabbtn-light">
+    </button>
+    <button id="tabstrip-add-tabbtn" class="tabbtn tabbtn-light">
         <small><i class="fas fa-plus small"></i></small>
-        </button>
-    <button id="tabnav-view-all-tabbtn" class="tabbtn tabbtn-light">
+    </button>
+    <button id="tabstrip-view-all-tabbtn" class="tabbtn tabbtn-light">
         <i class="fas fa-angle-down"></i>
-        </button>
-    <button id="tabnav-menu-tabbtn" class="tabbtn tabbtn-light">
-            <i class="fas fa-bars" aria-hidden="true"></i>
-        </button>
+    </button>
+    <button id="tabstrip-menu-tabbtn" class="tabbtn tabbtn-light">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+    </button>
 </div>
 
 <!-- Tab list -->
@@ -52,13 +52,13 @@
 <div id="tabContent"></div>
 
 <script>
-    window.onload = function() {
-            newPage("welcome", -1, "welcome.html", true);
-            newPage("settings", -1, "settings.html", true);
-            for (var i = 1; i < 32; i++) {
-                newPage("Home" + i, -1, "home.html", false);
-            }
+    window.onload = function () {
+        newPage("welcome", -1, "welcome.html", true);
+        newPage("settings", -1, "settings.html", true);
+        for (var i = 1; i < 32; i++) {
+            newPage("Home" + i, -1, "home.html", false);
         }
+    }
         // function openSettings() {
         //     var insertPlace = $("#header-nav").find(".active").index();
         //     newPage("Settings", insertPlace, "settings.html", "win" + winIdNumber, true, false);

@@ -37,45 +37,48 @@
 <body>
     <div id="box-musk" style="display:none;"></div>
 
-    <!-- tabnav tabs -->
-    <div tabindex="-1" class="d-inline-flex tabnav-master tabbtn-group">
-        <label for="tabnav-close-tab-btn" data-lang-key="tabnav-close-tab-btn-label"
+    <!-- tabstrip tabs -->
+    <div tabindex="-1" class="d-inline-flex tabstrip-master tabbtn-group">
+        <label for="tabstrip-close-tab-btn" data-lang-key="tabstrip-close-tab-btn-label"
             class="lang visually-hidden"></label>
-        <label for="tabnav-left-tabbtn" data-lang-key="tabnav-left-tabbtn-label" class="lang visually-hidden"></label>
-        <label for="tabnav-right-tabbtn" data-lang-key="tabnav-right-tabbtn-label" class="lang visually-hidden"></label>
-        <label for="tabnav-add-tabbtn" data-lang-key="tabnav-add-tabbtn-label" class="lang visually-hidden"></label>
-        <label for="tabnav-view-all-tabbtn" data-lang-key="tabnav-view-all-tabbtn-label"
+        <label for="tabstrip-left-tabbtn" data-lang-key="tabstrip-left-tabbtn-label"
             class="lang visually-hidden"></label>
-        <label for="tabnav-menu-tabbtn" data-lang-key="tabnav-menu-tabbtn-label" class="lang visually-hidden"></label>
+        <label for="tabstrip-right-tabbtn" data-lang-key="tabstrip-right-tabbtn-label"
+            class="lang visually-hidden"></label>
+        <label for="tabstrip-add-tabbtn" data-lang-key="tabstrip-add-tabbtn-label" class="lang visually-hidden"></label>
+        <label for="tabstrip-view-all-tabbtn" data-lang-key="tabstrip-view-all-tabbtn-label"
+            class="lang visually-hidden"></label>
+        <label for="tabstrip-menu-tabbtn" data-lang-key="tabstrip-menu-tabbtn-label"
+            class="lang visually-hidden"></label>
 
-        <button tabindex="-1" id="tabnav-left-tabbtn" class="tabbtn tabbtn-light lang"
-            data-lang-key="tabnav-left-tabbtn">
+        <button tabindex="-1" id="tabstrip-left-tabbtn" class="tabbtn tabbtn-light lang"
+            data-lang-key="tabstrip-left-tabbtn">
             <i class="fas fa-angle-left"></i>
         </button>
 
         <div>
-            <ul id="header-tabnav" class="tabnav tabnav-tabs" role="tablist" tabindex="-1"></ul>
+            <ul id="header-tabstrip" class="tabstrip tabstrip-tabs" role="tablist" tabindex="-1"></ul>
         </div>
 
-        <button tabindex="-1" id="tabnav-right-tabbtn" class="tabbtn tabbtn-light lang"
-            data-lang-key="tabnav-right-tabbtn">
+        <button tabindex="-1" id="tabstrip-right-tabbtn" class="tabbtn tabbtn-light lang"
+            data-lang-key="tabstrip-right-tabbtn">
             <i class="fas fa-angle-right"></i>
         </button>
-        <button id="tabnav-add-tabbtn" class="tabbtn tabbtn-light lang" data-lang-key="tabnav-add-tabbtn">
+        <button id="tabstrip-add-tabbtn" class="tabbtn tabbtn-light lang" data-lang-key="tabstrip-add-tabbtn">
             <small><i class="fas fa-plus small"></i></small>
         </button>
-        <button id="tabnav-view-all-tabbtn" class="tabbtn tabbtn-light lang" data-lang-key="tabnav-view-all-tabbtn">
+        <button id="tabstrip-view-all-tabbtn" class="tabbtn tabbtn-light lang" data-lang-key="tabstrip-view-all-tabbtn">
             <i class="fas fa-angle-down"></i>
         </button>
-        <button id="tabnav-menu-tabbtn" class="tabbtn tabbtn-light lang" data-lang-key="tabnav-menu-tabbtn">
+        <button id="tabstrip-menu-tabbtn" class="tabbtn tabbtn-light lang" data-lang-key="tabstrip-menu-tabbtn">
             <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
     </div>
 
     <!-- Tab list -->
-    <div id="nav-view-all-box" class="bg-white pb-2" style="display:none;">
+    <div id="nav-view-all-box" class="pb-2" style="display:none;">
         <ul id="nav-view-all-box-options-list" class="list-group border-bottom rounded-0">
-            <!-- <li data-lang-key="nav-view-all-box-options-list-search" tabindex="0" class="tabnav-options lang" role="tab"></li> -->
+            <!-- <li data-lang-key="nav-view-all-box-options-list-search" tabindex="0" class="tabstrip-options lang" role="tab"></li> -->
             <!-- Search -->
             <li>
                 <form id="search" action="">
@@ -118,7 +121,7 @@
             }
 
             // 在active的标签页右面插入新标签页并聚焦
-            var $activeTab = $(".tabnav-item.active");
+            var $activeTab = $(".tabstrip-item.active");
             // 获取当前标签页的index
             var index = $activeTab.index();
             newPage({

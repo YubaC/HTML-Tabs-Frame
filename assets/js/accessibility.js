@@ -14,8 +14,8 @@ var hotkey = {
     document: {},
 
     // Tab navigation
-    tabNav: {
-        // 快速聚焦到tabNav ctrl+1
+    tabStrip: {
+        // 快速聚焦到tabStrip ctrl+1
         focus: 49,
         // Left ←
         left: 37,
@@ -54,7 +54,7 @@ function reBlindHotKey() {
         // console.log(e.keyCode);
         switch (e.keyCode) {
             // ctrl + n
-            case hotkey.tabNav.add:
+            case hotkey.tabStrip.add:
                 if (!e.ctrlKey) {
                     break;
                 }
@@ -63,7 +63,7 @@ function reBlindHotKey() {
                 break;
 
             // ctrl + ?
-            case hotkey.tabNav.viewAll:
+            case hotkey.tabStrip.viewAll:
                 if (!e.ctrlKey) {
                     break;
                 }
@@ -72,7 +72,7 @@ function reBlindHotKey() {
                 break;
 
             // ctrl + m
-            case hotkey.tabNav.menu:
+            case hotkey.tabStrip.menu:
                 if (!e.ctrlKey) {
                     break;
                 }
@@ -81,7 +81,7 @@ function reBlindHotKey() {
                 break;
 
             // 1
-            case hotkey.tabNav.focus:
+            case hotkey.tabStrip.focus:
                 if (!e.ctrlKey) {
                     break;
                 }
@@ -93,12 +93,12 @@ function reBlindHotKey() {
 
     // !Tabnav
     // 清除快捷键
-    $tabNav.children().off("keydown");
-    $tabNav.children().on("keydown", function (e) {
+    $tabStrip.children().off("keydown");
+    $tabStrip.children().on("keydown", function (e) {
         // console.log(e.keyCode);
         switch (e.keyCode) {
             // Left ←
-            case hotkey.tabNav.left:
+            case hotkey.tabStrip.left:
                 // $tabLeftBtn.click();
                 // 选中当前选中标签页的前一个标签页
                 e.preventDefault();
@@ -110,7 +110,7 @@ function reBlindHotKey() {
                     .click();
                 break;
             // Right →
-            case hotkey.tabNav.right:
+            case hotkey.tabStrip.right:
                 e.preventDefault();
                 // $tabRightBtn.click();
                 // 选中当前active标签页的后一个标签页
@@ -136,15 +136,13 @@ function reBlindHotKey() {
                 // 如果不为空，选中当前focus标签页的前一个标签页
                 // 忽略.visually-hidden的标签页
                 if (
-                    $navViewAllBoxTabList
-                        .find(":focus")
-                        .prev()
-                        .not(".visually-hidden").length > 0
+                    $navViewAllBoxTabList.find(":focus").prev().not(".hide")
+                        .length > 0
                 ) {
                     $navViewAllBoxTabList
                         .find(":focus")
                         .prev()
-                        .not(".visually-hidden")
+                        .not(".hide")
                         .focus();
                 }
                 // focus标签页前没有标签页了
@@ -153,7 +151,7 @@ function reBlindHotKey() {
                 else if ($navViewAllBoxSearchInput.is(":focus")) {
                     $navViewAllBoxTabList
                         .children()
-                        .not(".visually-hidden")
+                        .not(".hide")
                         .last()
                         .focus();
                 }
@@ -169,15 +167,13 @@ function reBlindHotKey() {
                 // 如果不为空，选中当前focus标签页的后一个标签页
                 // 忽略.visually-hidden的标签页
                 if (
-                    $navViewAllBoxTabList
-                        .find(":focus")
-                        .next()
-                        .not(".visually-hidden").length > 0
+                    $navViewAllBoxTabList.find(":focus").next().not(".hide")
+                        .length > 0
                 ) {
                     $navViewAllBoxTabList
                         .find(":focus")
                         .next()
-                        .not(".visually-hidden")
+                        .not(".hide")
                         .focus();
                 }
                 // focus标签页后没有标签页了
@@ -186,7 +182,7 @@ function reBlindHotKey() {
                 else if ($navViewAllBoxSearchInput.is(":focus")) {
                     $navViewAllBoxTabList
                         .children()
-                        .not(".visually-hidden")
+                        .not(".hide")
                         .first()
                         .focus();
                 }

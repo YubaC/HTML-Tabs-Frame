@@ -42,6 +42,7 @@ function newPage(options) {
 
     openedWindows++;
     options.id = openedWindows;
+    options.selector = `[data-id="${openedWindows}"]`;
 
     // 在page内添加新的页面
     pages.opened.push(options);
@@ -61,7 +62,7 @@ function newPage(options) {
         src +
         '" tabindex="' +
         tabindex +
-        '" class="tabnav-item new-tab" draggable="true" role="tab">' +
+        '" class="tabstrip-item new-tab" draggable="true" role="tab">' +
         title +
         "</li>";
 
@@ -76,17 +77,17 @@ function newPage(options) {
         case 0:
             // 如果insertPlace是0，表示在第一个Tab前面插入新的Tab
             // 在第一个Tab前面插入新的Tab
-            $tabNav.prepend(newTab);
+            $tabStrip.prepend(newTab);
             break;
         case -1:
             // 如果insertPlace是-1，表示在最后一个Tab后面插入新的Tab
             // 在最后一个Tab后面插入新的Tab
-            $tabNav.append(newTab);
+            $tabStrip.append(newTab);
             break;
         default:
             // 如果insertPlace是一个数字，表示在第几个Tab后面插入新的Tab
             // 在第insertPlace个Tab后面插入新的Tab
-            $tabNav.children().eq(index).after(newTab);
+            $tabStrip.children().eq(index).after(newTab);
             break;
     }
 
@@ -94,8 +95,8 @@ function newPage(options) {
     // 这里是为了省事，干脆重新绑定所有Tab的点击事件
     reBlindNavLinkClick();
 
-    // 在$tabNav里找到class=new_tab的元素
-    var $newTab = $tabNav.children(".new-tab");
+    // 在$tabStrip里找到class=new_tab的元素
+    var $newTab = $tabStrip.children(".new-tab");
     // console.log($newTab);
     // 如果isActive为true，表示新的Tab是活跃的，就点击它
     if (isActive) {
@@ -115,7 +116,7 @@ function newPage(options) {
 // // 将新建标签页的逻辑封装到单独的函数中
 // function createNewTab(title, src, isActive, data) {
 //   const tabindex = isActive ? 0 : -1;
-//   const newTab = `<li id="${openedWindows}" target-src="${src}" tabindex="${tabindex}" class="tabnav-item new-tab" draggable="true" role="tab">${title}</li>`;
+//   const newTab = `<li id="${openedWindows}" target-src="${src}" tabindex="${tabindex}" class="tabstrip-item new-tab" draggable="true" role="tab">${title}</li>`;
 
 //   openedWindows++;
 
@@ -127,25 +128,25 @@ function newPage(options) {
 
 // function newPage(title, index, src, isActive, data = null) {
 //   // 缓存 jQuery 对象
-//   const $tabNav = $('#tab-nav');
+//   const $tabStrip = $('#tab-nav');
 
 //   const newTab = createNewTab(title, src, isActive, data);
 
 //   // 简化添加 HTML 字符串的代码
 //   switch (index) {
 //     case 0:
-//       $tabNav.prepend(newTab);
+//       $tabStrip.prepend(newTab);
 //       break;
 //     case -1:
-//       $tabNav.append(newTab);
+//       $tabStrip.append(newTab);
 //       break;
 //     default:
-//       $tabNav.children().eq(index).after(newTab);
+//       $tabStrip.children().eq(index).after(newTab);
 //       break;
 //   }
 
 //   // 缓存 DOM 查询结果
-//   const $newTab = $tabNav.children('.new-tab');
+//   const $newTab = $tabStrip.children('.new-tab');
 
 //   reBlindNavLinkClick();
 
@@ -165,7 +166,7 @@ function newPage(options) {
 var navLeftBtnClickCount = 0; // 点击次数
 var navLeftBtnClickTimer = null; // 定时器
 
-var $nav = $tabNav;
+var $nav = $tabStrip;
 var $rollWidth = 200;
 $tabLeftBtn.on("click", function () {
     if (navLeftBtnClickCount === 0) {
@@ -241,8 +242,8 @@ $tabRightBtn.on("click", function () {
  */
 function slideXToActiveTab($activeTab) {
     // 当一个.nav-link被点击的时候，如果它不完整在可视区域内，就滚动到它的位置
-    var $nav = $tabNav;
-    var $navItem = $activeTab.closest(".tabnav-item");
+    var $nav = $tabStrip;
+    var $navItem = $activeTab.closest(".tabstrip-item");
     var $navItemWidth = $navItem.outerWidth();
     var $navItemOffsetLeft = $navItem.offset().left;
     var $navWidth = $nav.outerWidth();
@@ -270,11 +271,11 @@ function slideXToActiveTab($activeTab) {
 }
 
 /**
- * Synchronize the sorting from the tabnav to the view-all-box.
+ * Synchronize the sorting from the tabstrip to the view-all-box.
  */
 function syncSortToViewAllBox() {
     // 同步排序
-    var $headerNavLi = $(tabNavItemsSelector);
+    var $headerNavLi = $(tabStripItemsSelector);
     var $tabList = $navViewAllBoxTabList;
     var $tabListLi = $(navViewAllBoxTabListItemsSelector);
     $headerNavLi.each(function (index, element) {
@@ -301,7 +302,7 @@ function syncSortToViewAllBox() {
  */
 function reBlindNavLinkClick() {
     // define tabs
-    var $navTabs = $(".tabnav-item");
+    var $navTabs = $(".tabstrip-item");
 
     // 清除点击事件
     $navTabs.off("click");
@@ -317,7 +318,7 @@ function reBlindNavLinkClick() {
         $MenuBox.hide();
         $boxMusk.hide();
 
-        var _id = $(tabNavItemsSelector + "." + activeClass).attr("id");
+        var _id = $(tabStripItemsSelector + "." + activeClass).attr("id");
         for (var _page of pages.opened) {
             if (_page.id == _id) {
                 pages.before = _page;
@@ -344,7 +345,7 @@ function reBlindNavLinkClick() {
         // window.location.href = $(tab).attr("target-src");
 
         // 重新绑定拖动事件
-        addDragFunction(tabNav, syncSortToViewAllBox);
+        addDragFunction(tabStrip, syncSortToViewAllBox);
 
         // Change the content from the tab src
         var $tab = $(this);
@@ -472,7 +473,7 @@ async function changeTabContent() {
 // ------------------------------
 $tabAddBtn.on("click", function () {
     // 在active的标签页右面插入新标签页并聚焦
-    var $activeTab = $(".tabnav-item.active");
+    var $activeTab = $(".tabstrip-item.active");
     // 获取当前标签页的index
     var index = $activeTab.index();
     newPage({
@@ -521,14 +522,14 @@ function slideYToActiveTab($activeTab) {
 }
 
 /**
- * Synchronize the sorting from the view-all-box to the tabnav.
+ * Synchronize the sorting from the view-all-box to the tabstrip.
  */
 function syncSortToTabnav() {
     // 同步排序
     // 将被移动了的li的位置信息更新到#header-nav内的li的data-target相同的li上
-    var $headerNav = $tabNav;
+    var $headerNav = $tabStrip;
     var $viewAllBoxLi = $(navViewAllBoxTabListItemsSelector);
-    var $headerNavLi = $(tabNavItemsSelector);
+    var $headerNavLi = $(tabStripItemsSelector);
     $viewAllBoxLi.each(function (index) {
         var $dataTarget = $(this).attr("original-id");
         $headerNavLi.each(function () {
@@ -551,7 +552,7 @@ function syncSortToTabnav() {
 $tabViewAllBtn.on("click", function () {
     boxOpened = true;
     // 将#header-nav的内容复制到#view-all-box内的ul里
-    var $headerNav = $tabNav;
+    var $headerNav = $tabStrip;
     var $viewAllBox = $navViewAllBox;
     var $viewAllBoxUl = $navViewAllBoxTabList;
     var $viewAllBoxMusk = $boxMusk;
@@ -570,18 +571,11 @@ $tabViewAllBtn.on("click", function () {
     // 设置为加粗字体，黑色
     var $activeTab = $viewAllBoxUl.find("." + activeClass);
     $activeTab
-        .css({
-            "font-weight": "bold",
-            "border-bottom": "2px solid",
-        })
         // 最前面插入<i class="far fa-hand-point-right visually-hidden" aria-hidden="true"></i>
         // 用于色盲友好模式，提示用户当前所在的标签页
         .prepend(
-            "<span class='color-blind-label'><i class='far fa-hand-point-right fa-fw' aria-hidden='true'></i>&nbsp;</span>"
+            "<span class='color-blind-label me-1'><i class='far fa-hand-point-right fa-fw' aria-hidden='true'></i></span>"
         );
-
-    // 移除class active
-    $activeTab.removeClass(activeClass);
 
     // 将$viewAllItems内的id改为original-id
     // 避免id冲突
@@ -594,10 +588,10 @@ $tabViewAllBtn.on("click", function () {
 
     // 为#view-all-box内的ul里的li添加点击事件
     $viewAllItems.on("click", function () {
-        // 点击$tabNav内id为original-id的元素
+        // 点击$tabStrip内id为original-id的元素
         // 触发click事件
         var $originalId = $(this).attr("original-id");
-        $tabNav.find("#" + $originalId).click();
+        $tabStrip.find("#" + $originalId).click();
     });
 
     // 将#view-all-box显示出来
@@ -666,7 +660,7 @@ function closeWin() {
         $(".tabContentActive[data-id='" + pages.current.id + "']").remove();
     }
     // 获取当前active的tab
-    var $activeTab = $(".tabnav-item.active");
+    var $activeTab = $(".tabstrip-item.active");
     // 为这个tab添加class tab-to-close
     $activeTab.addClass("tab-to-close");
     var windowId = $activeTab.attr("id");
@@ -686,7 +680,7 @@ function closeWin() {
     }
 
     // 移除.tab-to-close
-    $tabNav.find(".tab-to-close").remove();
+    $tabStrip.find(".tab-to-close").remove();
 
     // 从opened中移除这个窗口
     for (var i = 0; i < pages.opened.length; i++) {
@@ -842,15 +836,21 @@ function searchTabs() {
     // 如果搜索内容为空，则不执行搜索
     if (searchContent == "") {
         // Empty.
-        $navViewAllBoxTabList.children().removeClass("visually-hidden");
+        $navViewAllBoxTabList.children().removeClass("hide");
         // 清除搜索结果中的高亮
         $navViewAllBoxTabList.children().each(function () {
             $(this).html($(this).text());
+            // 如果是active的tab
+            if ($(this).hasClass("active")) {
+                $(this).prepend(
+                    "<span class='color-blind-label me-1'><i class='far fa-hand-point-right fa-fw' aria-hidden='true'></i></span>"
+                );
+            }
         });
         return;
     }
 
-    $navViewAllBoxTabList.children().addClass("visually-hidden");
+    $navViewAllBoxTabList.children().addClass("hide");
 
     // 如果搜索内容不为空，则执行搜索
     // 遍历所有设置项
@@ -863,7 +863,7 @@ function searchTabs() {
             $(this).text().toLowerCase().indexOf(searchContent.toLowerCase()) !=
             -1
         ) {
-            $(this).removeClass("visually-hidden");
+            $(this).removeClass("hide");
             $(this).html(
                 $(this)
                     .text()
@@ -874,6 +874,13 @@ function searchTabs() {
                             "</span>"
                     )
             );
+
+            // 如果是active的tab
+            if ($(this).hasClass("active")) {
+                $(this).prepend(
+                    "<span class='color-blind-label me-1'><i class='far fa-hand-point-right fa-fw' aria-hidden='true'></i></span>"
+                );
+            }
         }
     });
 }

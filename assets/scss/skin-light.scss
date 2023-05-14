@@ -67,7 +67,7 @@
     }
 }
 
-.tabnav-item
+.tabstrip-item
 {
     color: $tab-font-color;
     color: var(--bs-body-color);
@@ -87,14 +87,15 @@
     }
 }
 
-#header-tabnav
+#header-tabstrip
 {
-    background-color: rgb(var(--bs-light-rgb));
+    --bs-bg-opacity: 1;
+    background-color: $tabstrip-bg-color;
 }
 
 #nav-view-all-box,
 #nav-menu-box
 {
-    background-color: rgb(var(--bs-light-rgb));
+    background-color: var(--bs-white, 1);
     box-shadow: 0 0 5px $shadow-color;
 }

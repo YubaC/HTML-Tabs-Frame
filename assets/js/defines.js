@@ -3,20 +3,20 @@
 // !Define consts variables
 
 // Buttons navigation
-const $tabLeftBtn = $("#tabnav-left-tabbtn");
-const $tabRightBtn = $("#tabnav-right-tabbtn");
-const $tabAddBtn = $("#tabnav-add-tabbtn");
-const $tabViewAllBtn = $("#tabnav-view-all-tabbtn");
-const $tabMenuBtn = $("#tabnav-menu-tabbtn");
+const $tabLeftBtn = $("#tabstrip-left-tabbtn");
+const $tabRightBtn = $("#tabstrip-right-tabbtn");
+const $tabAddBtn = $("#tabstrip-add-tabbtn");
+const $tabViewAllBtn = $("#tabstrip-view-all-tabbtn");
+const $tabMenuBtn = $("#tabstrip-menu-tabbtn");
 
 const closeTabBtnSelector = ".close-this-window-tabbtn";
 const closeTabBtnTemplate =
-    '<button type="button" id="tabnav-close-tab-btn" class="close-this-window-tabbtn tabbtn-close" onclick="closeWin()"></button>';
+    '<button type="button" id="tabstrip-close-tab-btn" class="close-this-window-tabbtn tabbtn-close" onclick="closeWin()"></button>';
 
 // Tab navigation, a <ul> element
-const $tabNav = $("#header-tabnav");
-const tabNav = document.getElementById("header-tabnav");
-const tabNavItemsSelector = "#header-tabnav>li";
+const $tabStrip = $("#header-tabstrip");
+const tabStrip = document.getElementById("header-tabstrip");
+const tabStripItemsSelector = "#header-tabstrip>li";
 
 // View all box, a <ul> element, to show all tabs
 const $navViewAllBox = $("#nav-view-all-box");

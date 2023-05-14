@@ -1,3 +1,11 @@
+html,
+body
+{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 .tabbtn
 {
     outline-offset: -3px;
@@ -80,7 +88,7 @@
     margin-left: 10px;
 }
 
-.tabnav
+.tabstrip
 {
     display: flex;
     flex-wrap: nowrap;
@@ -132,12 +140,12 @@
     height: 38px;
     border: none;
 
-    &#header-tabnav
+    &#header-tabstrip
     {
         outline: none !important;
     }
 
-    &#header-tabnav &-item
+    &#header-tabstrip &-item
     {
         padding-top: 4px;
         padding-bottom: 4px;
@@ -165,7 +173,7 @@
 
         a
         {
-            /* 移除.tabnav-item上的链接的点击事件 */
+            /* 移除.tabstrip-item上的链接的点击事件 */
             pointer-events: none;
             /* 不能被选中 */
             -webkit-touch-callout: none;
@@ -183,7 +191,7 @@
     }
 }
 
-.tabnav-item
+.tabstrip-item
 {
     display: block;
     padding: 0.5rem 1rem;
@@ -201,13 +209,13 @@
     }
 }
 
-.tabnav-master
+.tabstrip-master
 {
     width: 100vw;
 }
 
-#tabnav-left-tabbtn,
-#tabnav-right-tabbtn
+#tabstrip-left-tabbtn,
+#tabstrip-right-tabbtn
 {
     width: 38px;
     height: 38px;
@@ -232,6 +240,11 @@
     top: 50px;
     border-radius: 8px;
 
+    .tabstrip-item.active
+    {
+        font-weight: bold;
+    }
+
     & .list-group-item
     {
         border: none;
@@ -247,14 +260,6 @@
     {
         overflow-x: hidden;
     }
-}
-
-html,
-body
-{
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
 }
 
 #box-musk
@@ -285,4 +290,14 @@ body
         width: 60px;
         height: 30px;
     }
+}
+
+.hide
+{
+    display: none !important;
+}
+
+.show
+{
+    display: block !important;
 }

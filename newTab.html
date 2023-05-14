@@ -17,18 +17,19 @@
 
 <script>
     function enterTab() {
+        console.log("enter!")
         // 将页面内所有id前缀为data-的元素的data-去掉
         // 以便于在页面内使用
 
         // 1. 获取所有id前缀为data-的元素
         var activePage = $(`[data-id="${pages.current.id}"]`);
-        var dataElements = activePage.find("[id^='data-']");
+        var dataElements = activePage.find("[id^='--data-unfocused-window-id-']");
         // 2. 遍历所有元素
         dataElements.each(function (index, element) {
             // 3. 获取元素的id
             var id = $(element).attr("id");
             // 4. 去掉id前缀
-            var newId = id.replace("data-", "");
+            var newId = id.replace("--data-unfocused-window-id-", "");
             // 5. 设置元素的id
             $(element).attr("id", newId);
         });
@@ -45,11 +46,10 @@
             // 3. 获取元素的id
             var id = $(element).attr("id");
             // 4. 添加id前缀
-            var newId = "data-" + id;
+            var newId = "--data-unfocused-window-id-" + id;
             // 5. 设置元素的id
             $(element).attr("id", newId);
         });
-
     }
 </script>
 
@@ -174,7 +174,7 @@
         </div>
     </main>
 
-    <div id="new-page-footer-options" class="border-top mt-auto pt-2 ps-2">
+    <div id="new-page-footer-options" class="d-flex flex-wrap border-top mt-auto pt-2 ps-2">
         <button type="button" class="btn btn-outline-primary"><i class="fas fa-sync-alt"
                 aria-hidden="true"></i>Refresh</button>
         <button type="button" class="btn btn-outline-primary"><i class="fas fa-folder-plus"
