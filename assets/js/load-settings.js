@@ -53,7 +53,7 @@ function loadSettings() {
 // Get assets/settings/settings.json
 $.getJSON("assets/data/settings.json", function (data) {
     // 设置语言
-    localStorage.setItem("lang", data.language);
+    // // localStorage.setItem("lang", data.language);
     // console.log(localStorage.getItem('lang'));
 
     settings = data;

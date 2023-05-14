@@ -380,10 +380,11 @@ async function changeTabContent() {
 
     // 如果存在名为leaveTab的函数，就执行它
     // Run leaveTab function, if it exists and the type of the pages is "inner".
-    if (pages.before.type === "inner" && typeof leaveTab === "function") {
-        await leaveTab();
-    } else if (pages.before.type === "inner") {
-        leaveTab = function () {};
+    if (
+        pages.before.type === "inner" &&
+        typeof pageConfig.leaveTab === "function"
+    ) {
+        await pageConfig.leaveTab();
     }
 
     const oldActivePage = $("." + activeContentBoxClass);
@@ -398,6 +399,8 @@ async function changeTabContent() {
     if (pages.before.keep === false) {
         $(`[data-id="${pages.before.id}"].${contentBoxClass}`).remove();
     }
+
+    pageConfig = {};
     // *Now we've closed the old, and we need to open the new.
     // 1. reenter
     // Sometimes the src is the same as the oldSrc, so we need to check it.
@@ -430,10 +433,11 @@ async function changeTabContent() {
             .removeClass(contentBoxClass)
             .addClass(activeContentBoxClass);
 
-        if (pages.before.type === "inner" && typeof enterTab === "function") {
-            await enterTab();
-        } else if (pages.before.type === "inner") {
-            enterTab = function () {};
+        if (
+            pages.before.type === "inner" &&
+            typeof pageConfig.enterTab === "function"
+        ) {
+            await pageConfig.enterTab();
         }
     } else {
         let newContent;
@@ -455,7 +459,11 @@ async function changeTabContent() {
                 }
 
                 // Load language file after the pages is loaded. (inner type only)
-                loadLanguage();
+                // loadLanguage();
+                // 如果pageConfig.language不是undefined，就加载语言文件
+                if (pageConfig["language-file"] !== undefined) {
+                    loadLanguage(pageConfig["language-file"]);
+                }
             });
         } else if (pages.current.type === "iframe") {
             newContent = $(

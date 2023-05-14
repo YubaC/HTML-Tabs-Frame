@@ -54,6 +54,9 @@ var pages = {
 // If view all box or menu box is opened
 var boxOpened = false;
 
+// Inner page's config
+var pageConfig = {};
+
 // *Features
 // // Number of windows that can remain loaded
 // var maxWindows = 5;

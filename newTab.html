@@ -16,28 +16,14 @@
 <body> -->
 
 <script>
-    function enterTab() {
-        console.log("enter!")
-        // 将页面内所有id前缀为data-的元素的data-去掉
-        // 以便于在页面内使用
+    var pageConfig = {
+        "language-file": "new-tab",
+        "leaveTab": leaveTab,
+        "enterTab": enterTab,
+    };
 
-        // 1. 获取所有id前缀为data-的元素
-        var activePage = $(`[data-id="${pages.current.id}"]`);
-        var dataElements = activePage.find("[id^='--data-unfocused-window-id-']");
-        // 2. 遍历所有元素
-        dataElements.each(function (index, element) {
-            // 3. 获取元素的id
-            var id = $(element).attr("id");
-            // 4. 去掉id前缀
-            var newId = id.replace("--data-unfocused-window-id-", "");
-            // 5. 设置元素的id
-            $(element).attr("id", newId);
-        });
-    }
     function leaveTab() {
-        // 为了防止页面内的元素id冲突，离开页面时将页面内所有id添加data-前缀
-        // 以便于在页面内使用
-
+        // 为了防止页面内的元素id冲突，离开页面时将页面内所有id添加前缀
         // 1. 获取所有id前缀为data-的元素
         var activePage = $(`[data-id="${pages.before.id}"]`);
         var dataElements = activePage.find("[id]");
@@ -47,6 +33,21 @@
             var id = $(element).attr("id");
             // 4. 添加id前缀
             var newId = "--data-unfocused-window-id-" + id;
+            // 5. 设置元素的id
+            $(element).attr("id", newId);
+        });
+    }
+
+    function enterTab() {
+        // 1. 获取所有id前缀为data-的元素
+        var activePage = $(`[data-id="${pages.current.id}"]`);
+        var dataElements = activePage.find("[id^='--data-unfocused-window-id-']");
+        // 2. 遍历所有元素
+        dataElements.each(function (index, element) {
+            // 3. 获取元素的id
+            var id = $(element).attr("id");
+            // 4. 去掉id前缀
+            var newId = id.replace("--data-unfocused-window-id-", "");
             // 5. 设置元素的id
             $(element).attr("id", newId);
         });

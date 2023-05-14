@@ -2,42 +2,137 @@
 // !Load languages
 // available languages list
 var languages = settings.availableLanguages;
-// Current language
-var lang;
 // All the text in the website
 var html_lang = {};
 
+// Current language
 // Check for localStorage support
 if ("localStorage" in window) {
-    lang = localStorage.getItem("lang") || navigator.language;
-    if (!Object.keys(languages).includes(lang)) {
-        lang = "en-US";
+    settings.lang = localStorage.getItem("lang") || navigator.language;
+    if (!Object.keys(languages).includes(settings.lang)) {
+        settings.lang = "en-US";
     }
 }
-switchLanguage(lang);
+
+loadLanguage("tab-strip");
+
+// Parse the .properties file
+function parseProperties(propertiesStr) {
+    var propertiesObj = {};
+    var lines = propertiesStr.split("\n");
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        if (line && line.indexOf("#") !== 0) {
+            // ignore comments and empty lines
+            var parts = line.split("=");
+            if (parts.length === 2) {
+                var key = parts[0].trim();
+                var value = parts[1].trim();
+                propertiesObj[key] = value;
+            }
+        }
+    }
+    return propertiesObj;
+}
+
+// /**
+//  * JSON to .properties file
+//  * @param {String} jsonStr JSON string
+//  * @returns {String} .properties string
+//  */
+// function jsonToProperties(jsonStr) {
+//     var propertiesStr = "";
+//     var jsonObj = JSON.parse(jsonStr);
+//     for (var key in jsonObj) {
+//         // 如果是注释，就添加注释
+//         if (key === "//") {
+//             propertiesStr += "# " + jsonObj[key] + "\n";
+//             continue;
+//         }
+//         propertiesStr += key + "=" + jsonObj[key] + "\n";
+//     }
+//     return propertiesStr;
+// }
+
+async function mergeFetches(fetchList) {
+    const responses = await Promise.all(fetchList);
+    const mergedObject = {};
+
+    for (let i = 0; i < responses.length; i++) {
+        const text = await responses[i].text();
+        const object = parseProperties(text);
+        mergeObjects(mergedObject, object);
+    }
+
+    return mergedObject;
+}
+
+function mergeObjects(target, source) {
+    for (const key in source) {
+        if (source.hasOwnProperty(key)) {
+            if (typeof source[key] === "object" && source[key] !== null) {
+                if (!target.hasOwnProperty(key)) {
+                    target[key] = {};
+                }
+                mergeObjects(target[key], source[key]);
+            } else {
+                if (!target.hasOwnProperty(key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+    }
+}
+
+async function getLanguageFile(file) {
+    const languageFile = fetch(
+        `assets/locales/${settings.lang}/${file}.properties`
+    ).catch(() => {});
+    const languageFileEn = fetch(
+        `assets/locales/en-US/${file}.properties`
+    ).catch(() => {});
+
+    const dataList =
+        settings.lang === "en-US"
+            ? [languageFileEn]
+            : [languageFile, languageFileEn];
+
+    // 合并解析到的数据，优先保留第一个fetch的数据
+    // Merge the parsed data, and keep the first fetch data first
+    const langObj = await mergeFetches(dataList).then((langObj) => {
+        return langObj;
+    });
+    return langObj;
+}
 
 /**
  * Load the language file
  * and replace the text of all elements
- * with class="lang" through the "key" attr.
+ * with class="lang" through the "data-lang-key" attr.
  */
-function loadLanguage() {
-    $.each(html_lang, function (key, value) {
-        if (value != "") {
-            $(".lang[data-lang-key='" + key + "']").text(value);
+function loadLanguage(languageFile) {
+    if (html_lang[languageFile] !== undefined) {
+        loadLanguageToScreen(html_lang[languageFile]);
+        return;
+    }
+
+    getLanguageFile(languageFile).then((lang) => {
+        if (lang === undefined) {
+            return;
         }
 
-        // *Features ：添加popover
-        // // 如果启用了提示，并且存在key+"-content"的内容，就添加popover
-        // if (settings.tips && html_lang[key + "-content"]) {
-        //     $(".lang[key='" + key + "']").attr("data-content", html_lang[key + "-content"]);
-        //     $(".lang[key='" + key + "']").attr("data-toggle", "popover");
-        //     $(".lang[key='" + key + "']").attr("data-trigger", "hover");
-        //     $(".lang[key='" + key + "']").attr("data-placement", "top");
-        //     $(".lang[key='" + key + "']").attr("data-container", "body");
-        //     $(".lang[key='" + key + "']").attr("data-html", "true");
-        //     $(".lang[key='" + key + "']").attr("data-animation", "true");
-        // }
+        html_lang[languageFile] = lang;
+        loadLanguageToScreen(lang);
+    });
+}
+
+// 向屏幕上加载语言
+// Load the language to the screen
+function loadLanguageToScreen(lang) {
+    $.each(lang, function (key, value) {
+        if (value != "") {
+            $(".lang[data-lang-key='" + key + "']").html(value);
+        }
 
         // 如果key以-title结尾，就提取出来，作为新key
         if (key.endsWith("-title")) {
@@ -49,7 +144,7 @@ function loadLanguage() {
             if (settings.tips) {
                 $(".lang[data-lang-key='" + key + "']").attr(
                     "title",
-                    html_lang[key + "-title"]
+                    lang[key + "-title"]
                 );
             }
 
@@ -57,7 +152,7 @@ function loadLanguage() {
             if ($(".lang[data-lang-key='" + key + "']").is("img")) {
                 $(".lang[data-lang-key='" + key + "']").attr(
                     "alt",
-                    html_lang[key + "-title"]
+                    lang[key + "-title"]
                 );
             }
 
@@ -68,82 +163,13 @@ function loadLanguage() {
 
 /**
  * Switch the language of the website.
+ * !Only for the preview. When using in the application, please delete this function,
+ * !and change the language by directly modifying the assets/data/settings.json file and refreshing the application.
  * @param {String} language The language to be shown.
  */
 function switchLanguage(language) {
-    settings.language = language;
-    $("html").attr("lang", language);
-    // 读取对应的language + .json文件和en.json文件，并替换新的语言
-    // language.json文件的格式为：{"key":"value"}
-    // 当在language.json文件里查找不到对应的keys时，会自动使用en.json文件里的内容
-
-    // 合并两个语言文件
-    $.getJSON("assets/lang/" + language + ".json", function (data) {
-        $.each(data, function (key, value) {
-            html_lang[key] = value;
-        });
-    })
-        .then(
-            $.getJSON("assets/lang/en-US.json", function (data) {
-                $.each(data, function (key, value) {
-                    // 如果html_lang中不存在这个key，就添加
-                    if (!html_lang[key]) {
-                        html_lang[key] = value;
-                    }
-                });
-            })
-        )
-
-        // 替换所有的class="lang"的元素的内容
-        .then(loadLanguage);
-
-    // $.getJSON("assets/lang/" + language + ".json", function(data) {
-    //         $.each(data, function(key, value) {
-    //             if (value != "") {
-    //                 $(".lang[key='" + key + "']").text(value);
-    //                 html_lang[key] = value;
-    //             }
-    //             // ---------------------更改提示框文本---------------------
-    //             // 为所有class="lang"的元素添加title和alt
-    //             // title和alt为languages中key+"-title"的内容，content为key+"-title"的content
-    //             // 如果这两个中的任意一个不存在，就跳过
-
-    //             // 如果启用了提示，并且存在key+"-title"的内容
-    //             if (settings.tips && data[key + "-title"]) {
-    //                 $(".lang[key='" + key + "']").attr("title", data[key + "-title"]);
-    //                 // 获取这个元素的类型
-    //                 var tagName = $(".lang[key='" + key + "']").prop("tagName");
-    //                 siitch(tagName) {
-    //                     // 如果是图片，就添加alt
-    //                     if ($(".lang[key='" + key + "']").is("img")) {
-    //                         $(".lang[key='" + key + "']").attr("alt", data[key + "-title"]);
-    //                     }
-    //                     // 如果是按钮，就添加aria-label
-    //                     if ($(".lang[key='" + key + "']").is("button")) {
-    //                         $(".lang[key='" + key + "']").attr("aria-label", data[key + "-title"]);
-    //                     }
-    //                     // 如果是表单元素，就添加for
-    //                     if ($(".lang[key='" + key + "']").is("input") || $(".lang[key='" + key + "']").is("select") || $(".lang[key='" + key + "']").is("textarea")) {
-    //                         $(".lang[key='" + key + "']").attr("for", data[key + "-title"]);
-    //                     }
-    //                 }
-    //             }
-    //         });
-    //     })
-    //     .then(function() {
-    //         // 与上面的相同，但是只会替换没有内容的元素
-    //         $.getJSON("assets/lang/en.json", function(data) {
-    //             $.each(data, function(key, value) {
-    //                 $(".lang[key='" + key + "']").each(function() {
-    //                     if ($(this).text() == "" && value != "") {
-    //                         $(this).text(value);
-    //                         html_lang[key] = value;
-    //                     }
-    //                 });
-    //                 if (settings.tips && data[key + "-title"] && $(this).attr("title") == "") {
-    //                     $(".lang[key='" + key + "']").attr("title", data[key + "-title"]);
-    //                 }
-    //             });
-    //         });
-    //     })
+    localStorage.setItem("lang", language);
+    console.log("Language switched to " + language);
+    // refresh the page
+    location.reload();
 }
