@@ -283,6 +283,7 @@ body
     height: calc(100vh - 38px);
     overflow-y: auto;
     overflow-x: auto;
+    outline: none !important;
 
     // 大按钮，方便点击
     .form-switch .form-check-input

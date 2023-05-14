@@ -229,6 +229,7 @@ body {
   height: calc(100vh - 38px);
   overflow-y: auto;
   overflow-x: auto;
+  outline: none !important;
 }
 .tabContentActive .form-switch .form-check-input {
   width: 60px;

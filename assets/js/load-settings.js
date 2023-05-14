@@ -61,7 +61,7 @@ $.getJSON("assets/data/settings.json", function (data) {
 
     .then(() => {
         // Get the language list
-        $.getJSON("assets/lang/languages.json", (data) => {
+        $.getJSON("assets/locales/config.json", (data) => {
             settings.availableLanguages = data;
         });
     })
