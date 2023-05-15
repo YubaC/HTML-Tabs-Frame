@@ -115,55 +115,6 @@ function newPage(options) {
     reBlindHotKey();
 }
 
-// !New tab openai
-// ------------------------------
-
-// // 将新建标签页的逻辑封装到单独的函数中
-// function createNewTab(title, src, isActive, data) {
-//   const tabindex = isActive ? 0 : -1;
-//   const newTab = `<li id="${openedWindows}" target-src="${src}" tabindex="${tabindex}" class="tabstrip-item new-tab" draggable="true" role="tab">${title}</li>`;
-
-//   openedWindows++;
-
-//   const thisPage = { title, src, id: openedWindows, data };
-//   opened.push(thisPage);
-
-//   return newTab;
-// }
-
-// function newPage(title, index, src, isActive, data = null) {
-//   // 缓存 jQuery 对象
-//   const $tabStrip = $('#tab-nav');
-
-//   const newTab = createNewTab(title, src, isActive, data);
-
-//   // 简化添加 HTML 字符串的代码
-//   switch (index) {
-//     case 0:
-//       $tabStrip.prepend(newTab);
-//       break;
-//     case -1:
-//       $tabStrip.append(newTab);
-//       break;
-//     default:
-//       $tabStrip.children().eq(index).after(newTab);
-//       break;
-//   }
-
-//   // 缓存 DOM 查询结果
-//   const $newTab = $tabStrip.children('.new-tab');
-
-//   reBlindNavLinkClick();
-
-//   if (isActive) {
-//     $newTab.click();
-//   }
-
-//   $newTab.removeClass('new-tab');
-
-//   reBlindHotKey();
-// }
-
 // !这一部分负责左右滑动导航栏
 // ------------------------------
 
@@ -174,32 +125,18 @@ var navLeftBtnClickTimer = null; // 定时器
 var $nav = $tabStrip;
 var $rollWidth = 200;
 $tabLeftBtn.on("click", function () {
-    if (navLeftBtnClickCount === 0) {
-        // console.log(0);
-        // .nav向左滑动一段距离
-        // var $navWidth = $nav.outerWidth();
-        var $navScrollLeft = $nav.scrollLeft();
-        $nav.animate(
-            {
-                scrollLeft: $navScrollLeft - $rollWidth,
-            },
-            200
-        );
-        // 点击次数加1
-        navLeftBtnClickCount++;
-        navLeftBtnClickTimer = setTimeout(function () {
-            navLeftBtnClickCount = 0;
+    var $navScrollLeft = $nav.scrollLeft();
+    const animateTime = prefersReducedMotion() ? 0 : 200;
+    if (navRightBtnClickCount === 0) {
+        $nav.animate({ scrollLeft: $navScrollLeft - $rollWidth }, animateTime);
+        navRightBtnClickCount++;
+        navRightBtnClickTimer = setTimeout(function () {
+            navRightBtnClickCount = 0;
         }, 500);
     } else {
-        // console.log(1);
-        // .nav向左滑动一大段距离
-        var $navWidth = $nav.outerWidth();
-        var $navScrollLeft = $nav.scrollLeft();
         $nav.animate(
-            {
-                scrollLeft: $navScrollLeft - $rollWidth * 3,
-            },
-            200
+            { scrollLeft: $navScrollLeft - $rollWidth * 3 },
+            animateTime
         );
     }
 });
@@ -207,34 +144,19 @@ $tabLeftBtn.on("click", function () {
 // 当点击向右滚动按钮的时候，.nav向右滑动一小段距离；当这个按钮在短时间内被多次点击时，.nav向右滑动一大段距离
 var navRightBtnClickCount = 0; // 点击次数
 var navRightBtnClickTimer = null; // 定时器
-var $navScrollRight = $nav.scrollLeft();
 $tabRightBtn.on("click", function () {
+    var $navScrollLeft = $nav.scrollLeft();
+    const animateTime = prefersReducedMotion() ? 0 : 200;
     if (navRightBtnClickCount === 0) {
-        // console.log(0);
-        // .nav向右滑动一小段距离
-        var $navWidth = $nav.outerWidth();
-        var $navScrollLeft = $nav.scrollLeft();
-        $nav.animate(
-            {
-                scrollLeft: $navScrollLeft + $rollWidth,
-            },
-            200
-        );
-        // 点击次数加1
+        $nav.animate({ scrollLeft: $navScrollLeft + $rollWidth }, animateTime);
         navRightBtnClickCount++;
         navRightBtnClickTimer = setTimeout(function () {
             navRightBtnClickCount = 0;
         }, 500);
     } else {
-        // console.log(1);
-        // .nav向右滑动一大段距离
-        var $navWidth = $nav.outerWidth();
-        var $navScrollLeft = $nav.scrollLeft();
         $nav.animate(
-            {
-                scrollLeft: $navScrollLeft + $rollWidth * 3,
-            },
-            200
+            { scrollLeft: $navScrollLeft + $rollWidth * 3 },
+            animateTime
         );
     }
 });
@@ -258,19 +180,21 @@ function slideXToActiveTab($activeTab) {
     var $navItemScrollLeft =
         $navItemOffsetLeft - $navOffsetLeft + $navScrollLeft;
     var $navItemScrollRight = $navItemScrollLeft + $navItemWidth;
+
+    const animateTime = prefersReducedMotion() ? 0 : 200;
     if ($navItemScrollLeft < $navScrollLeft) {
         $nav.animate(
             {
                 scrollLeft: $navItemScrollLeft,
             },
-            200
+            animateTime
         );
     } else if ($navItemScrollRight > $navScrollRight) {
         $nav.animate(
             {
                 scrollLeft: $navItemScrollRight - $navWidth,
             },
-            200
+            animateTime
         );
     }
 }
@@ -563,19 +487,22 @@ function slideYToActiveTab($activeTab) {
     var $activeTabScrollTop =
         $activeTabOffsetTop - $viewAllBoxOffsetTop + $viewAllBoxScrollTop;
     var $activeTabScrollBottom = $activeTabScrollTop + $activeTabHeight;
+
+    const animateTime = prefersReducedMotion() ? 0 : 200;
+
     if ($activeTabScrollTop < $viewAllBoxScrollTop) {
         $navViewAllBox.animate(
             {
                 scrollTop: $activeTabScrollTop,
             },
-            200
+            animateTime
         );
     } else if ($activeTabScrollBottom > $viewAllBoxScrollBottom) {
         $navViewAllBox.animate(
             {
                 scrollTop: $activeTabScrollBottom - $viewAllBoxHeight + 10,
             },
-            200
+            animateTime
         );
     }
 }
@@ -715,8 +642,10 @@ $boxMusk.on("click", function () {
 function closeWin() {
     // 寻找data-id数字那和page.current.id一样的元素并删除
     // 为了防止误删，先判断是否有这个元素
-    if ($(".tabContentActive[data-id='" + pages.current.id + "']").length > 0) {
-        $(".tabContentActive[data-id='" + pages.current.id + "']").remove();
+    if (
+        $(`.${activeContentBoxClass}[data-id="${pages.current.id}"]`).length > 0
+    ) {
+        $(`.${activeContentBoxClass}[data-id="${pages.current.id}"]`).remove();
     }
     // 获取当前active的tab
     var $activeTab = $(".tabstrip-item.active");
@@ -820,7 +749,7 @@ function _index(el) {
 }
 
 function _animate(prevRect, target) {
-    var ms = 300;
+    var ms = prefersReducedMotion() ? 0 : 300;
 
     if (ms) {
         var currentRect = target.getBoundingClientRect();
@@ -855,8 +784,12 @@ function _animate(prevRect, target) {
             _css(target, "transform", "");
             target.animated = false;
         }, ms);
+    } else {
+        // 没有动画时，直接将元素放到目标位置
+        _css(target, "transform", "");
     }
 }
+
 //给元素添加style
 function _css(el, prop, val) {
     var style = el && el.style;

@@ -37,10 +37,6 @@ const activeClass = "active";
 const contentBoxClass = "tabContent";
 const activeContentBoxClass = "tabContentActive";
 
-// Base path
-// var base = "file:///";
-const base = "";
-
 // Opened windows number, used as id, won't go down when a window is closed.
 var openedWindows = 0;
 
@@ -56,6 +52,11 @@ var boxOpened = false;
 
 // Inner page's config
 var pageConfig = {};
+
+// If prefers reduced motion
+const prefersReducedMotion = () => {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+};
 
 // *Features
 // // Number of windows that can remain loaded
