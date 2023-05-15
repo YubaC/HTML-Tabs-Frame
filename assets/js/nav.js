@@ -34,7 +34,7 @@ function newPage(options) {
     var index = options.index;
     var src = options.src;
     var isActive = options.isActive;
-    //   var data = options.data;
+    // var data = options.data;
     var type = options.type || "inner";
     var keep = options.keep || false;
     options.type = type;
@@ -43,6 +43,11 @@ function newPage(options) {
     openedWindows++;
     options.id = openedWindows;
     options.selector = `[data-id="${openedWindows}"]`;
+
+    // 从options内去掉isActive和index，因为这两个参数不需要传给page
+    // Delete isActive and index from options, because they are not needed in page.
+    delete options.isActive;
+    delete options.index;
 
     // 在page内添加新的页面
     pages.opened.push(options);
@@ -535,7 +540,7 @@ $tabAddBtn.on("click", function () {
         src: "newTab.html",
         index: index,
         isActive: true,
-        keep: true,
+        keep: false,
     });
 });
 
