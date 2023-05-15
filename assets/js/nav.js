@@ -367,13 +367,52 @@ function reBlindNavLinkClick() {
 
 // !Change content
 // ------------------------------
+
+// 为当前页面的id添加前缀
+/**
+ * Add prefix to the id of all elements in the current page.
+ * @param {String | HTMLElement} element The element to be added prefix, usually the active page.
+ */
+function addPrefixToId(element) {
+    // 为了防止页面内的元素id冲突，离开页面时将页面内所有id添加前缀
+    // 1. 获取所有id前缀为data-的元素
+    const activePage = $(element);
+    const dataElements = activePage.find("[id]");
+    // 2. 遍历所有元素
+    dataElements.each(function (index, element) {
+        // 3. 获取元素的id
+        var id = $(element).attr("id");
+        // 4. 添加id前缀
+        var newId = "--data-unfocused-window-id-" + id;
+        // 5. 设置元素的id
+        $(element).attr("id", newId);
+    });
+}
+
+// 为当前页面的id删除前缀
+/**
+ * Remove the prefix from the id of the element.
+ * @param {String | HTMLElement} element The element to be removed prefix, usually the active page.
+ */
+function removePrefixFromId(element) {
+    // 1. 获取所有id前缀为data-的元素
+    const activePage = $(element);
+    const dataElements = activePage.find("[id^='--data-unfocused-window-id-']");
+    // 2. 遍历所有元素
+    dataElements.each(function (index, element) {
+        // 3. 获取元素的id
+        var id = $(element).attr("id");
+        // 4. 去掉id前缀
+        var newId = id.replace("--data-unfocused-window-id-", "");
+        // 5. 设置元素的id
+        $(element).attr("id", newId);
+    });
+}
+
 /**
  * Request the src and replace the content.
  */
-
 async function changeTabContent() {
-    const src = pages.current.src;
-
     // *Leave tab
     // Save the scroll position of the tabcontent box.
     // 保存tabcontent的滚动位置
@@ -382,9 +421,9 @@ async function changeTabContent() {
     // Run leaveTab function, if it exists and the type of the pages is "inner".
     if (
         pages.before.type === "inner" &&
-        typeof pageConfig.leaveTab === "function"
+        typeof pages.before.leaveTab === "function"
     ) {
-        await pageConfig.leaveTab();
+        await pages.before.leaveTab();
     }
 
     const oldActivePage = $("." + activeContentBoxClass);
@@ -398,9 +437,10 @@ async function changeTabContent() {
     // If keep==false, delete the element to save memory.
     if (pages.before.keep === false) {
         $(`[data-id="${pages.before.id}"].${contentBoxClass}`).remove();
+    } else {
+        addPrefixToId(pages.before.selector);
     }
 
-    pageConfig = {};
     // *Now we've closed the old, and we need to open the new.
     // 1. reenter
     // Sometimes the src is the same as the oldSrc, so we need to check it.
@@ -434,47 +474,53 @@ async function changeTabContent() {
             .addClass(activeContentBoxClass);
 
         if (
-            pages.before.type === "inner" &&
-            typeof pageConfig.enterTab === "function"
+            pages.current.type === "inner" &&
+            typeof pages.current.enterTab === "function"
         ) {
-            await pageConfig.enterTab();
-        }
-    } else {
-        let newContent;
-
-        if (pages.current.type === "inner") {
-            newContent = $(
-                `<div class="${activeContentBoxClass}" data-id="${pages.current.id}" tabindex="-1"></div>`
-            );
-            newContent.load(src, async () => {
-                // 从localStorage中加载滚动条位置
-                // Load scroll position from localStorage.
-                const scrollTop = localStorage.getItem(pages.current.id);
-                newContent.scrollTop(scrollTop);
-
-                if (typeof enterTab === "function") {
-                    await enterTab();
-                } else if (pages.before.type === "inner") {
-                    enterTab = function () {};
-                }
-
-                // Load language file after the pages is loaded. (inner type only)
-                // loadLanguage();
-                // 如果pageConfig.language不是undefined，就加载语言文件
-                if (pageConfig["language-file"] !== undefined) {
-                    loadLanguage(pageConfig["language-file"]);
-                }
-            });
-        } else if (pages.current.type === "iframe") {
-            newContent = $(
-                `<iframe class="${activeContentBoxClass}" src="${pages.current.src}" data-id="$pagese.current.id}" tabindex="-1"></iframe>`
-            );
+            await pages.current.enterTab();
         }
 
-        // 将新创建的元素添加到document中
-        $("body").append(newContent);
-        // reloadSettings();
+        removePrefixFromId(pages.current.selector);
+
+        return;
     }
+
+    // *We have to open a new tab, since we can't find it in the document.
+    let newContent;
+
+    if (pages.current.type === "inner") {
+        newContent = $(
+            `<div class="${activeContentBoxClass}" data-id="${pages.current.id}" tabindex="-1"></div>`
+        );
+        newContent.load(pages.current.src, async () => {
+            // 把pageConfig内的键值对赋值给page.current
+            Object.assign(pages.current, pageConfig);
+
+            // 从localStorage中加载滚动条位置
+            // Load scroll position from localStorage.
+            const scrollTop = localStorage.getItem(pages.current.id);
+            newContent.scrollTop(scrollTop);
+
+            if (typeof pages.current.enterTab === "function") {
+                await pages.current.enterTab();
+            }
+
+            // Load language file after the pages is loaded. (inner type only)
+            // loadLanguage();
+            // 如果pageConfig.language不是undefined，就加载语言文件
+            if (pageConfig["language-file"] !== undefined) {
+                loadLanguage(pageConfig["language-file"]);
+            }
+        });
+    } else if (pages.current.type === "iframe") {
+        newContent = $(
+            `<iframe class="${activeContentBoxClass}" src="${pages.current.src}" data-id="$pagese.current.id}" tabindex="-1"></iframe>`
+        );
+    }
+
+    // 将新创建的元素添加到document中
+    $("body").append(newContent);
+    // reloadSettings();
 }
 
 // !New tab button

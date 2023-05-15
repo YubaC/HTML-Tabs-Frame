@@ -17,41 +17,19 @@
 
 <script>
     var pageConfig = {
-        "language-file": "new-tab",
-        "leaveTab": leaveTab,
-        "enterTab": enterTab,
+        "language-file": "new-tab"
     };
 
-    function leaveTab() {
-        // 为了防止页面内的元素id冲突，离开页面时将页面内所有id添加前缀
-        // 1. 获取所有id前缀为data-的元素
-        var activePage = $(`[data-id="${pages.before.id}"]`);
-        var dataElements = activePage.find("[id]");
-        // 2. 遍历所有元素
-        dataElements.each(function (index, element) {
-            // 3. 获取元素的id
-            var id = $(element).attr("id");
-            // 4. 添加id前缀
-            var newId = "--data-unfocused-window-id-" + id;
-            // 5. 设置元素的id
-            $(element).attr("id", newId);
-        });
-    }
+    // 任何一个form的内容改变后，把这个窗口的keep设置为true（即不自动关闭）
+    // When the content of any form changes, 
+    // set the keep of this window to true (that is, do not close it automatically)
+    $(pages.current.selector).find("form").on("change", () => {
+        pages.current.keep = true;
+    });
 
-    function enterTab() {
-        // 1. 获取所有id前缀为data-的元素
-        var activePage = $(`[data-id="${pages.current.id}"]`);
-        var dataElements = activePage.find("[id^='--data-unfocused-window-id-']");
-        // 2. 遍历所有元素
-        dataElements.each(function (index, element) {
-            // 3. 获取元素的id
-            var id = $(element).attr("id");
-            // 4. 去掉id前缀
-            var newId = id.replace("--data-unfocused-window-id-", "");
-            // 5. 设置元素的id
-            $(element).attr("id", newId);
-        });
-    }
+    $(pages.current.selector).ready(() => {
+        console.log("newTab.js ready");
+    })
 </script>
 
 <link rel="stylesheet" href="assets/css/high-contrast.css">
