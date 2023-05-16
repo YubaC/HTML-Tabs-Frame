@@ -5,23 +5,17 @@
   color: var(--bs-body-color);
   background-color: transparent;
   border: 1px solid transparent;
-  /* transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; */
-}
-.tabbtn:disabled {
-  opacity: 0.65;
-}
-
-.tabbtn-light {
   color: var(--bs-body-color);
   background-color: var(--bs-gray-100);
 }
-.tabbtn-light:hover, .tabbtn-light.tabbtn-close:focus {
+.tabbtn:hover, .tabbtn.tabbtn-close:focus {
   background-color: var(--bs-gray-300);
 }
-.tabbtn-light:active {
+.tabbtn:active {
   background-color: var(--bs-gray-500);
 }
-.tabbtn-light:disabled {
+.tabbtn:disabled {
+  opacity: 0.65;
   background-color: var(--bs-gray-100);
   border-color: var(--bs-gray-100);
 }

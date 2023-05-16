@@ -18,16 +18,6 @@
     color: $tab-btn-font-color;
     background-color: transparent;
     border: 1px solid transparent;
-
-    /* transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; */
-    &:disabled
-    {
-        opacity: 0.65;
-    }
-}
-
-.tabbtn-light
-{
     color: $tab-btn-font-color;
     background-color: $tab-btn-background-color;
 
@@ -46,6 +36,7 @@
 
     &:disabled
     {
+        opacity: 0.65;
         background-color: $tab-btn-background-color;
         border-color: $tab-btn-background-color;
     }

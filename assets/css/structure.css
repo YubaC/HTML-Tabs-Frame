@@ -6,9 +6,39 @@ body {
   overflow: hidden;
 }
 
+.tabstrip-master,
+#header-tabstrip,
+.tabContent,
+.tabContentActive {
+  outline: none !important;
+}
+.tabstrip-master:focus,
+#header-tabstrip:focus,
+.tabContent:focus,
+.tabContentActive:focus {
+  outline: none !important;
+}
+.tabstrip-master:active,
+#header-tabstrip:active,
+.tabContent:active,
+.tabContentActive:active {
+  outline: none !important;
+}
+.tabstrip-master:active:focus,
+#header-tabstrip:active:focus,
+.tabContent:active:focus,
+.tabContentActive:active:focus {
+  outline: none !important;
+}
+
+.tabstrip-master {
+  width: 100vw;
+}
+
 .tabbtn {
+  width: 38px;
+  height: 38px;
   outline-offset: -3px;
-  display: inline-block;
   font-weight: 400;
   line-height: 1.5;
   text-align: center;
@@ -26,36 +56,15 @@ body {
 .tabbtn:disabled {
   pointer-events: none;
 }
+.tabbtn#tabstrip-left-tabbtn, .tabbtn#tabstrip-right-tabbtn {
+  z-index: 1;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .tabbtn {
     transition: none;
   }
 }
-.tabbtn-group {
-  position: relative;
-  display: inline-flex;
-  vertical-align: middle;
-}
-.tabbtn-group > .tabbtn {
-  position: relative;
-  flex: 1 1 auto;
-}
-.tabbtn-group > .tabbtn:active, .tabbtn-group > .tabbtn:focus, .tabbtn-group > .tabbtn:hover {
-  z-index: 1;
-}
-.tabbtn-group > .tabbtn:not(:first-child) {
-  margin-left: -1px;
-}
-.tabbtn-group > .tabbtn:not(:last-child):not(.dropdown-toggle) {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-.tabbtn-group > .tabbtn:nth-child(n+3), .tabbtn-group > .tabbtn:not(.tabbtn-check) + .tabbtn {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
 .tabbtn-close {
   box-sizing: content-box;
   width: 1em;
@@ -74,7 +83,6 @@ body {
   margin-bottom: 0;
   list-style: none;
   overflow-x: scroll;
-  width: calc(100vw - 190px);
   min-height: 20px;
   height: 38px;
   border: none;
@@ -109,9 +117,6 @@ body {
   width: 38px;
   height: 38px;
 }
-.tabstrip#header-tabstrip {
-  outline: none !important;
-}
 .tabstrip#header-tabstrip .tabstrip-item {
   padding-top: 4px;
   padding-bottom: 4px;
@@ -125,9 +130,16 @@ body {
   display: none;
   /* 组件内滚动条不显示 */
 }
+
 .tabstrip-item {
+  display: block;
+  padding: 0.5rem 0.5rem 0.5rem 0.75rem;
+  text-decoration: none;
+  margin-bottom: -1px;
+  background: 0 0;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
   margin-top: 3px;
-  margin-bottom: 3px;
   margin-left: 3px;
   white-space: nowrap;
   display: inline;
@@ -151,30 +163,13 @@ body {
   /*IE浏览器*/
   user-select: none;
 }
-
-.tabstrip-item {
-  display: block;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  margin-bottom: -1px;
-  background: 0 0;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
+.tabstrip-item-icon:not(:empty) {
+  margin-right: 0.35rem;
 }
 @media (prefers-reduced-motion: reduce) {
   .tabstrip-item {
     transition: none;
   }
-}
-
-.tabstrip-master {
-  width: 100vw;
-}
-
-#tabstrip-left-tabbtn,
-#tabstrip-right-tabbtn {
-  width: 38px;
-  height: 38px;
 }
 
 #nav-view-all-box,
@@ -229,7 +224,6 @@ body {
   height: calc(100vh - 38px);
   overflow-y: auto;
   overflow-x: auto;
-  outline: none !important;
 }
 .tabContentActive .form-switch .form-check-input {
   width: 60px;

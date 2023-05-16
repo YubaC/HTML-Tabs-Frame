@@ -38,7 +38,7 @@
     <div id="box-musk" style="display:none;"></div>
 
     <!-- tabstrip tabs -->
-    <div tabindex="-1" class="d-inline-flex tabstrip-master tabbtn-group">
+    <div tabindex="-1" class="d-inline-flex tabstrip-master">
         <label for="tabstrip-close-tab-btn" data-lang-key="tabstrip-close-tab-btn-label"
             class="lang visually-hidden"></label>
         <label for="tabstrip-left-tabbtn" data-lang-key="tabstrip-left-tabbtn-label"
@@ -51,26 +51,24 @@
         <label for="tabstrip-menu-tabbtn" data-lang-key="tabstrip-menu-tabbtn-label"
             class="lang visually-hidden"></label>
 
-        <button tabindex="-1" id="tabstrip-left-tabbtn" class="tabbtn tabbtn-light lang"
+        <button style="display: none;" tabindex="-1" id="tabstrip-left-tabbtn" class="tabbtn lang"
             data-lang-key="tabstrip-left-tabbtn">
             <i class="fas fa-angle-left"></i>
         </button>
 
-        <div>
-            <ul id="header-tabstrip" class="tabstrip tabstrip-tabs" role="tablist" tabindex="-1"></ul>
-        </div>
+        <ul id="header-tabstrip" class="tabstrip tabstrip-tabs flex-grow-1" role="tablist" tabindex="-1"></ul>
 
-        <button tabindex="-1" id="tabstrip-right-tabbtn" class="tabbtn tabbtn-light lang"
+        <button style="display: none;" tabindex="-1" id="tabstrip-right-tabbtn" class="tabbtn lang"
             data-lang-key="tabstrip-right-tabbtn">
             <i class="fas fa-angle-right"></i>
         </button>
-        <button id="tabstrip-add-tabbtn" class="tabbtn tabbtn-light lang" data-lang-key="tabstrip-add-tabbtn">
+        <button id="tabstrip-add-tabbtn" class="tabbtn lang" data-lang-key="tabstrip-add-tabbtn">
             <small><i class="fas fa-plus small"></i></small>
         </button>
-        <button id="tabstrip-view-all-tabbtn" class="tabbtn tabbtn-light lang" data-lang-key="tabstrip-view-all-tabbtn">
+        <button id="tabstrip-view-all-tabbtn" class="tabbtn lang" data-lang-key="tabstrip-view-all-tabbtn">
             <i class="fas fa-angle-down"></i>
         </button>
-        <button id="tabstrip-menu-tabbtn" class="tabbtn tabbtn-light lang" data-lang-key="tabstrip-menu-tabbtn">
+        <button id="tabstrip-menu-tabbtn" class="tabbtn lang" data-lang-key="tabstrip-menu-tabbtn">
             <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
     </div>

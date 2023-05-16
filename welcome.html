@@ -30,7 +30,25 @@
 <script>
     var pageConfig = {
         "language-file": "welcome",
+        "enterTab": enter,
+        "leaveTab": leave,
     };
+    var titleAnimation;
+
+    function enter() {
+        var title = "    Welcome To -- Yuba Technology!    ";
+        // 不断地把title的第一个字符移到最后，实现动画效果
+        // Move the first character of the title to the end to achieve the animation effect
+        titleAnimation = setInterval(() => {
+            title = title.substring(1) + title.substring(0, 1);
+            pages.current.title = title;
+        }, 500);
+    }
+
+    function leave() {
+        clearInterval(titleAnimation);
+        pages.before.title = "Home";
+    }
 </script>
 <!-- </body>
 

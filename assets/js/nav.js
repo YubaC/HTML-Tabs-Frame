@@ -1,5 +1,78 @@
 "use strict";
 
+// The class of each tab.
+class Page {
+    constructor(options) {
+        this.init();
+        this.setTitle = this.setTitle.bind(this);
+        this.setTitleIcon = this.setTitleIcon.bind(this);
+
+        Object.assign(this, options);
+
+        this.type = options.type || "inner";
+        this.keep = options.keep || false;
+
+        openedWindows++;
+        this.id = `--page-${openedWindows}`;
+        this.selector = `[data-id="${openedWindows}"]`;
+
+        // If the title is not set, use the src as the title.
+        this.title = this.title || this.src;
+        this.titleIcon = this.titleIcon || "";
+        // this.setTitle(this.title);
+    }
+
+    init() {
+        // 监听 this.title 的变化，并改变标签页的标题
+        // Listen to the change of this.title, and change the title of the tab.
+        Object.defineProperty(this, "title", {
+            get() {
+                return this._title;
+            },
+            set(value) {
+                this._title = value;
+                this.setTitle(value);
+            },
+        });
+
+        Object.defineProperty(this, "titleIcon", {
+            get() {
+                return this._titleIcon;
+            },
+            set(value) {
+                this._titleIcon = value;
+                this.setTitleIcon(value);
+            },
+        });
+    }
+
+    setTitle(value) {
+        $(`#${this.id}, [original-id="${this.id}"]`)
+            .find(".tabstrip-item-text")
+            .html(value)
+            .attr("title", value);
+    }
+
+    setTitleIcon(value) {
+        $(`#${this.id}, [original-id="${this.id}"]`)
+            .find(".tabstrip-item-icon")
+            .html(value);
+        if (value) {
+            $(`#${this.id}, [original-id="${this.id}"]`).find(
+                ".tabstrip-item-icon"
+            );
+            // .addClass("me-2");
+            // $(`#${this.id}, [original-id="${this.id}"]`).addClass("ps-2");
+        } else {
+            $(`#${this.id}, [original-id="${this.id}"]`).find(
+                ".tabstrip-item-icon"
+            );
+            // .removeClass("me-2");
+            // $(`#${this.id}, [original-id="${this.id}"]`).removeClass("ps-2");
+        }
+    }
+}
+
 // !New tab
 // ------------------------------
 /**
@@ -30,46 +103,26 @@
  * // The new tab will be closed when it is unfocused.
  */
 function newPage(options) {
-    var title = options.title;
     var index = options.index;
-    var src = options.src;
     var isActive = options.isActive;
-    // var data = options.data;
-    var type = options.type || "inner";
-    var keep = options.keep || false;
-    options.type = type;
-    options.keep = keep;
-
-    openedWindows++;
-    options.id = openedWindows;
-    options.selector = `[data-id="${openedWindows}"]`;
 
     // 从options内去掉isActive和index，因为这两个参数不需要传给page
     // Delete isActive and index from options, because they are not needed in page.
     delete options.isActive;
     delete options.index;
 
+    const page = new Page(options);
     // 在page内添加新的页面
-    pages.opened.push(options);
+    pages.opened.push(page);
 
     // 允许聚焦当前活跃的页面
-    if (isActive) {
-        var tabindex = 0;
-    } else {
-        var tabindex = -1;
-    }
+    const tabindex = isActive ? 0 : -1;
     // Generate tab
     // 使用openedWindows作为id，这样就不会有重复的id了
-    var newTab =
-        '<li id="' +
-        openedWindows +
-        '" target-src="' +
-        src +
-        '" tabindex="' +
-        tabindex +
-        '" class="tabstrip-item new-tab" draggable="true" role="tab">' +
-        title +
-        "</li>";
+    const newTab = `<li id="${page.id}" target-src="${page.src}" tabindex="${tabindex}" 
+    class="tabstrip-item new-tab" draggable="true" role="tab">
+    <span class="tabstrip-item-icon"></span>
+    <span class="tabstrip-item-text"></span></li>`;
 
     // 在insertPlace插入新的Tab，其中新插入的Tab为class=new_tab
     // insertPlace是一个数字，表示在第几个Tab后面插入新的Tab
@@ -96,6 +149,8 @@ function newPage(options) {
             break;
     }
 
+    page.title = options.title;
+
     // 重新绑定所有Tab的点击事件，因为新插入的Tab的点击事件还没有绑定
     // 这里是为了省事，干脆重新绑定所有Tab的点击事件
     reBlindNavLinkClick();
@@ -117,18 +172,76 @@ function newPage(options) {
 
 // !这一部分负责左右滑动导航栏
 // ------------------------------
+// 监听滚动条
+// $tabStrip on scroll
+var $nav = $tabStrip;
+$nav.on("scroll", judgeScrollBtn);
+// 监听窗口大小变化
+// $(window) on resize
+$(window).on("resize", judgeScrollBtn);
+
+$(document).ready(judgeScrollBtn);
+
+// 判断是否需要滚动按钮及决定其显示状态的函数
+/**
+ * Judge whether to scroll the button and decide its display status.
+ */
+function judgeScrollBtn() {
+    // 如果.nav的宽度大于等于.nav的滚动宽度，就隐藏向左滚动按钮和向右滚动按钮
+    if ($nav.outerWidth() >= $nav[0].scrollWidth) {
+        $tabLeftBtn.hide();
+        $tabRightBtn.hide();
+        $tabStrip.addClass("ps-2");
+    } else {
+        $tabLeftBtn.show();
+        $tabRightBtn.show();
+        $tabStrip.removeClass("ps-2");
+
+        var $navScrollLeft = $nav.scrollLeft();
+        if ($navScrollLeft === 0) {
+            $tabLeftBtn
+                .attr("disabled", true)
+                // Remove the shadow of the left button
+                .css({ "box-shadow": "none" });
+            $tabRightBtn
+                .attr("disabled", false)
+                // Add the shadow of the right button
+                .css({ "box-shadow": "-4px 0 5px -5px rgba(0, 0, 0, 0.5)" });
+        } else if (
+            $navScrollLeft + $nav.outerWidth() >=
+            $nav[0].scrollWidth - 1
+        ) {
+            $tabLeftBtn
+                .attr("disabled", false)
+                .css({ "box-shadow": "4px 0 5px -5px rgba(0, 0, 0, 0.5)" });
+            $tabRightBtn.attr("disabled", true).css({ "box-shadow": "none" });
+        } else {
+            $tabLeftBtn
+                .attr("disabled", false)
+                .css({ "box-shadow": "4px 0 5px -5px rgba(0, 0, 0, 0.5)" });
+            $tabRightBtn
+                .attr("disabled", false)
+                .css({ "box-shadow": "-4px 0 5px -5px rgba(0, 0, 0, 0.5)" });
+        }
+    }
+}
 
 // 当点击向左滚动按钮的时候，.nav向左滑动一段距离；当这个按钮在短时间内被多次点击时，.nav向左滑动一大段距离
 var navLeftBtnClickCount = 0; // 点击次数
 var navLeftBtnClickTimer = null; // 定时器
 
-var $nav = $tabStrip;
 var $rollWidth = 200;
 $tabLeftBtn.on("click", function () {
     var $navScrollLeft = $nav.scrollLeft();
-    const animateTime = prefersReducedMotion() ? 0 : 200;
+    const animateTime = prefersReducedMotion() ? 0 : 300;
     if (navRightBtnClickCount === 0) {
-        $nav.animate({ scrollLeft: $navScrollLeft - $rollWidth }, animateTime);
+        $nav.animate(
+            { scrollLeft: $navScrollLeft - $rollWidth },
+            {
+                duration: animateTime,
+                easing: "easeOutQuad",
+            }
+        );
         navRightBtnClickCount++;
         navRightBtnClickTimer = setTimeout(function () {
             navRightBtnClickCount = 0;
@@ -136,7 +249,10 @@ $tabLeftBtn.on("click", function () {
     } else {
         $nav.animate(
             { scrollLeft: $navScrollLeft - $rollWidth * 3 },
-            animateTime
+            {
+                duration: animateTime,
+                easing: "easeOutQuad",
+            }
         );
     }
 });
@@ -146,9 +262,16 @@ var navRightBtnClickCount = 0; // 点击次数
 var navRightBtnClickTimer = null; // 定时器
 $tabRightBtn.on("click", function () {
     var $navScrollLeft = $nav.scrollLeft();
-    const animateTime = prefersReducedMotion() ? 0 : 200;
+    const animateTime = prefersReducedMotion() ? 0 : 300;
     if (navRightBtnClickCount === 0) {
-        $nav.animate({ scrollLeft: $navScrollLeft + $rollWidth }, animateTime);
+        $nav.animate(
+            { scrollLeft: $navScrollLeft + $rollWidth },
+            {
+                duration: animateTime,
+                easing: "easeOutQuad",
+            }
+        );
+
         navRightBtnClickCount++;
         navRightBtnClickTimer = setTimeout(function () {
             navRightBtnClickCount = 0;
@@ -156,7 +279,10 @@ $tabRightBtn.on("click", function () {
     } else {
         $nav.animate(
             { scrollLeft: $navScrollLeft + $rollWidth * 3 },
-            animateTime
+            {
+                duration: animateTime,
+                easing: "easeOutQuad",
+            }
         );
     }
 });
@@ -290,6 +416,9 @@ function reBlindNavLinkClick() {
 
         changeTabContent();
 
+        // Judge whether to show the scroll button.
+        judgeScrollBtn();
+
         slideXToActiveTab($(this));
     });
 }
@@ -360,6 +489,13 @@ async function changeTabContent() {
     // Save to localStorage
     localStorage.setItem(pages.before.id, tabContentScrollTop);
 
+    // *Now we've closed the old, and we need to open the new.
+    // *However, the old one vill be invisible later,
+    // *until the new one is loaded, so the user won't see a blank page or a flash.
+    // TODO: 以下切换页面的方式会造成闪烁，需要加以改进。
+    // TODO: The following way to switch pages will cause flashing, which needs to be improved.
+
+    // *---------------Delete the old one---------------*
     oldActivePage.removeClass(activeContentBoxClass).addClass(contentBoxClass);
 
     // 如果keep==false就删除以节省内存
@@ -369,8 +505,8 @@ async function changeTabContent() {
     } else {
         addPrefixToId(pages.before.selector);
     }
+    // *------------------------------------------------*
 
-    // *Now we've closed the old, and we need to open the new.
     // 1. reenter
     // Sometimes the src is the same as the oldSrc, so we need to check it.
     // If src is the same as oldSrc, we don't need to request the src.
@@ -422,6 +558,10 @@ async function changeTabContent() {
             `<div class="${activeContentBoxClass}" data-id="${pages.current.id}" tabindex="-1"></div>`
         );
         newContent.load(pages.current.src, async () => {
+            // *Finally we can make the old one invisible.
+            // *We invisible the old one after the new one is loaded,
+
+            // Process the new page, since it's loaded.
             // 把pageConfig内的键值对赋值给page.current
             Object.assign(pages.current, pageConfig);
 
@@ -645,8 +785,12 @@ function closeWin() {
     if (
         $(`.${activeContentBoxClass}[data-id="${pages.current.id}"]`).length > 0
     ) {
-        $(`.${activeContentBoxClass}[data-id="${pages.current.id}"]`).remove();
+        // *已弃用，因为会造成闪烁
+        // *Deprecated, because it will cause flicker.
+        // $(`.${activeContentBoxClass}[data-id="${pages.current.id}"]`).remove();
+        pages.current.keep = false;
     }
+
     // 获取当前active的tab
     var $activeTab = $(".tabstrip-item.active");
     // 为这个tab添加class tab-to-close
@@ -677,6 +821,9 @@ function closeWin() {
             break;
         }
     }
+
+    // Judge whether to show the scroll button.
+    judgeScrollBtn();
 }
 
 // !Drag and drop tabs
@@ -823,7 +970,7 @@ function searchTabs() {
     var $searchInput = $navViewAllBoxSearchInput;
 
     // 从搜索框获取搜索内容
-    var searchContent = $searchInput.val();
+    const searchContent = $searchInput.val();
 
     // 如果搜索内容为空，则不执行搜索
     if (searchContent == "") {
@@ -848,22 +995,19 @@ function searchTabs() {
     // 遍历所有设置项
     // 设置项为class为options的span
     // 搜索时使用模糊搜索，忽略大小写
+
+    const searchRegex = new RegExp(`(${searchContent})`, "i");
     $navViewAllBoxTabList.children().each(function () {
         // console.log($(this).text());
         // 如果搜索内容在设置项中，则在search-result-list中添加对应的#settings-list > li > div > ul > li
-        if (
-            $(this).text().toLowerCase().indexOf(searchContent.toLowerCase()) !=
-            -1
-        ) {
+        if ($(this).text().search(searchRegex) != -1) {
             $(this).removeClass("hide");
             $(this).html(
                 $(this)
                     .text()
                     .replace(
-                        searchContent,
-                        "<span style='color: #ff0000;'>" +
-                            searchContent +
-                            "</span>"
+                        searchRegex,
+                        "<span style='color: #ff0000; '>$1</span>"
                     )
             );
 
