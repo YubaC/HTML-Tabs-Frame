@@ -19,6 +19,7 @@
             "src": "settings.html",
             "data": "This is the Settings page",
             "type": "inner",
+            "icon": "<i class=\"fa fa-cog fa-fw\"></i>",
             "keep": true
         }
     ],

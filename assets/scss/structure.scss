@@ -6,6 +6,7 @@ body
     overflow: hidden;
 }
 
+// 以下不在hover、focus、active时显示outline
 .tabstrip-master,
 #header-tabstrip,
 .tabContent,
@@ -52,6 +53,10 @@ body
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
 
+    // @media (prefers-reduced-motion: reduce)
+    // {
+    //     transition: none;
+    // }
     // border-radius: 0.25rem;
     /* transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; */
     &:disabled
@@ -64,14 +69,6 @@ body
     {
         // z-index大于tabstrip-item
         z-index: 1;
-    }
-}
-
-@media (prefers-reduced-motion: reduce)
-{
-    .tabbtn
-    {
-        transition: none;
     }
 }
 
@@ -89,29 +86,26 @@ body
 
 .tabstrip
 {
+    height: 38px;
+    margin-bottom: 0;
+    padding-left: 0;
+    border: none;
+    list-style: none;
     display: flex;
     flex-wrap: nowrap;
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
     overflow-x: scroll;
-    // max-width: calc(100vw - 114px);
-    min-height: 20px;
-    height: 38px;
-    border: none;
+    // -----------Hide scroll bar-----------
     scrollbar-width: none;
-    /* 隐藏滚动条 */
     -ms-overflow-style: none;
 
-    /* 隐藏滚动条 */
     &::-webkit-scrollbar
     {
         min-width: 16px;
         height: 6px;
-        /* 组件内滚动条不显示 */
         display: none;
     }
 
+    // -------------------------------------
     // border-bottom: 1px solid var(--bs-body-color);
     &-master
     {
@@ -125,20 +119,6 @@ body
         height: 38px;
     }
 
-    /* background-color: #ECEEF1; /
-    / overflow-x: hidden; /
-    overflow-x: scroll;
-    / /
-    flex-wrap: nowrap;
-    width: calc(100vw - 190px);
-    / max-width: 60vw; /
-    / width: 100vw !important; /
-    / left: 0 !important; /
-    / 滚动条设置为thin */
-    min-height: 20px;
-    height: 38px;
-    border: none;
-
     &#header-tabstrip &-item
     {
         padding-top: 4px;
@@ -147,84 +127,25 @@ body
         display: flex;
         font-size: smaller;
     }
-
-    &::-webkit-scrollbar
-    {
-        min-width: 16px;
-        height: 6px;
-        display: none;
-        /* 组件内滚动条不显示 */
-    }
 }
 
-// TODO: 超出tab宽度时，在右侧显示鉴别消失，以提醒用户
-// TODO: 需要和JS配合使用
-// .tabstrip-1
-// {
-//     & .tabstrip-item .tabstrip-item-text
-//     {
-//         max-width: 200px;
-//         display: inline-block;
-//         white-space: nowrap;
-//         overflow: hidden;
-//         position: relative;
-//         // background: linear-gradient(to right, transparent 90%, inherit);
-//     }
-//     & .tabstrip-item .tabstrip-item-text::after
-//     {
-//         content: "";
-//         position: absolute;
-//         top: 0;
-//         right: 0;
-//         width: 10px;
-//         height: 100%;
-//         background: linear-gradient(to right, transparent, invert(var(currentColor)));
-//         //     content: "";
-//         //     position: absolute;
-//         //     top: 0;
-//         //     right: 0;
-//         //     width: 10px;
-//         //     /* 宽度为 10px，与要渐变的文字部分一致 */
-//         //     height: 100%;
-//         //     background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-//         //     /* 应用渐变背景 */
-//     }
-// }
 .tabstrip-item
 {
-    display: block;
-    padding: 0.5rem 0.5rem 0.5rem 0.75rem;
-    text-decoration: none;
+    margin-top: 3px;
     margin-bottom: -1px;
+    margin-left: 3px;
+    padding: 0.5rem 0.5rem 0.5rem 0.25rem;
     background: 0 0;
+    text-decoration: none;
     border: 1px solid transparent;
     border-radius: 0.25rem;
-    margin-top: 3px;
     // margin-bottom: 3px;
-    margin-left: 3px;
     white-space: nowrap;
-    display: inline;
+    // display: inline;
+    display: flex;
     user-select: none;
 
-    a
-    {
-        /* 移除.tabstrip-item上的链接的点击事件 */
-        pointer-events: none;
-        /* 不能被选中 */
-        -webkit-touch-callout: none;
-        /*系统默认菜单被禁用*/
-        -webkit-user-select: none;
-        /*webkit浏览器*/
-        -khtml-user-select: none;
-        /*早起浏览器*/
-        -moz-user-select: none;
-        /*火狐浏览器*/
-        -ms-user-select: none;
-        /*IE浏览器*/
-        user-select: none;
-    }
-
-    &-icon:not(:empty)
+    &-icon
     {
         margin-right: 0.35rem;
     }
@@ -235,11 +156,38 @@ body
     {
         transition: none;
     }
+
+    // 超出tab宽度时，在右侧显示渐变消失，以提醒用户
+    // When the tab width is exceeded, the identification disappears on the right side to remind the user
+    // -------------------------------------------------
+    &>.tabstrip-item-text
+    {
+        max-width: 200px;
+        // display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        position: relative;
+        // background: linear-gradient(to right, transparent 90%, inherit);
+    }
+
+    &>.text-overflow.tabstrip-item-text::after
+    {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 10px;
+        height: 100%;
+    }
+
+    // -------------------------------------------------
 }
 
 #nav-view-all-box,
 #nav-menu-box
 {
+    min-width: 250px;
+    max-height: 80vh;
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: column;
@@ -247,12 +195,10 @@ body
     z-index: 999999999;
     /* 隐藏横向滚动条 */
     overflow-x: hidden;
-    min-width: 250px;
     /* min-height: 500px; */
-    max-height: 80vh;
     /* overflow-y: scroll auto; */
     position: absolute;
-    right: 0px;
+    right: 10px;
     top: 50px;
     border-radius: 8px;
 

@@ -36,13 +36,14 @@
     var titleAnimation;
 
     function enter() {
-        var title = "    Welcome To -- Yuba Technology!    ";
-        // 不断地把title的第一个字符移到最后，实现动画效果
-        // Move the first character of the title to the end to achieve the animation effect
-        titleAnimation = setInterval(() => {
-            title = title.substring(1) + title.substring(0, 1);
-            pages.current.title = title;
-        }, 500);
+        // var title = "    Welcome To -- Yuba Technology!    ";
+        // // 不断地把title的第一个字符移到最后，实现动画效果
+        // // Move the first character of the title to the end to achieve the animation effect
+        // titleAnimation = setInterval(() => {
+        //     title = title.substring(1) + title.substring(0, 1);
+        //     pages.current.title = title;
+        // }, 500);
+        pages.current.title = `<marquee direction="scroll">Welcome To -- Yuba Technology!</marquee>`;
     }
 
     function leave() {

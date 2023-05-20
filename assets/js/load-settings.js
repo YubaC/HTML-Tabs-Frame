@@ -39,6 +39,7 @@ function loadSettings() {
         }
         newPage({
             title: thisPage.title,
+            icon: thisPage.icon,
             index: -1,
             src: thisPage.src,
             isActive: activeThis,

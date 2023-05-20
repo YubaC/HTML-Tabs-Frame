@@ -29,7 +29,6 @@
 }
 .tabstrip-item {
   color: var(--bs-body-color);
-  color: var(--bs-body-color);
 }
 .tabstrip-item:focus, .tabstrip-item:hover {
   background-color: var(--bs-gray-300);
@@ -39,6 +38,15 @@
   background-color: var(--bs-white);
   border-color: var(--bs-gray-300);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.tabstrip-item > .text-overflow.tabstrip-item-text::after {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, var(--bs-gray-100) 100%);
+}
+#header-tabstrip .tabstrip-item.active > .text-overflow.tabstrip-item-text::after {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, var(--bs-white) 100%);
+}
+#header-tabstrip .tabstrip-item:not(.active):hover > .text-overflow.tabstrip-item-text::after, #header-tabstrip .tabstrip-item:not(.active):focus > .text-overflow.tabstrip-item-text::after, #header-tabstrip .tabstrip-item:not(.active):active > .text-overflow.tabstrip-item-text::after, #nav-view-all-box .tabstrip-item:hover > .text-overflow.tabstrip-item-text::after, #nav-view-all-box .tabstrip-item:focus > .text-overflow.tabstrip-item-text::after, #nav-view-all-box .tabstrip-item:active > .text-overflow.tabstrip-item-text::after {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, var(--bs-gray-300) 100%);
 }
 
 #header-tabstrip {

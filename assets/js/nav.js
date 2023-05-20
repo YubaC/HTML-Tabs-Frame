@@ -5,7 +5,7 @@ class Page {
     constructor(options) {
         this.init();
         this.setTitle = this.setTitle.bind(this);
-        this.setTitleIcon = this.setTitleIcon.bind(this);
+        this.setIcon = this.setIcon.bind(this);
 
         Object.assign(this, options);
 
@@ -35,41 +35,40 @@ class Page {
             },
         });
 
-        Object.defineProperty(this, "titleIcon", {
+        Object.defineProperty(this, "icon", {
             get() {
-                return this._titleIcon;
+                return this._icon;
             },
             set(value) {
-                this._titleIcon = value;
-                this.setTitleIcon(value);
+                this._icon = value;
+                this.setIcon(value);
             },
         });
     }
 
     setTitle(value) {
-        $(`#${this.id}, [original-id="${this.id}"]`)
-            .find(".tabstrip-item-text")
-            .html(value)
-            .attr("title", value);
+        if (value === undefined) return;
+        const $tabText = $(`#${this.id}, [original-id="${this.id}"]`).find(
+            ".tabstrip-item-text"
+        );
+        if ($tabText.length === 0) return;
+
+        // 设置value和title，并判断是否溢出
+        // Set value and title, and judge whether it overflows.
+        $tabText.html(value).attr("title", value);
+        // 如果溢出，就添加text-overflow类
+        // If it overflows, add text-overflow class.
+        if ($tabText[0].scrollWidth > $tabText[0].clientWidth) {
+            $tabText.addClass("text-overflow");
+        } else {
+            $tabText.removeClass("text-overflow");
+        }
     }
 
-    setTitleIcon(value) {
+    setIcon(value) {
         $(`#${this.id}, [original-id="${this.id}"]`)
             .find(".tabstrip-item-icon")
             .html(value);
-        if (value) {
-            $(`#${this.id}, [original-id="${this.id}"]`).find(
-                ".tabstrip-item-icon"
-            );
-            // .addClass("me-2");
-            // $(`#${this.id}, [original-id="${this.id}"]`).addClass("ps-2");
-        } else {
-            $(`#${this.id}, [original-id="${this.id}"]`).find(
-                ".tabstrip-item-icon"
-            );
-            // .removeClass("me-2");
-            // $(`#${this.id}, [original-id="${this.id}"]`).removeClass("ps-2");
-        }
     }
 }
 
@@ -149,7 +148,8 @@ function newPage(options) {
             break;
     }
 
-    page.title = options.title;
+    page.setTitle(options.title);
+    page.setIcon(options.icon);
 
     // 重新绑定所有Tab的点击事件，因为新插入的Tab的点击事件还没有绑定
     // 这里是为了省事，干脆重新绑定所有Tab的点击事件
