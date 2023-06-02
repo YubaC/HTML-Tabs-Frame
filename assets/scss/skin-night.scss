@@ -76,36 +76,6 @@
         border-color: $tab-active-border-color;
         box-shadow: 0 0 5px $shadow-color;
     }
-
-    // 超出tab宽度时，在右侧显示渐变消失，以提醒用户
-    // When the tab width is exceeded, the identification disappears on the right side to remind the user
-    // -------------------------------------------------
-    &>.text-overflow.tabstrip-item-text::after
-    {
-        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, $tabstrip-bg-color 100%);
-    }
-
-    #header-tabstrip &.active>.text-overflow.tabstrip-item-text::after
-    {
-        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, $tab-active-background-color 100%);
-    }
-
-    #nav-view-all-box &>.text-overflow.tabstrip-item-text::after
-    {
-        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, var(--bs-gray-900) 100%);
-    }
-
-    #header-tabstrip &:not(.active):hover>.text-overflow.tabstrip-item-text::after,
-    #header-tabstrip &:not(.active):focus>.text-overflow.tabstrip-item-text::after,
-    #header-tabstrip &:not(.active):active>.text-overflow.tabstrip-item-text::after,
-    #nav-view-all-box &:hover>.text-overflow.tabstrip-item-text::after,
-    #nav-view-all-box &:focus>.text-overflow.tabstrip-item-text::after,
-    #nav-view-all-box &:active>.text-overflow.tabstrip-item-text::after
-    {
-        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, $tab-hover-background-color 100%);
-    }
-
-    // -------------------------------------------------
 }
 
 #header-tabstrip
